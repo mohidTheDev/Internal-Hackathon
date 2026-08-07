@@ -30,8 +30,8 @@ func canMoveTo(tileCoord: Vector2) -> bool:
 	if tileCoord in gridHoles:
 		return false
 	
-	if (tileCoord.x < 0 or tileCoord.x >= columns 
-	or tileCoord.y < 0 or tileCoord.y >= rows):
+	if (tileCoord.x < 0 or tileCoord.x >= rows 
+	or tileCoord.y < 0 or tileCoord.y >= columns):
 		return false
 	
 	# Add check for occupancy

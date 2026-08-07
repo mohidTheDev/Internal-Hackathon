@@ -15,7 +15,7 @@ var coordTimeline: Array[Vector2]
 
 # keeps track of whether an action has been initiated 
 # (and being waited to end to end the turn)
-var canAct: bool
+var canAct: bool = true
 
 func inputCheck() -> void:
 	if Input.is_action_just_pressed("up"):
@@ -58,6 +58,8 @@ func slide() -> void:
 # direction is [row, column]
 # player moves during their turn
 func move(direction: Vector2) -> void:
+	if !canAct:
+		return
 	if !gridData.canMoveTo(currentCoord + direction):
 		return
 	if currentMoves == totalMoves:
