@@ -36,6 +36,7 @@ enum inventoryFlow {Horizontal, Vertical}
 
 @export_category("Packed Scenes")
 @export var tile: PackedScene
+@export var wall: PackedScene
 @export var horizontalGate: PackedScene
 @export var verticalGate: PackedScene
 var gridX: float
@@ -45,6 +46,7 @@ var gridY: float
 var tilesHolder: Node2D
 var itemsHolder: Node2D
 var gatesHolder: Node2D
+var wallsHolder: Node2D
 var isPlayerTurn: bool = true
 
 func itemSetup() -> void:
@@ -92,11 +94,64 @@ func gridSetup() -> void:
 			tileInstance.position = gridData.coordToPos(Vector2(row, column))
 			tilesHolder.add_child(tileInstance)
 
+# Adds walls to the top tiles in each column
+func wallSetup():
+	wallsHolder = $"Walls Holder"
+	
+	# for each column (index), represents the row at which wall is present
+	var wallRows: Array
+	# stores wall for each column
+	var wallArray: Array
+	# loop through the columns
+	for column in range(columns):
+		# keeps track of the first tile in the column which is not a hole
+		var row = 0;
+		while Vector2(row, column) in gridHoles:
+			row += 1
+		wallRows.append(row)
+		var wallInstance = wall.instantiate()
+		wallsHolder.add_child(wallInstance)
+		wallInstance.position = gridData.coordToPos(Vector2(row, column))
+		wallArray.append(wallInstance)
+		
+	# loop through the walls and change their sprites
+	# depending on whether they have walls next to them
+	for column in range(columns):
+		# left most column
+		if column == 0:
+			if wallRows[1] >= wallRows[0]:
+				wallArray[column].frame = 0
+			elif wallRows[1] < wallRows[0]:
+				wallArray[column].frame = 2
+			continue
+			
+		# right most column
+		if column == columns - 1:
+			if wallRows[column - 1] >= wallRows[column]:
+				wallArray[column].frame = 0
+			elif wallRows[column - 1] < wallRows[column]:
+				wallArray[column].frame = 1
+			continue
+		
+		# wall in between
+		var left: bool = wallRows[column - 1] >= wallRows[column]
+		var right: bool = wallRows[column + 1] >= wallRows[column]
+		if (left and right):
+			wallArray[column].frame = 0
+		elif left:
+			wallArray[column].frame = 2
+		elif right:
+			wallArray[column].frame = 1
+		else:
+			wallArray[column].frame = 3
+			
+		
 # _enter_tree is called in top to bottom way (and before any _ready)
 # here, it ensures the grid is setup before anything else happens
 func _enter_tree() -> void:
 	gridData.levelController = self
 	gridSetup()
+	wallSetup()
 	itemSetup()
 	gateSetup()
 
