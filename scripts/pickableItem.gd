@@ -3,7 +3,7 @@ class_name PickableItem extends Sprite2D
 var gridData: GridData
 var coords: Vector2
 
-enum itemType {keyCard, battery}
+enum itemType {keyCard, battery, weight}
 @export var item: itemType
 func _ready() -> void:
 	# Add self to the grid

@@ -10,7 +10,7 @@ extends Node2D
 @export var gridHoles: Array[Vector2]
 @export var goalCoord: Vector2
 
-enum gateType {keyCard, battery}
+enum gateType {keyCard, battery, pressurePlate}
 enum gateDir {Horizontal, Vertical}
 # Using parallel arrays; so make corresponding arrasy
 # have the same number of elements
@@ -46,6 +46,7 @@ var isPlayerTurn: bool = true
 # HUD references
 var movesLabel: Label
 var rewindLabel: Label
+var inventoryLabel: Label
 
 func itemSetup() -> void:
 	itemsHolder = $"Items Holder"
@@ -69,6 +70,8 @@ func gateSetup() -> void:
 			gate.type = gate.gateType.keyCard
 		elif gates[i] == gateType.battery:
 			gate.type = gate.gateType.battery
+		elif gates[i] == gateType.pressurePlate:
+			gate.type = gate.gateType.pressurePlate
 		gatesHolder.add_child(gate)
 
 # update gridData.tres and lay down the tiles
@@ -104,6 +107,7 @@ func _ready() -> void:
 	var hud = $HUD
 	movesLabel = hud.get_node("MovesContainer/MovesLabel")
 	rewindLabel = hud.get_node("RewindContainer/RewindLabel")
+	inventoryLabel = hud.get_node("InventoryContainer/InventoryLabel")
 	updateHUD(0)
 
 func updateHUD(currentMoves: int) -> void:
@@ -122,21 +126,27 @@ func updateHUD(currentMoves: int) -> void:
 func _process(delta: float) -> void:
 	pass
 
-# arranges all items in the player's inventory (visually) to be equally spaced
 func organiseInventory() -> void:
 	var direction = Vector2(1, 0)
 	if playerInventoryFlow == inventoryFlow.Vertical:
 		direction = Vector2(0, 1)
-	
-	# loop through all elements of inventory
 	for i in range(len(gridData.inventory)):
-		# find their position with respect to the inventory ui position
 		var targetPos: Vector2 = playerInventoryPosition + i * direction * playerInventorySpacing
-		
-		# tween to position
 		var moveTween: Tween = create_tween()
 		moveTween.tween_property(gridData.inventory[i], "position",
-								targetPos, playerInventoryOrganiseTime)		
+								targetPos, playerInventoryOrganiseTime)
+	updateInventoryHUD()
+
+func updateInventoryHUD() -> void:
+	var counts := {"Key": 0, "Battery": 0, "Weight": 0}
+	for item in gridData.inventory:
+		if item.item == item.itemType.keyCard: counts["Key"] += 1
+		elif item.item == item.itemType.battery: counts["Battery"] += 1
+		elif item.item == item.itemType.weight: counts["Weight"] += 1
+	var lines: PackedStringArray = []
+	for k in counts:
+		if counts[k] > 0: lines.append(k + " x" + str(counts[k]))
+	inventoryLabel.text = "\n".join(lines) if lines.size() > 0 else "Empty"
 
 func endTurn():
 	if isPlayerTurn:

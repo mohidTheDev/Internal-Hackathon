@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bq5vgile4m7yq"]
+
+[ext_resource type="Texture2D" uid="uid://cyjfyivtppupx" path="res://sprites/Battery.png" id="1_weight_tex"]
+[ext_resource type="Script" uid="uid://1o80y7b8v5n6" path="res://scripts/pickableItem.gd" id="2_weight_script"]
+
+[node name="Weight" type="Sprite2D" unique_id=637080680]
+modulate = Color(0.7, 0.4, 0.1, 1)
+texture = ExtResource("1_weight_tex")
+centered = false
+script = ExtResource("2_weight_script")
+item = 2

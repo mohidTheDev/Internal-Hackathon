@@ -10,6 +10,30 @@
 [ext_resource type="PackedScene" uid="uid://2co2p3jv3dak" path="res://scenes/horizontalGate.tscn" id="6_h6x0i"]
 [ext_resource type="PackedScene" uid="uid://cu60amqnka545" path="res://scenes/verticalGate.tscn" id="7_t12nq"]
 
+[sub_resource type="LabelSettings" id="LS_title"]
+font_size = 7
+font_color = Color(0.75, 0.75, 0.9, 1.0)
+outline_size = 2
+outline_color = Color(0.0, 0.0, 0.08, 0.9)
+shadow_color = Color(0.0, 0.0, 0.0, 0.55)
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="LabelSettings" id="LS_big"]
+font_size = 22
+font_color = Color(1.0, 1.0, 1.0, 1.0)
+outline_size = 3
+outline_color = Color(0.0, 0.0, 0.0, 0.85)
+shadow_color = Color(0.0, 0.0, 0.0, 0.6)
+shadow_offset = Vector2(1, 2)
+
+[sub_resource type="LabelSettings" id="LS_count"]
+font_size = 9
+font_color = Color(1.0, 1.0, 1.0, 1.0)
+outline_size = 2
+outline_color = Color(0.0, 0.0, 0.0, 0.85)
+shadow_color = Color(0.0, 0.0, 0.0, 0.5)
+shadow_offset = Vector2(1, 1)
+
 [node name="Node2D" type="Node2D" unique_id=622526204]
 script = ExtResource("1_4lyoc")
 gridData = ExtResource("2_4pc36")
@@ -43,31 +67,46 @@ gridData = ExtResource("2_4pc36")
 layer = 10
 
 [node name="MovesContainer" type="VBoxContainer" parent="HUD" unique_id=900000002]
-offset_left = 268.0
+offset_left = 264.0
 offset_top = 4.0
 offset_right = 316.0
 offset_bottom = 52.0
 
 [node name="MovesTitle" type="Label" parent="HUD/MovesContainer" unique_id=900000003]
 text = "MOVES"
-theme_override_font_sizes/font_size = 6
+label_settings = SubResource("LS_title")
 
 [node name="MovesLabel" type="Label" parent="HUD/MovesContainer" unique_id=900000004]
 text = "10"
-theme_override_font_sizes/font_size = 18
-modulate = Color(0.2, 1, 0.6, 1)
+label_settings = SubResource("LS_big")
+modulate = Color(0.2, 1.0, 0.6, 1.0)
 
 [node name="RewindContainer" type="VBoxContainer" parent="HUD" unique_id=900000005]
-offset_left = 268.0
+offset_left = 264.0
 offset_top = 58.0
 offset_right = 316.0
 offset_bottom = 100.0
 
 [node name="RewindTitle" type="Label" parent="HUD/RewindContainer" unique_id=900000006]
 text = "REWIND"
-theme_override_font_sizes/font_size = 6
+label_settings = SubResource("LS_title")
 
 [node name="RewindLabel" type="Label" parent="HUD/RewindContainer" unique_id=900000008]
 text = "0 / 5"
-theme_override_font_sizes/font_size = 6
-modulate = Color(0.6, 0.6, 0.8, 1)
+label_settings = SubResource("LS_count")
+modulate = Color(0.6, 0.6, 1.0, 1.0)
+
+[node name="InventoryContainer" type="VBoxContainer" parent="HUD" unique_id=900000009]
+offset_left = 264.0
+offset_top = 106.0
+offset_right = 316.0
+offset_bottom = 200.0
+
+[node name="InventoryTitle" type="Label" parent="HUD/InventoryContainer" unique_id=900000010]
+text = "ITEMS"
+label_settings = SubResource("LS_title")
+
+[node name="InventoryLabel" type="Label" parent="HUD/InventoryContainer" unique_id=900000011]
+text = "Empty"
+label_settings = SubResource("LS_count")
+modulate = Color(0.9, 0.9, 0.9, 1.0)
