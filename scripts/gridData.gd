@@ -34,6 +34,10 @@ func canMoveTo(tileCoord: Vector2) -> bool:
 	or tileCoord.y < 0 or tileCoord.y >= columns):
 		return false
 	
+	# check for closed gate
+	if gates.has(tileCoord) and !gates[tileCoord].gateOpen:
+		return false
+	
 	# Add check for occupancy
 	
 	return true
