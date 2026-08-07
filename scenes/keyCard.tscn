@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://noojikuv2jev"]
+
+[ext_resource type="Texture2D" uid="uid://5l8mvsnqsnc6" path="res://sprites/KeyCard.png" id="1_0va10"]
+[ext_resource type="Script" uid="uid://1o80y7b8v5n6" path="res://scripts/pickableItem.gd" id="2_1vy3f"]
+
+[node name="Key Card" type="Sprite2D" unique_id=1412505691]
+texture = ExtResource("1_0va10")
+centered = false
+script = ExtResource("2_1vy3f")

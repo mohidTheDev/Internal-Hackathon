@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b5haucqrquf7d"]
+
+[ext_resource type="Texture2D" uid="uid://uyf181uqv5n3" path="res://sprites/Tile.png" id="1_3dk36"]
+
+[node name="Tile" type="Sprite2D" unique_id=2098770009]
+texture = ExtResource("1_3dk36")
+centered = false

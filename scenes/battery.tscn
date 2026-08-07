@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bo5vgile4m7xq"]
+
+[ext_resource type="Texture2D" uid="uid://cyjfyivtppupx" path="res://sprites/Battery.png" id="1_ytmnr"]
+[ext_resource type="Script" uid="uid://1o80y7b8v5n6" path="res://scripts/pickableItem.gd" id="2_y10rp"]
+
+[node name="Battery" type="Sprite2D" unique_id=637080679]
+texture = ExtResource("1_ytmnr")
+centered = false
+script = ExtResource("2_y10rp")
+item = 1
