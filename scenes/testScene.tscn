@@ -4,13 +4,13 @@
 [ext_resource type="Resource" uid="uid://ctq0wrer25v52" path="res://resources/gridData.tres" id="2_4pc36"]
 [ext_resource type="PackedScene" uid="uid://b5haucqrquf7d" path="res://scenes/tile.tscn" id="2_i052m"]
 [ext_resource type="PackedScene" uid="uid://dduvso7gljr72" path="res://scenes/testScene2.tscn" id="2_t12nq"]
-[ext_resource type="Texture2D" uid="uid://26w4b6jffidg" path="res://sprites/tempPlayer.png" id="3_sj726"]
 [ext_resource type="Script" uid="uid://dyocwgdae17g3" path="res://scripts/player.gd" id="4_4pc36"]
 [ext_resource type="PackedScene" uid="uid://bo5vgile4m7xq" path="res://scenes/battery.tscn" id="4_h481x"]
 [ext_resource type="PackedScene" uid="uid://noojikuv2jev" path="res://scenes/keyCard.tscn" id="6_2jiqd"]
 [ext_resource type="PackedScene" uid="uid://2co2p3jv3dak" path="res://scenes/horizontalGate.tscn" id="6_h6x0i"]
 [ext_resource type="PackedScene" uid="uid://cjpb8my3hm0cg" path="res://scenes/wall.tscn" id="6_t12nq"]
 [ext_resource type="PackedScene" uid="uid://cu60amqnka545" path="res://scenes/verticalGate.tscn" id="7_t12nq"]
+[ext_resource type="Texture2D" uid="uid://di7i8ctstfek6" path="res://sprites/player.png" id="10_7vqvu"]
 
 [node name="Node2D" type="Node2D" unique_id=622526204]
 script = ExtResource("1_4lyoc")
@@ -39,9 +39,12 @@ verticalGate = ExtResource("7_t12nq")
 [node name="Gates Holder" type="Node2D" parent="." unique_id=179402994]
 
 [node name="Player" type="Sprite2D" parent="." unique_id=1445820767]
-texture = ExtResource("3_sj726")
+texture = ExtResource("10_7vqvu")
 centered = false
+offset = Vector2(0, -14)
 hframes = 2
-vframes = 2
+vframes = 3
 script = ExtResource("4_4pc36")
 gridData = ExtResource("2_4pc36")
+moveTime = 0.2
+animTime = 0.5

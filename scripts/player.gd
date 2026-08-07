@@ -2,8 +2,8 @@ extends Sprite2D
 
 @export var gridData: GridData
 @export_category("Animation")
-@export var totalFrames: int = 3
 @export var moveTime: float = 0.1
+@export var animTime: float = 0.1
 
 var levelController: Node2D
 
@@ -12,10 +12,43 @@ var totalMoves: int
 var currentMoves: int = 0
 var currentCoord: Vector2
 var coordTimeline: Array[Vector2]
+var lookingLeft: bool = false
+var lookTimeline: Array[bool]
+
+var animTimer: float = 0
+var isRewinding: bool = false
 
 # keeps track of whether an action has been initiated 
 # (and being waited to end to end the turn)
 var canAct: bool = true
+
+# manages player animation
+func animate(delta) -> void:
+	if canAct:
+		# --- IDLE STATE ---
+		animTimer += delta
+		
+		# Ensure we snap to a valid idle frame immediately when movement stops
+		if lookingLeft and frame not in [2, 3]:
+			frame = 2
+		elif not lookingLeft and frame not in [0, 1]:
+			frame = 0
+			
+		# Alternate frames based on animTime
+		if animTimer >= animTime:
+			animTimer -= animTime # smoother than resetting to 0.0
+			if lookingLeft:
+				frame = 3 if frame == 2 else 2
+			else:
+				frame = 1 if frame == 0 else 0
+	else:
+		# --- MOVING STATE ---
+		animTimer = 0.0 # Reset timer for the next time we enter idle
+		
+		if isRewinding:
+			frame = 4 if lookingLeft else 5
+		else:
+			frame = 5 if lookingLeft else 4
 
 func inputCheck() -> void:
 	if Input.is_action_just_pressed("up"):
@@ -33,11 +66,13 @@ func _ready() -> void:
 	currentCoord = levelController.playerSpawnCoord
 	position = gridData.coordToPos(currentCoord)
 	coordTimeline.append(currentCoord)
+	lookTimeline.append(lookingLeft)
 	totalMoves = levelController.moveLimit
 	rewindDuration = levelController.rewindDuration
 	gridData.playerCoords = currentCoord
 	
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	animate(delta)
 	if(!levelController.isPlayerTurn and canAct):
 		return
 	inputCheck()
@@ -65,14 +100,18 @@ func move(direction: Vector2) -> void:
 	if currentMoves == totalMoves:
 		levelController.failLevel()
 		return
-	# check if the gate
 	canAct = false
 	
+	if direction == Vector2(0, -1):
+		lookingLeft = true
+	else:
+		lookingLeft = false
 	
 	# movement logic
 	currentCoord += direction
 	currentMoves += 1
-	coordTimeline.append(currentCoord)	
+	coordTimeline.append(currentCoord)
+	lookTimeline.append(lookingLeft)
 	await slide()
 	
 	# check if reached goal
@@ -87,7 +126,6 @@ func move(direction: Vector2) -> void:
 		gridData.items[currentCoord].pickup()
 	
 	# animation
-	frame = (frame + 1) % totalFrames
 	canAct = true
 	
 	levelController.endTurn()
@@ -102,6 +140,7 @@ func rewind() -> void:
 		return
 	
 	canAct = false
+	isRewinding = true
 	for i in range(rewindDuration):
 		# loop through all entities with a rewindable state
 		
@@ -111,10 +150,12 @@ func rewind() -> void:
 		
 		# remove current position from timeline and move to previous position
 		coordTimeline.pop_back()
+		lookTimeline.pop_back()
+		lookingLeft = lookTimeline[-1]
 		currentCoord = coordTimeline[-1]
-		frame = (frame + totalFrames - 1) % totalFrames
 		currentMoves -= 1
 		await slide()
 	
+	isRewinding = false
 	levelController.isPlayerTurn = true
 	canAct = true
