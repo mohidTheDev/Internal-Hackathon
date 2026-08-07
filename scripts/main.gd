@@ -1,5 +1,8 @@
 extends Node2D
 
+@export_category("Level Management")
+@export var nextLevel: PackedScene
+
 # [row, column] to access a grid point
 @export_category("Grid Data")
 @export var gridData: GridData
@@ -134,11 +137,9 @@ func completeLevel():
 	# hide player
 	# pause everything and play the level complete animation
 	# (Player going down lift)
-	# tell global to do:
-	# 	spawn next level scene
-	# 	pan to next level scene
-	# 	unload this scene
-	print("Level Complete")
+	
+	# scene transition
+	Global.transitionToNextLevel(self, nextLevel)
 
 func failLevel():
 	# play the eplosion animation
