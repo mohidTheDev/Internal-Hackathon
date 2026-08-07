@@ -38,11 +38,14 @@ enum inventoryFlow {Horizontal, Vertical}
 var gridX: float
 var gridY: float
 
-
 var tilesHolder: Node2D
 var itemsHolder: Node2D
 var gatesHolder: Node2D
 var isPlayerTurn: bool = true
+
+# HUD references
+var movesLabel: Label
+var rewindLabel: Label
 
 func itemSetup() -> void:
 	itemsHolder = $"Items Holder"
@@ -96,6 +99,25 @@ func _enter_tree() -> void:
 	gridSetup()
 	itemSetup()
 	gateSetup()
+
+func _ready() -> void:
+	var hud = $HUD
+	movesLabel = hud.get_node("MovesContainer/MovesLabel")
+	rewindLabel = hud.get_node("RewindContainer/RewindLabel")
+	updateHUD(0)
+
+func updateHUD(currentMoves: int) -> void:
+	var remaining: int = moveLimit - currentMoves
+	movesLabel.text = str(remaining)
+	movesLabel.modulate = Color(1.0, 0.25, 0.25, 1.0) if remaining <= 3 \
+		else (Color(1.0, 0.75, 0.1, 1.0) if remaining <= moveLimit / 2 \
+		else Color(0.2, 1.0, 0.6, 1.0))
+	if currentMoves >= rewindDuration:
+		rewindLabel.text = "READY"
+		rewindLabel.modulate = Color(0.4, 0.8, 1.0, 1.0)
+	else:
+		rewindLabel.text = str(currentMoves) + " / " + str(rewindDuration)
+		rewindLabel.modulate = Color(0.6, 0.6, 0.8, 1.0)
 
 func _process(delta: float) -> void:
 	pass

@@ -90,6 +90,7 @@ func move(direction: Vector2) -> void:
 	frame = (frame + 1) % totalFrames
 	canAct = true
 	
+	levelController.updateHUD(currentMoves)
 	levelController.endTurn()
 
 func turnComplete() -> void:
@@ -115,6 +116,7 @@ func rewind() -> void:
 		frame = (frame + totalFrames - 1) % totalFrames
 		currentMoves -= 1
 		await slide()
+		levelController.updateHUD(currentMoves)
 	
 	levelController.isPlayerTurn = true
 	canAct = true
