@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://cquhebco8kxiu"]
 
 [ext_resource type="Script" uid="uid://yht268k4x1yl" path="res://scripts/main.gd" id="1_2aecg"]
-[ext_resource type="PackedScene" uid="uid://cyntg0r3vjsof" path="res://levels/level_3.tscn" id="2_betor"]
 [ext_resource type="Resource" uid="uid://ctq0wrer25v52" path="res://resources/gridData.tres" id="3_7nomh"]
 [ext_resource type="PackedScene" uid="uid://noojikuv2jev" path="res://scenes/keyCard.tscn" id="4_1s4pk"]
 [ext_resource type="PackedScene" uid="uid://bo5vgile4m7xq" path="res://scenes/battery.tscn" id="5_x2xxo"]
@@ -15,25 +14,9 @@
 [ext_resource type="Script" uid="uid://dyocwgdae17g3" path="res://scripts/player.gd" id="13_s7g0b"]
 [ext_resource type="PackedScene" uid="uid://uurjetqrhqdm" path="res://scenes/clockHUD.tscn" id="14_mmfjm"]
 
-[sub_resource type="PackedScene" id="PackedScene_vjtdm"]
-_bundled = {
-"conn_count": 0,
-"conns": PackedInt32Array(),
-"editable_instances": [],
-"id_paths": [],
-"names": PackedStringArray("Node2D", "y_sort_enabled", "position", "script", "nextLevel", "gridData", "gridYOffset", "gridHoles", "goalCoord", "pickableItems", "pickableItemsCoords", "gates", "gatesOrientation", "gatesCoords", "playerSpawnCoord", "playerInventoryPosition", "playerInventoryFlow", "playerInventorySpacing", "tile", "wall", "horizontalGate", "verticalGate", "batterySlotScene", "towerScene", "towerCoords", "towerFireUp", "towerFireDown", "towerFireRight", "towerActiveCycle", "towerInactiveCycle", "batterySlotCoords", "batterySlotGateIndex", "batterySlotHasBatteryByDefault", "batteryItemScene", "Walls Holder", "Tiles Holder", "modulate", "z_index", "Items Holder", "Gates Holder", "Slots Holder", "Towers Holder", "Player", "scale", "texture", "offset", "hframes", "vframes", "moveTime", "animTime", "ySortOffset", "Sprite2D", "Clock"),
-"node_count": 9,
-"node_ids": PackedInt32Array(622526204, 394588921, 1002118719, 321358500, 179402994, 556677889, 999888777, 1445820767, 632676882),
-"node_paths": [],
-"nodes": PackedInt32Array(-1, -1, 0, 0, -1, 33, 1, 0, 2, 1, 3, 2, 4, 3, 5, 4, 6, 5, 7, 6, 8, 7, 9, 8, 10, 9, 11, 10, 12, 11, 13, 12, 14, 13, 15, 14, 16, 15, 17, 16, 18, 17, 19, 18, 20, 19, 21, 20, 22, 21, 23, 22, 24, 23, 25, 24, 26, 24, 27, 25, 28, 26, 29, 27, 30, 28, 31, 29, 32, 30, 33, 31, 0, 0, 0, 0, 34, -1, 0, 0, 0, 0, 0, 35, -1, 2, 36, 32, 37, 33, 0, 0, 0, 0, 38, -1, 1, 1, 0, 0, 0, 0, 0, 39, -1, 1, 1, 0, 0, 0, 0, 0, 40, -1, 0, 0, 0, 0, 0, 41, -1, 0, 0, 0, 0, 51, 42, -1, 11, 1, 0, 43, 34, 44, 35, 45, 36, 46, 37, 47, 38, 3, 39, 5, 4, 48, 40, 49, 41, 50, 42, 0, 0, 0, 2147483647, 52, 43, 1, 2, 44, 0),
-"variants": [true, Vector2(0, -1), ExtResource("1_2aecg"), ExtResource("2_betor"), ExtResource("3_7nomh"), 60, Array[Vector2]([Vector2(1, 0), Vector2(2, 3)]), Vector2(0, 4), Array[PackedScene]([ExtResource("4_1s4pk")]), Array[Vector2]([Vector2(0, 2)]), Array[int]([1, 1, 0]), Array[int]([0, 0, 0]), Array[Vector2]([Vector2(0, 1), Vector2(0, 3), Vector2(1, 4)]), Vector2(2, 0), Vector2(20, 20), 1, 20.0, ExtResource("6_2cbcq"), ExtResource("7_isj1j"), ExtResource("8_so66j"), ExtResource("9_tr1x6"), ExtResource("10_d5akn"), ExtResource("11_wbtxt"), Array[Vector2]([Vector2(0, 0)]), Array[bool]([false]), Array[bool]([true]), Array[int]([1]), Array[int]([0]), Array[Vector2]([Vector2(4, 0), Vector2(4, 3)]), Array[int]([1, 0]), Array[bool]([false, true]), ExtResource("5_x2xxo"), Color(0.6321235, 0.6321235, 0.6321234, 1), -1, Vector2(1.5, 1.5), ExtResource("12_x2fux"), Vector2(0, -16), 2, 3, ExtResource("13_s7g0b"), 0.2, 0.5, Vector2(0, 24), ExtResource("14_mmfjm"), Vector2(272.00003, 64.00001)],
-"version": 3
-}
-
 [node name="Node2D" type="Node2D" unique_id=622526204]
 y_sort_enabled = true
 script = ExtResource("1_2aecg")
-nextLevel = SubResource("PackedScene_vjtdm")
 gridData = ExtResource("3_7nomh")
 gridYOffset = 60
 gridHoles = Array[Vector2]([Vector2(2, 4), Vector2(2, 3), Vector2(4, 4)])
