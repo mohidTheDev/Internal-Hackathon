@@ -118,6 +118,12 @@ func move(direction: Vector2) -> void:
 	lookTimeline.append(lookingLeft)
 	await slide()
 	
+	# check for collision with enemies
+	for enemy in gridData.enemies:
+		if currentCoord == enemy.coords:
+			levelController.failLevel()
+			return
+	
 	# check if reached goal
 	if currentCoord == levelController.goalCoord:
 		levelController.completeLevel()
@@ -152,6 +158,10 @@ func rewind() -> void:
 		# loop through gates
 		for gate in gridData.gates.values():
 			await gate.rewind()
+			
+		# loop through enemies
+		for enemy in gridData.enemies:
+			await enemy.rewind()
 		
 		# remove current position from timeline and move to previous position
 		coordTimeline.pop_back()

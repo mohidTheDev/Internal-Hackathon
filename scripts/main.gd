@@ -13,7 +13,7 @@ extends Node2D
 @export var gridHoles: Array[Vector2]
 @export var goalCoord: Vector2
 
-enum gateType {keyCard, battery}
+enum gateType {keyCard, battery, pressurePlate}
 enum gateDir {Horizontal, Vertical}
 # Using parallel arrays; so make corresponding arrasy
 # have the same number of elements
@@ -23,6 +23,8 @@ enum gateDir {Horizontal, Vertical}
 @export var gates: Array[gateType]
 @export var gatesOrientation: Array[gateDir]
 @export var gatesCoords: Array[Vector2]
+@export var enemyScene: PackedScene
+@export var enemyCoords: Array[Vector2]
 
 enum inventoryFlow {Horizontal, Vertical}
 @export_category("Player")
@@ -57,6 +59,7 @@ var rewindAvailable: bool = false
 # HUD references
 var clock: Node2D
 var movesLabel: Label
+var inventoryLabel: Label
 
 func animateWatch(delta):
 	if (!rewindAvailable):
@@ -97,6 +100,8 @@ func gateSetup() -> void:
 			gate.type = gate.gateType.keyCard
 		elif gates[i] == gateType.battery:
 			gate.type = gate.gateType.battery
+		elif gates[i] == gateType.pressurePlate:
+			gate.type = gate.gateType.pressurePlate
 		gatesHolder.add_child(gate)
 
 # update gridData.tres and lay down the tiles
@@ -108,6 +113,7 @@ func gridSetup() -> void:
 	gridData.inventory.clear()
 	gridData.items.clear()
 	gridData.gates.clear()
+	gridData.enemies.clear()
 	
 	# initialise the grid data file
 	gridData.columns = columns
@@ -188,12 +194,27 @@ func _enter_tree() -> void:
 	wallSetup()
 	itemSetup()
 	gateSetup()
+	enemySetup()
 
+func enemySetup() -> void:
+	if not enemyScene:
+		return
+	var holder = Node2D.new()
+	holder.name = "Enemies Holder"
+	holder.y_sort_enabled = true
+	add_child(holder)
+	for coord in enemyCoords:
+		var enemyInstance = enemyScene.instantiate()
+		enemyInstance.gridData = gridData
+		enemyInstance.startCoord = coord
+		holder.add_child(enemyInstance)
 # Question: do we need to do this in _ready?
 func _ready() -> void:
 	clock = $Clock
 	movesLabel = clock.get_node("MovesLabel")
+	inventoryLabel = get_node_or_null("InventoryDashboard")
 	updateHUD(0)
+	updateInventoryHUD()
 
 func updateHUD(currentMoves: int) -> void:
 	var remainingMoves: int = moveLimit - currentMoves
@@ -222,7 +243,22 @@ func organiseInventory() -> void:
 		# tween to position
 		var moveTween: Tween = create_tween()
 		moveTween.tween_property(gridData.inventory[i], "position",
-								targetPos, playerInventoryOrganiseTime)		
+								targetPos, playerInventoryOrganiseTime)
+	updateInventoryHUD()
+
+func updateInventoryHUD() -> void:
+	if not inventoryLabel:
+		return
+	var counts = {}
+	for item in gridData.inventory:
+		var name = item.name
+		if name not in counts:
+			counts[name] = 0
+		counts[name] += 1
+	var lines: PackedStringArray = []
+	for k in counts:
+		lines.append(k + " x" + str(counts[k]))
+	inventoryLabel.text = "ITEMS:\n" + ("\n".join(lines) if lines.size() > 0 else "Empty")
 
 func endTurn():
 	if isPlayerTurn:
@@ -230,7 +266,9 @@ func endTurn():
 
 	# loop through all other components that may move
 	# or do smth and make them do their actions
-	
+	for enemy in gridData.enemies:
+		await enemy.take_turn()
+
 	# loop through gates to update their state
 	for gate in gridData.gates.values():
 		gate.updateOpenStatus()
@@ -247,8 +285,4 @@ func completeLevel():
 	Global.transitionToNextLevel(self, nextLevel)
 
 func failLevel():
-	# play the eplosion animation
-	# play the clock turning back time animation
-	# do the fade transition back to this scene resetted
 	print("Level Failed")
-	

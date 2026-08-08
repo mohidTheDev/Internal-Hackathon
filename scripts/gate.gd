@@ -1,5 +1,5 @@
 extends Sprite2D
-enum gateType {keyCard, battery}
+enum gateType {keyCard, battery, pressurePlate}
 @export var type: gateType
 @export var gateOpenTime: float = 0.1
 @export var ySortOffset: Vector2 = Vector2(0, 16)
@@ -29,6 +29,8 @@ func _ready() -> void:
 		light.modulate = Color(0.224, 0.718, 0.741, 1.0)
 	elif type == gateType.battery:
 		light.modulate = Color(0.094, 0.553, 0.086, 1.0)
+	elif type == gateType.pressurePlate:
+		light.modulate = Color(0.9, 0.55, 0.1, 1.0)
 	updateOpenStatus()
 		
 func updateOpenStatus() -> void:
@@ -46,6 +48,17 @@ func updateOpenStatus() -> void:
 	elif type == gateType.battery:
 		# check if the slot has a battery
 		if hasBattery:
+			gateOpenTimeline.append(true)
+		else:
+			gateOpenTimeline.append(false)
+	elif type == gateType.pressurePlate:
+		var hasWeight: bool = false
+		for item in gridData.inventory:
+			if item.item == item.itemType.weight:
+				hasWeight = true
+				break
+		# check if player is at an adjacent cell and has a weight
+		if (gridData.playerCoords - coords).length() <= 1 and hasWeight:
 			gateOpenTimeline.append(true)
 		else:
 			gateOpenTimeline.append(false)

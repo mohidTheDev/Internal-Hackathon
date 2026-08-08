@@ -12,6 +12,8 @@
 [ext_resource type="Script" uid="uid://dyocwgdae17g3" path="res://scripts/player.gd" id="9_kpunq"]
 [ext_resource type="PackedScene" uid="uid://bf6gsyiijvwhm" path="res://scenes/hud.tscn" id="12_joapi"]
 [ext_resource type="PackedScene" uid="uid://uurjetqrhqdm" path="res://scenes/clockHUD.tscn" id="12_qhofw"]
+[ext_resource type="FontFile" uid="uid://bx375iki8ljww" path="res://PixelifySans-VariableFont_wght.ttf" id="13_font"]
+[ext_resource type="PackedScene" uid="uid://cx60amqnka546" path="res://scenes/enemy.tscn" id="14_enemy"]
 
 [sub_resource type="PackedScene" id="PackedScene_amt4q"]
 _bundled = {
@@ -44,6 +46,8 @@ playerSpawnCoord = Vector2(2, 3)
 playerInventoryPosition = Vector2(20, 20)
 playerInventoryFlow = 1
 playerInventorySpacing = 20.0
+enemyScene = ExtResource("14_enemy")
+enemyCoords = Array[Vector2]([Vector2(0, 0)])
 tile = ExtResource("5_qhofw")
 wall = ExtResource("6_87543")
 horizontalGate = ExtResource("6_amt4q")
@@ -77,3 +81,16 @@ ySortOffset = Vector2(0, 24)
 
 [node name="Clock" parent="." unique_id=632676882 instance=ExtResource("12_qhofw")]
 position = Vector2(272.00003, 64.00001)
+
+[node name="InventoryDashboard" type="Label" parent="."]
+offset_left = 252.0
+offset_top = 96.0
+offset_right = 312.0
+offset_bottom = 186.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("13_font")
+theme_override_font_sizes/font_size = 8
+text = "ITEMS:
+Empty"

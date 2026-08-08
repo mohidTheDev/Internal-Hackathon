@@ -16,6 +16,9 @@ var gates: Dictionary
 # keeps track of items picked up by player
 var inventory: Array[Node2D]
 
+# keeps track of active enemies in the level
+var enemies: Array = []
+
 # Keeps track of what tiles are occupied and by what
 # var gridOccupants: Array[Array]
 
