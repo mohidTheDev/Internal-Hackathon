@@ -3,8 +3,8 @@ extends Sprite2D
 var gridData: GridData
 
 @export_group("Visuals")
-@export var laserStartGap: float = 12.0 # How many pixels away from the center the laser starts
-
+@export var laserStartGap: float = 10.0 # How many pixels away from the center the laser starts
+@export var laserStartGapHor: float = 14
 @export var coords: Vector2
 @export var ySortOffset: Vector2 = Vector2(0, 16)
 @export_group("Directions")
@@ -36,6 +36,7 @@ func setup() -> void:
 		line.default_color = Color(1, 0, 0, 0.8) # Red laser
 		# Adjust line so it starts relative to the center of the 32x32 tile
 		# Since actual center and visual center coincide, line.position defaults to (0,0)
+		line.y_sort_enabled = true
 		add_child(line)
 		
 	# Initial draw
@@ -66,7 +67,10 @@ func update_lasers(currentTurn: int) -> void:
 		var points = [] 
 		var pixelDir = (gridData.coordToPos(coords + dir) - gridData.coordToPos(coords)).normalized()
 		# Add the first point, originating from the visual center, plus the gap
-		points.append(localVisualCenter + (pixelDir * laserStartGap))
+		var gap: float = laserStartGap
+		if (dir.y != 0):
+			gap = laserStartGapHor
+		points.append(localVisualCenter + (pixelDir * gap))
 		while not gridData.isSolid(traceCoord):
 			# Register as hazardous
 			gridData.activeLaserCells[traceCoord] = true

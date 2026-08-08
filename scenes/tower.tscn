@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://t0w3r001"]
 
-[ext_resource type="Texture2D" uid="uid://cf4n5ulpgo6n6" path="res://sprites/temp.png" id="1_ay4al"]
+[ext_resource type="Texture2D" uid="uid://bqb4d6l6m8g8k" path="res://sprites/Tower.png" id="1_ay4al"]
 [ext_resource type="Script" uid="uid://drkfaub8gatac" path="res://scripts/tower.gd" id="1_tower"]
 
 [node name="Tower" type="Sprite2D" unique_id=987654321]
+modulate = Color(0.8192279, 0.8192276, 0.8192278, 1)
+y_sort_enabled = true
 texture = ExtResource("1_ay4al")
 script = ExtResource("1_tower")
