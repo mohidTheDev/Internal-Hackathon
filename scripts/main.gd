@@ -78,6 +78,11 @@ func gridSetup() -> void:
 	gridY = gridYOffset
 	gridX = get_viewport_rect().size.x / 2.0 - tileSize * columns / 2.0
 	
+	# clear previously stored data
+	gridData.inventory.clear()
+	gridData.items.clear()
+	gridData.gates.clear()
+	
 	# initialise the grid data file
 	gridData.columns = columns
 	gridData.rows = rows
@@ -98,6 +103,7 @@ func gridSetup() -> void:
 func wallSetup():
 	wallsHolder = $"Walls Holder"
 	
+	var wallYSortOffset: Vector2 = Vector2(0, 16)
 	# for each column (index), represents the row at which wall is present
 	var wallRows: Array
 	# stores wall for each column
@@ -111,7 +117,9 @@ func wallSetup():
 		wallRows.append(row)
 		var wallInstance = wall.instantiate()
 		wallsHolder.add_child(wallInstance)
-		wallInstance.position = gridData.coordToPos(Vector2(row, column))
+		
+		wallInstance.position = gridData.coordToPos(Vector2(row, column)) + wallYSortOffset
+		#wallInstance.offset = -wallYSortOffset
 		wallArray.append(wallInstance)
 		
 	# loop through the walls and change their sprites

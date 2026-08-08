@@ -4,6 +4,7 @@ extends Sprite2D
 @export_category("Animation")
 @export var moveTime: float = 0.1
 @export var animTime: float = 0.1
+@export var ySortOffset: Vector2 = Vector2(0, 16)
 
 var levelController: Node2D
 
@@ -64,7 +65,10 @@ func inputCheck() -> void:
 func _ready() -> void:
 	levelController = get_parent()
 	currentCoord = levelController.playerSpawnCoord
-	position = gridData.coordToPos(currentCoord)
+	
+	# y sort pivot
+	position = gridData.coordToPos(currentCoord) + ySortOffset
+	#offset = -ySortOffset
 	coordTimeline.append(currentCoord)
 	lookTimeline.append(lookingLeft)
 	totalMoves = levelController.moveLimit
@@ -83,7 +87,7 @@ func slide() -> void:
 	# create a tween to slide player to new cell
 	var moveTween: Tween = create_tween()
 	moveTween.tween_property(self, "position", 
-	gridData.coordToPos(currentCoord), moveTime)
+	gridData.coordToPos(currentCoord) + ySortOffset, moveTime)
 	gridData.playerCoords = currentCoord
 	
 	# wait for sliding to complete

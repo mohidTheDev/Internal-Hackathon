@@ -2,6 +2,7 @@ extends Sprite2D
 enum gateType {keyCard, battery}
 @export var type: gateType
 @export var gateOpenTime: float = 0.1
+@export var ySortOffset: Vector2 = Vector2(0, 16)
 
 var gridData: GridData
 # light for indicating what the gate is for
@@ -17,7 +18,11 @@ var gateOpen: bool
 func _ready() -> void:
 	light = $Light
 	batterySlot = $"Battery Slot"
-	position = gridData.coordToPos(coords)
+	
+	# do so because must fix pivots for y sort
+	position = gridData.coordToPos(coords) + ySortOffset
+	#offset = -ySortOffset
+	
 	gridData.gates[coords] = self
 	# set colour according to type
 	if type == gateType.keyCard:

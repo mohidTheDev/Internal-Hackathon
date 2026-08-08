@@ -5,9 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://cswo6fgj48xc2" path="res://sprites/Vertical Gate Light.png" id="2_mjkj4"]
 
 [node name="VerticalGate" type="Sprite2D" unique_id=232335188]
+y_sort_enabled = true
 texture = ExtResource("1_viv0q")
-centered = false
-offset = Vector2(0, -32)
+offset = Vector2(0, -16)
 hframes = 2
 vframes = 2
 frame = 2
@@ -15,8 +15,7 @@ script = ExtResource("2_30cy7")
 
 [node name="Light" type="Sprite2D" parent="." unique_id=178070627]
 texture = ExtResource("2_mjkj4")
-centered = false
-offset = Vector2(0, -32)
+offset = Vector2(0, -16)
 hframes = 2
 vframes = 2
 frame = 2

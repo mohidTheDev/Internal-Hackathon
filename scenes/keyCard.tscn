@@ -4,6 +4,6 @@
 [ext_resource type="Script" uid="uid://1o80y7b8v5n6" path="res://scripts/pickableItem.gd" id="2_1vy3f"]
 
 [node name="Key Card" type="Sprite2D" unique_id=1412505691]
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_0va10")
-centered = false
 script = ExtResource("2_1vy3f")

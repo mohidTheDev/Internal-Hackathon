@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://1o80y7b8v5n6" path="res://scripts/pickableItem.gd" id="2_y10rp"]
 
 [node name="Battery" type="Sprite2D" unique_id=637080679]
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_ytmnr")
-centered = false
 script = ExtResource("2_y10rp")
 item = 1
