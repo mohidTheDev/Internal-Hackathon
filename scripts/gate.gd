@@ -38,20 +38,25 @@ func updateOpenStatus() -> void:
 			gateOpenTimeline.append(true)
 		else:
 			gateOpenTimeline.append(false)
+	elif type == gateType.battery:
+		# check if the slot has a battery
+		if hasBattery:
+			gateOpenTimeline.append(true)
+		else:
+			gateOpenTimeline.append(false)
 			
-	# Battery gates do not use the timeline at all!
 	toggleGate()
 
 func toggleGate() -> void:
 	# Determine what state the gate SHOULD be in right now
-	var shouldBeOpen: bool
-	if type == gateType.battery:
-		shouldBeOpen = hasBattery
-	else:
-		shouldBeOpen = gateOpenTimeline[-1]
+	var shouldBeOpen = gateOpenTimeline[-1]
+		
+	# Lock in the new state IMMEDIATELY so laser physics can read it without waiting
+	var wasOpen = gateOpen
+	gateOpen = shouldBeOpen
 		
 	# Play animations if the state needs to change
-	if gateOpen and shouldBeOpen == false:
+	if wasOpen and shouldBeOpen == false:
 		# frame is 0
 		frame = 1
 		light.frame = 1
@@ -59,20 +64,14 @@ func toggleGate() -> void:
 		frame = 2
 		light.frame = 2
 		
-	elif !gateOpen and shouldBeOpen == true:
+	elif !wasOpen and shouldBeOpen == true:
 		# frame is 2
 		frame = 1
 		light.frame = 1
 		await get_tree().create_timer(gateOpenTime).timeout
 		frame = 0
 		light.frame = 0
-	
-	# lock in the new state
-	gateOpen = shouldBeOpen
 
 func rewind() -> void:
-	# Only keycard gates have a history to pop
-	if type == gateType.keyCard:
-		gateOpenTimeline.pop_back()
-		
+	gateOpenTimeline.pop_back()
 	await toggleGate()
