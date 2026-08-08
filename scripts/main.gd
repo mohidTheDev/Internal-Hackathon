@@ -40,6 +40,10 @@ enum inventoryFlow {Horizontal, Vertical}
 @export var horizontalGate: PackedScene
 @export var verticalGate: PackedScene
 @export var batterySlotScene: PackedScene
+@export var towerScene: PackedScene
+
+@export_category("Towers")
+@export var towerCoords: Array[Vector2]
 
 @export_category("Battery Slots")
 # Parallel arrays: batterySlotCoords[i] is powered by the slot, opens gatesCoords[batterySlotGateIndex[i]]
@@ -54,6 +58,7 @@ var itemsHolder: Node2D
 var gatesHolder: Node2D
 var wallsHolder: Node2D
 var slotsHolder: Node2D
+var towersHolder: Node2D
 var isPlayerTurn: bool = true
 
 func itemSetup() -> void:
@@ -98,6 +103,16 @@ func batterySlotSetup() -> void:
 			else:
 				print("[BatterySlot] WARNING: gate index ", gateIdx, " out of range!")
 		slotsHolder.add_child(slot)
+
+func towerSetup() -> void:
+	if towerScene == null or towerCoords.is_empty():
+		return
+	towersHolder = $"Towers Holder"
+	for i in range(towerCoords.size()):
+		var tower = towerScene.instantiate()
+		tower.gridData = gridData
+		tower.coords = towerCoords[i]
+		towersHolder.add_child(tower)
 
 func gridSetup() -> void:
 	gridY = gridYOffset
@@ -179,8 +194,11 @@ func _enter_tree() -> void:
 	# so these persist across runs if not explicitly cleared.
 	gridData.gates.clear()
 	gridData.batterySlots.clear()
+	gridData.towers.clear()
+	gridData.activeLaserCells.clear()
 	gridData.items.clear()
 	gridData.inventory.clear()
+	gridData.globalTurnCount = 0
 	gridSetup()
 	wallSetup()
 	itemSetup()
@@ -190,6 +208,7 @@ func _enter_tree() -> void:
 # so gates are fully registered in gridData.gates by this point.
 func _ready() -> void:
 	batterySlotSetup()
+	towerSetup()
 
 func _process(delta: float) -> void:
 	pass
@@ -220,6 +239,11 @@ func endTurn():
 	# loop through gates to update their state
 	for gate in gridData.gates.values():
 		gate.updateOpenStatus()
+		
+	# Clear active laser cells to refresh them based on the new turn state
+	gridData.activeLaserCells.clear()
+	for tower in gridData.towers.values():
+		tower.update_lasers(gridData.globalTurnCount)
 	
 	# player turn starts again
 	isPlayerTurn = true

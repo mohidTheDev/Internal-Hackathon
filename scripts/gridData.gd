@@ -16,6 +16,15 @@ var gates: Dictionary
 # coordinate (Vector2) : batterySlot (node2D)
 var batterySlots: Dictionary
 
+# coordinate (Vector2) : tower (node2D)
+var towers: Dictionary
+
+# stores all coordinates currently hazardous due to active lasers
+var activeLaserCells: Dictionary
+
+# tracks absolute global time for deterministic tower math
+var globalTurnCount: int = 0
+
 # keeps track of items picked up by player
 var inventory: Array[Node2D]
 
@@ -41,6 +50,27 @@ func canMoveTo(tileCoord: Vector2) -> bool:
 	if gates.has(tileCoord) and !gates[tileCoord].gateOpen:
 		return false
 	
-	# Add check for occupancy
+	# check for towers (towers are solid)
+	if towers.has(tileCoord):
+		return false
 	
 	return true
+
+# Used by laser raycasts to check if a cell blocks the beam
+func isSolid(tileCoord: Vector2) -> bool:
+	if tileCoord in gridHoles:
+		return true
+		
+	if (tileCoord.x < 0 or tileCoord.x >= rows 
+	or tileCoord.y < 0 or tileCoord.y >= columns):
+		return true
+		
+	# Lasers stop at closed gates, pass through open ones
+	if gates.has(tileCoord) and !gates[tileCoord].gateOpen:
+		return true
+		
+	# Lasers stop at towers
+	if towers.has(tileCoord):
+		return true
+		
+	return false

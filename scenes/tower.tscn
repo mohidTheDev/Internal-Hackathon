@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://t0w3r001"]
+
+[ext_resource type="Texture2D" uid="uid://cyjfyivtppupx" path="res://sprites/Battery.png" id="1_ay4al"]
+[ext_resource type="Script" uid="uid://drkfaub8gatac" path="res://scripts/tower.gd" id="1_tower"]
+
+[node name="Tower" type="Sprite2D" unique_id=987654321]
+texture = ExtResource("1_ay4al")
+centered = false
+script = ExtResource("1_tower")

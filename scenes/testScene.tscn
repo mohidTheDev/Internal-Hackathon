@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cu60amqnka545" path="res://scenes/verticalGate.tscn" id="7_t12nq"]
 [ext_resource type="Texture2D" uid="uid://di7i8ctstfek6" path="res://sprites/player.png" id="10_7vqvu"]
 [ext_resource type="PackedScene" path="res://scenes/batterySlot.tscn" id="11_bslot"]
+[ext_resource type="PackedScene" uid="uid://t0w3r001" path="res://scenes/tower.tscn" id="12_tower"]
 
 [node name="Node2D" type="Node2D" unique_id=622526204]
 script = ExtResource("1_4lyoc")
@@ -31,6 +32,8 @@ wall = ExtResource("6_t12nq")
 horizontalGate = ExtResource("6_h6x0i")
 verticalGate = ExtResource("7_t12nq")
 batterySlotScene = ExtResource("11_bslot")
+towerScene = ExtResource("12_tower")
+towerCoords = Array[Vector2]([Vector2(4, 0)])
 batterySlotCoords = Array[Vector2]([Vector2(3, 1)])
 batterySlotGateIndex = Array[int]([1])
 
@@ -43,6 +46,8 @@ batterySlotGateIndex = Array[int]([1])
 [node name="Gates Holder" type="Node2D" parent="." unique_id=179402994]
 
 [node name="Slots Holder" type="Node2D" parent="." unique_id=556677889]
+
+[node name="Towers Holder" type="Node2D" parent="." unique_id=999888777]
 
 [node name="Player" type="Sprite2D" parent="." unique_id=1445820767]
 texture = ExtResource("10_7vqvu")

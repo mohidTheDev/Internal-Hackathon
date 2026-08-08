@@ -127,6 +127,7 @@ func move(direction: Vector2) -> void:
 	# movement logic
 	currentCoord += direction
 	currentMoves += 1
+	gridData.globalTurnCount += 1
 	coordTimeline.append(currentCoord)
 	lookTimeline.append(lookingLeft)
 	await slide()
@@ -146,6 +147,10 @@ func move(direction: Vector2) -> void:
 	canAct = true
 	
 	levelController.endTurn()
+	
+	# Death check: Did we step into a laser, or did a laser just turn on?
+	if gridData.activeLaserCells.has(currentCoord):
+		levelController.failLevel()
 
 func turnComplete() -> void:
 	levelController.endTurn()
@@ -172,11 +177,16 @@ func rewind() -> void:
 		lookTimeline.pop_back()
 		lookingLeft = lookTimeline[-1]
 		
-		var previousCoord = coordTimeline[-1]
-		if currentCoord != previousCoord:
-			currentMoves -= 1
+		# Every popped step is a movement step
+		currentMoves -= 1
+		gridData.globalTurnCount -= 1
+		
+		# Re-evaluate laser towers for the past state
+		gridData.activeLaserCells.clear()
+		for tower in gridData.towers.values():
+			tower.update_lasers(gridData.globalTurnCount)
 			
-		currentCoord = previousCoord
+		currentCoord = coordTimeline[-1]
 		await slide()
 	
 	isRewinding = false
