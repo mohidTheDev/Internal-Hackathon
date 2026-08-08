@@ -22,7 +22,6 @@ func insert_battery(battery: Node2D) -> void:
 	# 2. Tell the gate its power source is active
 	if parentGate:
 		parentGate.hasBattery = true
-		parentGate.toggleGate() # Immediately trigger the visual toggle!
 		
 	update_visuals()
 
@@ -36,7 +35,6 @@ func remove_battery() -> Node2D:
 	# 3. Tell the gate its power source is gone
 	if parentGate:
 		parentGate.hasBattery = false
-		parentGate.toggleGate() # Immediately trigger the visual toggle!
 		
 	update_visuals()
 	return returned_battery # Give the battery back to the player

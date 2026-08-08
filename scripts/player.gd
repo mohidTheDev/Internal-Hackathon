@@ -177,18 +177,32 @@ func rewind() -> void:
 		lookTimeline.pop_back()
 		lookingLeft = lookTimeline[-1]
 		
-		# Every popped step is a movement step
-		currentMoves -= 1
-		gridData.globalTurnCount -= 1
+		var previousCoord = coordTimeline[-1]
+		if currentCoord != previousCoord:
+			currentMoves -= 1
+			gridData.globalTurnCount -= 1
 		
 		# Re-evaluate laser towers for the past state
 		gridData.activeLaserCells.clear()
 		for tower in gridData.towers.values():
 			tower.update_lasers(gridData.globalTurnCount)
 			
-		currentCoord = coordTimeline[-1]
+		currentCoord = previousCoord
 		await slide()
 	
+	# SNAP TO REALITY
+	# After the replay is over, force the timeline's "present" state to match the 
+	# physical battery, so the gate doesn't get stuck in the past!
+	for gate in gridData.gates.values():
+		if gate.type == gate.gateType.battery:
+			gate.gateOpenTimeline[-1] = gate.hasBattery
+			gate.toggleGate()
+			
+	# Also update lasers one last time just in case a gate snapped open/closed
+	gridData.activeLaserCells.clear()
+	for tower in gridData.towers.values():
+		tower.update_lasers(gridData.globalTurnCount)
+		
 	isRewinding = false
 	levelController.isPlayerTurn = true
 	canAct = true
@@ -228,5 +242,11 @@ func interact_with_slot() -> void:
 		slot.insert_battery(batteryItem)
 		levelController.organiseInventory()
 	
-	# The battery slot will now directly tell its parent gate to toggle
+	# Append to timelines so rewind replays this action
+	coordTimeline.append(currentCoord)
+	lookTimeline.append(lookingLeft)
+	# currentMoves and globalTurnCount are intentionally NOT incremented!
+	
 	canAct = true
+	# Trigger endTurn so gates record their state to the timeline array!
+	levelController.endTurn()

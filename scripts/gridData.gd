@@ -58,9 +58,7 @@ func canMoveTo(tileCoord: Vector2) -> bool:
 
 # Used by laser raycasts to check if a cell blocks the beam
 func isSolid(tileCoord: Vector2) -> bool:
-	if tileCoord in gridHoles:
-		return true
-		
+	# Lasers pass over holes, but stop at the edge of the map
 	if (tileCoord.x < 0 or tileCoord.x >= rows 
 	or tileCoord.y < 0 or tileCoord.y >= columns):
 		return true
