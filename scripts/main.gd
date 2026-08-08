@@ -1,5 +1,8 @@
 extends Node2D
 
+@export_category("Level Management")
+@export var nextLevel: PackedScene
+
 # [row, column] to access a grid point
 @export_category("Grid Data")
 @export var gridData: GridData
@@ -33,8 +36,15 @@ enum inventoryFlow {Horizontal, Vertical}
 
 @export_category("Packed Scenes")
 @export var tile: PackedScene
+@export var wall: PackedScene
 @export var horizontalGate: PackedScene
 @export var verticalGate: PackedScene
+@export var batterySlotScene: PackedScene
+
+@export_category("Battery Slots")
+# Parallel arrays: batterySlotCoords[i] is powered by the slot, opens gatesCoords[batterySlotGateIndex[i]]
+@export var batterySlotCoords: Array[Vector2]
+@export var batterySlotGateIndex: Array[int]
 var gridX: float
 var gridY: float
 
@@ -42,6 +52,8 @@ var gridY: float
 var tilesHolder: Node2D
 var itemsHolder: Node2D
 var gatesHolder: Node2D
+var wallsHolder: Node2D
+var slotsHolder: Node2D
 var isPlayerTurn: bool = true
 
 func itemSetup() -> void:
@@ -68,7 +80,25 @@ func gateSetup() -> void:
 			gate.type = gate.gateType.battery
 		gatesHolder.add_child(gate)
 
-# update gridData.tres and lay down the tiles
+func batterySlotSetup() -> void:
+	if batterySlotScene == null or batterySlotCoords.is_empty():
+		return
+	slotsHolder = $"Slots Holder"
+	for i in range(batterySlotCoords.size()):
+		var slot = batterySlotScene.instantiate()
+		slot.gridData = gridData
+		slot.coords = batterySlotCoords[i]
+		# Link to its gate using the parallel index array
+		if i < batterySlotGateIndex.size():
+			var gateIdx = batterySlotGateIndex[i]
+			if gateIdx >= 0 and gateIdx < gatesHolder.get_child_count():
+				slot.parentGate = gatesHolder.get_child(gateIdx)
+				print("[BatterySlot] Slot ", i, " at ", batterySlotCoords[i], 
+					" linked to gate: ", slot.parentGate.name)
+			else:
+				print("[BatterySlot] WARNING: gate index ", gateIdx, " out of range!")
+		slotsHolder.add_child(slot)
+
 func gridSetup() -> void:
 	gridY = gridYOffset
 	gridX = get_viewport_rect().size.x / 2.0 - tileSize * columns / 2.0
@@ -89,13 +119,77 @@ func gridSetup() -> void:
 			tileInstance.position = gridData.coordToPos(Vector2(row, column))
 			tilesHolder.add_child(tileInstance)
 
-# _enter_tree is called in top to bottom way (and before any _ready)
-# here, it ensures the grid is setup before anything else happens
+# Adds walls to the top tiles in each column
+func wallSetup():
+	wallsHolder = $"Walls Holder"
+	
+	# for each column (index), represents the row at which wall is present
+	var wallRows: Array
+	# stores wall for each column
+	var wallArray: Array
+	# loop through the columns
+	for column in range(columns):
+		# keeps track of the first tile in the column which is not a hole
+		var row = 0;
+		while Vector2(row, column) in gridHoles:
+			row += 1
+		wallRows.append(row)
+		var wallInstance = wall.instantiate()
+		wallsHolder.add_child(wallInstance)
+		wallInstance.position = gridData.coordToPos(Vector2(row, column))
+		wallArray.append(wallInstance)
+		
+	# loop through the walls and change their sprites
+	# depending on whether they have walls next to them
+	for column in range(columns):
+		# left most column
+		if column == 0:
+			if wallRows[1] >= wallRows[0]:
+				wallArray[column].frame = 0
+			elif wallRows[1] < wallRows[0]:
+				wallArray[column].frame = 2
+			continue
+			
+		# right most column
+		if column == columns - 1:
+			if wallRows[column - 1] >= wallRows[column]:
+				wallArray[column].frame = 0
+			elif wallRows[column - 1] < wallRows[column]:
+				wallArray[column].frame = 1
+			continue
+		
+		# wall in between
+		var left: bool = wallRows[column - 1] >= wallRows[column]
+		var right: bool = wallRows[column + 1] >= wallRows[column]
+		if (left and right):
+			wallArray[column].frame = 0
+		elif left:
+			wallArray[column].frame = 2
+		elif right:
+			wallArray[column].frame = 1
+		else:
+			wallArray[column].frame = 3
+			
+		
+# _enter_tree is called top-down, before any child _ready.
+# Only do setup here that doesn't depend on children being ready.
 func _enter_tree() -> void:
 	gridData.levelController = self
+	# Clear shared Resource dicts — GridData is a .tres singleton
+	# so these persist across runs if not explicitly cleared.
+	gridData.gates.clear()
+	gridData.batterySlots.clear()
+	gridData.items.clear()
+	gridData.inventory.clear()
 	gridSetup()
+	wallSetup()
 	itemSetup()
 	gateSetup()
+
+# _ready fires after ALL children have run their own _ready,
+# so gates are fully registered in gridData.gates by this point.
+func _ready() -> void:
+	batterySlotSetup()
 
 func _process(delta: float) -> void:
 	pass
@@ -134,11 +228,9 @@ func completeLevel():
 	# hide player
 	# pause everything and play the level complete animation
 	# (Player going down lift)
-	# tell global to do:
-	# 	spawn next level scene
-	# 	pan to next level scene
-	# 	unload this scene
-	print("Level Complete")
+	
+	# scene transition
+	Global.transitionToNextLevel(self, nextLevel)
 
 func failLevel():
 	# play the eplosion animation

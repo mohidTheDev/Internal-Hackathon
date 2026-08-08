@@ -13,6 +13,9 @@ var items: Dictionary
 # coordinate (Vector2) : gate (node2D)
 var gates: Dictionary
 
+# coordinate (Vector2) : batterySlot (node2D)
+var batterySlots: Dictionary
+
 # keeps track of items picked up by player
 var inventory: Array[Node2D]
 
