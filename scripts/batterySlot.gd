@@ -1,4 +1,6 @@
 extends Sprite2D
+
+@export var ySortOffset: Vector2 = Vector2(0, 16)
 # References
 var gridData: GridData
 var coords: Vector2
@@ -10,7 +12,7 @@ var insertedBatteryItem: Node2D = null # Keep track of the actual battery item
 func _ready() -> void:
 	# 1. Register ourselves in the global grid data so the player can find it
 	gridData.batterySlots[coords] = self
-	position = gridData.coordToPos(coords)
+	position = gridData.coordToPos(coords) + ySortOffset
 	update_visuals()
 
 # Called by the player script

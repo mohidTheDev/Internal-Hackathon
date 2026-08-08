@@ -11,8 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://cjpb8my3hm0cg" path="res://scenes/wall.tscn" id="6_t12nq"]
 [ext_resource type="PackedScene" uid="uid://cu60amqnka545" path="res://scenes/verticalGate.tscn" id="7_t12nq"]
 [ext_resource type="Texture2D" uid="uid://di7i8ctstfek6" path="res://sprites/player.png" id="10_7vqvu"]
-[ext_resource type="PackedScene" uid="uid://uurjetqrhqdm" path="res://scenes/clockHUD.tscn" id="12_pi5at"]
 [ext_resource type="PackedScene" uid="uid://batteryslot01" path="res://scenes/batterySlot.tscn" id="11_bslot"]
+[ext_resource type="PackedScene" uid="uid://uurjetqrhqdm" path="res://scenes/clockHUD.tscn" id="12_pi5at"]
 [ext_resource type="PackedScene" uid="uid://t0w3r001" path="res://scenes/tower.tscn" id="12_tower"]
 
 [node name="Node2D" type="Node2D" unique_id=622526204]
@@ -42,9 +42,6 @@ batterySlotCoords = Array[Vector2]([Vector2(3, 1)])
 batterySlotGateIndex = Array[int]([1])
 
 [node name="Walls Holder" type="Node2D" parent="." unique_id=394588921]
-
-[node name="Walls Holder" type="Node2D" parent="." unique_id=394588921]
-y_sort_enabled = true
 
 [node name="Tiles Holder" type="Node2D" parent="." unique_id=1002118719]
 modulate = Color(0.6321235, 0.6321235, 0.6321234, 1)
