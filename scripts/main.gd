@@ -61,6 +61,8 @@ var targetNeedleAngle: float = 0
 # Parallel arrays: batterySlotCoords[i] is powered by the slot, opens gatesCoords[batterySlotGateIndex[i]]
 @export var batterySlotCoords: Array[Vector2]
 @export var batterySlotGateIndex: Array[int]
+@export var batterySlotHasBatteryByDefault: Array[bool]
+@export var batteryItemScene: PackedScene
 var gridX: float
 var gridY: float
 
@@ -134,6 +136,14 @@ func batterySlotSetup() -> void:
 					" linked to gate: ", slot.parentGate.name)
 			else:
 				print("[BatterySlot] WARNING: gate index ", gateIdx, " out of range!")
+			if i < batterySlotHasBatteryByDefault.size() and batterySlotHasBatteryByDefault[i]:
+				var battery = batteryItemScene.instantiate()
+				battery.gridData = gridData
+				battery.coords = batterySlotCoords[i]
+				itemsHolder.add_child(battery)
+				slot.insert_battery(battery)
+				slot.parentGate.updateOpenStatus()
+				
 		slotsHolder.add_child(slot)
 
 func towerSetup() -> void:
