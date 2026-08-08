@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://noojikuv2jev" path="res://scenes/keyCard.tscn" id="6_2jiqd"]
 [ext_resource type="PackedScene" uid="uid://2co2p3jv3dak" path="res://scenes/horizontalGate.tscn" id="6_h6x0i"]
 [ext_resource type="PackedScene" uid="uid://cu60amqnka545" path="res://scenes/verticalGate.tscn" id="7_t12nq"]
+[ext_resource type="PackedScene" uid="uid://bf6gsyiijvwhm" path="res://scenes/hud.tscn" id="10_t12nq"]
 
 [node name="Node2D" type="Node2D" unique_id=622526204]
 script = ExtResource("1_4lyoc")
@@ -39,35 +40,4 @@ vframes = 2
 script = ExtResource("4_4pc36")
 gridData = ExtResource("2_4pc36")
 
-[node name="HUD" type="CanvasLayer" parent="." unique_id=900000001]
-layer = 10
-
-[node name="MovesContainer" type="VBoxContainer" parent="HUD" unique_id=900000002]
-offset_left = 268.0
-offset_top = 4.0
-offset_right = 316.0
-offset_bottom = 52.0
-
-[node name="MovesTitle" type="Label" parent="HUD/MovesContainer" unique_id=900000003]
-text = "MOVES"
-theme_override_font_sizes/font_size = 6
-
-[node name="MovesLabel" type="Label" parent="HUD/MovesContainer" unique_id=900000004]
-text = "10"
-theme_override_font_sizes/font_size = 18
-modulate = Color(0.2, 1, 0.6, 1)
-
-[node name="RewindContainer" type="VBoxContainer" parent="HUD" unique_id=900000005]
-offset_left = 268.0
-offset_top = 58.0
-offset_right = 316.0
-offset_bottom = 100.0
-
-[node name="RewindTitle" type="Label" parent="HUD/RewindContainer" unique_id=900000006]
-text = "REWIND"
-theme_override_font_sizes/font_size = 6
-
-[node name="RewindLabel" type="Label" parent="HUD/RewindContainer" unique_id=900000008]
-text = "0 / 5"
-theme_override_font_sizes/font_size = 6
-modulate = Color(0.6, 0.6, 0.8, 1)
+[node name="HUD" parent="." unique_id=883147359 instance=ExtResource("10_t12nq")]
