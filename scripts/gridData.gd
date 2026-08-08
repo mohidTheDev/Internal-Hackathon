@@ -23,7 +23,7 @@ var towers: Dictionary
 var activeLaserCells: Dictionary
 
 # tracks absolute global time for deterministic tower math
-var globalTurnCount: int = 0
+#var globalTurnCount: int = 0
 
 # keeps track of items picked up by player
 var inventory: Array[Node2D]

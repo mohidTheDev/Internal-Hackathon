@@ -35,7 +35,7 @@ func setup() -> void:
 		add_child(line)
 		
 	# Initial draw
-	update_lasers(gridData.globalTurnCount)
+	update_lasers(1)
 
 func update_lasers(currentTurn: int) -> void:
 	var cycleLength = activeCycle + inactiveCycle

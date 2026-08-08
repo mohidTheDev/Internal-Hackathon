@@ -112,7 +112,7 @@ func move(direction: Vector2) -> void:
 	# movement logic
 	currentCoord += direction
 	currentMoves += 1
-	gridData.globalTurnCount += 1
+	#gridData.globalTurnCount += 1
 	coordTimeline.append(currentCoord)
 	lookTimeline.append(lookingLeft)
 	await slide()
@@ -165,12 +165,12 @@ func rewind() -> void:
 		var previousCoord = coordTimeline[-1]
 		if currentCoord != previousCoord:
 			currentMoves -= 1
-			gridData.globalTurnCount -= 1
+			#gridData.globalTurnCount -= 1
 		
 		# Re-evaluate laser towers for the past state
 		gridData.activeLaserCells.clear()
 		for tower in gridData.towers.values():
-			tower.update_lasers(gridData.globalTurnCount)
+			tower.update_lasers( len(coordTimeline))
 			
 		currentCoord = previousCoord
 		await slide()
@@ -186,7 +186,7 @@ func rewind() -> void:
 	# Also update lasers one last time just in case a gate snapped open/closed
 	gridData.activeLaserCells.clear()
 	for tower in gridData.towers.values():
-		tower.update_lasers(gridData.globalTurnCount)
+		tower.update_lasers(len(coordTimeline))
 		
 	isRewinding = false
 	levelController.isPlayerTurn = true
@@ -228,8 +228,6 @@ func interact_with_slot() -> void:
 		levelController.organiseInventory()
 	
 	# Append to timelines so rewind replays this action
-	coordTimeline.append(currentCoord)
-	lookTimeline.append(lookingLeft)
 	# currentMoves and globalTurnCount are intentionally NOT incremented!
 	
 	canAct = true

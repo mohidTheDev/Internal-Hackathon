@@ -11,8 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://cjpb8my3hm0cg" path="res://scenes/wall.tscn" id="6_t12nq"]
 [ext_resource type="PackedScene" uid="uid://cu60amqnka545" path="res://scenes/verticalGate.tscn" id="7_t12nq"]
 [ext_resource type="Texture2D" uid="uid://di7i8ctstfek6" path="res://sprites/player.png" id="10_7vqvu"]
-[ext_resource type="PackedScene" uid="uid://gavnkh7fui8g" path="res://scenes/batterySlot.tscn" id="11_bslot"]
-[ext_resource type="PackedScene" uid="uid://dq7bqphmc8t4l" path="res://scenes/tower.tscn" id="12_tower"]
+[ext_resource type="PackedScene" uid="uid://batteryslot01" path="res://scenes/batterySlot.tscn" id="11_bslot"]
+[ext_resource type="PackedScene" uid="uid://t0w3r001" path="res://scenes/tower.tscn" id="12_tower"]
 
 [node name="Node2D" type="Node2D" unique_id=622526204]
 script = ExtResource("1_4lyoc")

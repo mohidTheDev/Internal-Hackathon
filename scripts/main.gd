@@ -214,7 +214,7 @@ func _enter_tree() -> void:
 	gridData.activeLaserCells.clear()
 	gridData.items.clear()
 	gridData.inventory.clear()
-	gridData.globalTurnCount = 0
+	#gridData.globalTurnCount = 0
 	gridSetup()
 	wallSetup()
 	itemSetup()
@@ -249,6 +249,8 @@ func endTurn():
 	if isPlayerTurn:
 		isPlayerTurn = false
 	
+	var player = $Player
+	
 	# loop through all other components that may move
 	# or do smth and make them do their actions
 	
@@ -259,7 +261,7 @@ func endTurn():
 	# Clear active laser cells to refresh them based on the new turn state
 	gridData.activeLaserCells.clear()
 	for tower in gridData.towers.values():
-		tower.update_lasers(gridData.globalTurnCount)
+		tower.update_lasers(len(player.coordTimeline))
 	
 	# player turn starts again
 	isPlayerTurn = true
