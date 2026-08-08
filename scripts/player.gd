@@ -132,6 +132,7 @@ func move(direction: Vector2) -> void:
 	# animation
 	canAct = true
 	
+	levelController.updateHUD(currentMoves)
 	levelController.endTurn()
 
 func turnComplete() -> void:
@@ -159,6 +160,7 @@ func rewind() -> void:
 		currentCoord = coordTimeline[-1]
 		currentMoves -= 1
 		await slide()
+		levelController.updateHUD(currentMoves)
 	
 	isRewinding = false
 	levelController.isPlayerTurn = true

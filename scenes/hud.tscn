@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bf6gsyiijvwhm"]
+
+[node name="HUD" type="CanvasLayer" unique_id=883147359]
+layer = 10
+
+[node name="MovesContainer" type="VBoxContainer" parent="." unique_id=532486656]
+offset_left = 268.0
+offset_top = 4.0
+offset_right = 316.0
+offset_bottom = 52.0
+
+[node name="MovesTitle" type="Label" parent="MovesContainer" unique_id=661677045]
+layout_mode = 2
+theme_override_font_sizes/font_size = 6
+text = "MOVES"
+
+[node name="MovesLabel" type="Label" parent="MovesContainer" unique_id=1155116813]
+modulate = Color(0.2, 1, 0.6, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "10"
+
+[node name="RewindContainer" type="VBoxContainer" parent="." unique_id=1162234020]
+offset_left = 268.0
+offset_top = 58.0
+offset_right = 316.0
+offset_bottom = 100.0
+
+[node name="RewindTitle" type="Label" parent="RewindContainer" unique_id=1968295541]
+layout_mode = 2
+theme_override_font_sizes/font_size = 6
+text = "REWIND"
+
+[node name="RewindLabel" type="Label" parent="RewindContainer" unique_id=12952817]
+modulate = Color(0.6, 0.6, 0.8, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 6
+text = "0 / 5"
