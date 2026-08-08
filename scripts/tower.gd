@@ -16,7 +16,7 @@ var gridData: GridData
 # Line2D nodes for the lasers
 var lines: Dictionary = {}
 
-func _ready() -> void:
+func setup() -> void:
 	gridData.towers[coords] = self
 	position = gridData.coordToPos(coords)
 	

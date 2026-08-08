@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cjpb8my3hm0cg" path="res://scenes/wall.tscn" id="6_t12nq"]
 [ext_resource type="PackedScene" uid="uid://cu60amqnka545" path="res://scenes/verticalGate.tscn" id="7_t12nq"]
 [ext_resource type="Texture2D" uid="uid://di7i8ctstfek6" path="res://sprites/player.png" id="10_7vqvu"]
-[ext_resource type="PackedScene" path="res://scenes/batterySlot.tscn" id="11_bslot"]
+[ext_resource type="PackedScene" uid="uid://batteryslot01" path="res://scenes/batterySlot.tscn" id="11_bslot"]
 [ext_resource type="PackedScene" uid="uid://t0w3r001" path="res://scenes/tower.tscn" id="12_tower"]
 
 [node name="Node2D" type="Node2D" unique_id=622526204]
@@ -32,8 +32,6 @@ wall = ExtResource("6_t12nq")
 horizontalGate = ExtResource("6_h6x0i")
 verticalGate = ExtResource("7_t12nq")
 batterySlotScene = ExtResource("11_bslot")
-towerScene = ExtResource("12_tower")
-towerCoords = Array[Vector2]([Vector2(4, 0)])
 batterySlotCoords = Array[Vector2]([Vector2(3, 1)])
 batterySlotGateIndex = Array[int]([1])
 
@@ -59,3 +57,9 @@ script = ExtResource("4_4pc36")
 gridData = ExtResource("2_4pc36")
 moveTime = 0.2
 animTime = 0.5
+
+[node name="Tower" parent="." unique_id=987654321 instance=ExtResource("12_tower")]
+coords = Vector2(1, 0)
+fireDown = false
+fireLeft = false
+fireRight = false

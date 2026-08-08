@@ -44,6 +44,12 @@ enum inventoryFlow {Horizontal, Vertical}
 
 @export_category("Towers")
 @export var towerCoords: Array[Vector2]
+@export var towerFireUp: Array[bool]
+@export var towerFireDown: Array[bool]
+@export var towerFireLeft: Array[bool]
+@export var towerFireRight: Array[bool]
+@export var towerActiveCycle: Array[int]
+@export var towerInactiveCycle: Array[int]
 
 @export_category("Battery Slots")
 # Parallel arrays: batterySlotCoords[i] is powered by the slot, opens gatesCoords[batterySlotGateIndex[i]]
@@ -112,7 +118,17 @@ func towerSetup() -> void:
 		var tower = towerScene.instantiate()
 		tower.gridData = gridData
 		tower.coords = towerCoords[i]
+		
+		# Safely apply parallel array settings if the user filled them out
+		if i < towerFireUp.size(): tower.fireUp = towerFireUp[i]
+		if i < towerFireDown.size(): tower.fireDown = towerFireDown[i]
+		if i < towerFireLeft.size(): tower.fireLeft = towerFireLeft[i]
+		if i < towerFireRight.size(): tower.fireRight = towerFireRight[i]
+		if i < towerActiveCycle.size(): tower.activeCycle = towerActiveCycle[i]
+		if i < towerInactiveCycle.size(): tower.inactiveCycle = towerInactiveCycle[i]
+		
 		towersHolder.add_child(tower)
+		tower.setup()
 
 func gridSetup() -> void:
 	gridY = gridYOffset
