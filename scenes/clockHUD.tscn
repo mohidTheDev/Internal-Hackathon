@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://uurjetqrhqdm"]
+
+[ext_resource type="Texture2D" uid="uid://dg734f5tsrbrh" path="res://sprites/Clock.png" id="1_kunol"]
+[ext_resource type="FontFile" uid="uid://bx375iki8ljww" path="res://PixelifySans-VariableFont_wght.ttf" id="2_75agg"]
+
+[node name="Clock" type="Sprite2D" unique_id=632676882]
+rotation = 0.54803336
+scale = Vector2(1.758, 1.758)
+texture = ExtResource("1_kunol")
+hframes = 2
+vframes = 3
+
+[node name="MovesLabel" type="Label" parent="." unique_id=1192891748]
+modulate = Color(0.2, 1, 0.6, 1)
+offset_left = 18.438433
+offset_top = 6.2749615
+offset_right = 28.733433
+offset_bottom = 13.274961
+rotation = -1.5707964
+theme_override_colors/font_color = Color(0.027013691, 0.11929835, 0.0368197, 1)
+theme_override_fonts/font = ExtResource("2_75agg")
+theme_override_font_sizes/font_size = 5
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Needle" type="Sprite2D" parent="." unique_id=1133516556]
+texture = ExtResource("1_kunol")
+offset = Vector2(-0.475, 0)
+hframes = 2
+vframes = 3
+frame = 1

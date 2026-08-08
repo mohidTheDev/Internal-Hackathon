@@ -39,6 +39,12 @@ enum inventoryFlow {Horizontal, Vertical}
 @export var wall: PackedScene
 @export var horizontalGate: PackedScene
 @export var verticalGate: PackedScene
+
+@export_category("HUD")
+@export var watchAnimTime: float = 0.1
+@export var needleJitterStrength: float = 8.0 # The maximum degrees the needle will shake
+var watchAnimTimer: float = 0
+var targetNeedleAngle: float = 0
 var gridX: float
 var gridY: float
 
@@ -47,11 +53,28 @@ var itemsHolder: Node2D
 var gatesHolder: Node2D
 var wallsHolder: Node2D
 var isPlayerTurn: bool = true
-
+var rewindAvailable: bool = false
 # HUD references
+var clock: Node2D
 var movesLabel: Label
-var rewindLabel: Label
 
+func animateWatch(delta):
+	if (!rewindAvailable):
+		clock.frame = 0
+		watchAnimTimer = 0
+		# Lock the needle firmly to the target angle when not rewinding
+		clock.get_node("Needle").rotation_degrees = targetNeedleAngle
+		return
+	watchAnimTimer += delta
+	if watchAnimTimer >= watchAnimTime:
+		watchAnimTimer -= watchAnimTime	
+		if clock.frame < 2 or clock.frame >= 5:
+			clock.frame = 2
+		else:
+			clock.frame += 1
+		# Apply jitter to the needle around the target angle
+	var jitter: float = randf_range(-needleJitterStrength, needleJitterStrength)
+	clock.get_node("Needle").rotation_degrees = targetNeedleAngle + jitter
 func itemSetup() -> void:
 	itemsHolder = $"Items Holder"
 	for i in range(len(pickableItems)):
@@ -166,27 +189,24 @@ func _enter_tree() -> void:
 	itemSetup()
 	gateSetup()
 
+# Question: do we need to do this in _ready?
 func _ready() -> void:
-	var hud = $HUD
-	movesLabel = hud.get_node("MovesContainer/MovesLabel")
-	rewindLabel = hud.get_node("RewindContainer/RewindLabel")
+	clock = $Clock
+	movesLabel = clock.get_node("MovesLabel")
 	updateHUD(0)
 
 func updateHUD(currentMoves: int) -> void:
-	var remaining: int = moveLimit - currentMoves
-	movesLabel.text = str(remaining)
-	movesLabel.modulate = Color(1.0, 0.25, 0.25, 1.0) if remaining <= 3 \
-		else (Color(1.0, 0.75, 0.1, 1.0) if remaining <= moveLimit / 2 \
-		else Color(0.2, 1.0, 0.6, 1.0))
+	var remainingMoves: int = moveLimit - currentMoves
+	movesLabel.text = str(remainingMoves)
+	# Store the base angle instead of applying it immediately
+	targetNeedleAngle = (get_node("Player").currentMoves * 45) % 360
 	if currentMoves >= rewindDuration:
-		rewindLabel.text = "READY"
-		rewindLabel.modulate = Color(0.4, 0.8, 1.0, 1.0)
+		rewindAvailable = true
 	else:
-		rewindLabel.text = str(currentMoves) + " / " + str(rewindDuration)
-		rewindLabel.modulate = Color(0.6, 0.6, 0.8, 1.0)
+		rewindAvailable = false
 
 func _process(delta: float) -> void:
-	pass
+	animateWatch(delta)
 
 # arranges all items in the player's inventory (visually) to be equally spaced
 func organiseInventory() -> void:
@@ -207,7 +227,7 @@ func organiseInventory() -> void:
 func endTurn():
 	if isPlayerTurn:
 		isPlayerTurn = false
-	
+
 	# loop through all other components that may move
 	# or do smth and make them do their actions
 	

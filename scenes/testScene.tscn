@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cjpb8my3hm0cg" path="res://scenes/wall.tscn" id="6_t12nq"]
 [ext_resource type="PackedScene" uid="uid://cu60amqnka545" path="res://scenes/verticalGate.tscn" id="7_t12nq"]
 [ext_resource type="Texture2D" uid="uid://di7i8ctstfek6" path="res://sprites/player.png" id="10_7vqvu"]
-[ext_resource type="PackedScene" uid="uid://bf6gsyiijvwhm" path="res://scenes/hud.tscn" id="12_pi5at"]
+[ext_resource type="PackedScene" uid="uid://uurjetqrhqdm" path="res://scenes/clockHUD.tscn" id="12_pi5at"]
 
 [node name="Node2D" type="Node2D" unique_id=622526204]
 y_sort_enabled = true
@@ -26,7 +26,9 @@ gates = Array[int]([0, 0])
 gatesOrientation = Array[int]([0, 0])
 gatesCoords = Array[Vector2]([Vector2(3, 2), Vector2(4, 2)])
 playerSpawnCoord = Vector2(2, 3)
+playerInventoryPosition = Vector2(20, 20)
 playerInventoryFlow = 1
+playerInventorySpacing = 20.0
 tile = ExtResource("2_i052m")
 wall = ExtResource("6_t12nq")
 horizontalGate = ExtResource("6_h6x0i")
@@ -58,4 +60,5 @@ moveTime = 0.2
 animTime = 0.5
 ySortOffset = Vector2(0, 24)
 
-[node name="HUD" parent="." unique_id=883147359 instance=ExtResource("12_pi5at")]
+[node name="Clock" parent="." unique_id=632676882 instance=ExtResource("12_pi5at")]
+position = Vector2(272.00003, 64.00001)
