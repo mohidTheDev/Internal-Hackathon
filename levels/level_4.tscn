@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://c2pvuo216gtah"]
+
+[ext_resource type="Script" uid="uid://yht268k4x1yl" path="res://scripts/main.gd" id="1_vru0x"]
+[ext_resource type="PackedScene" uid="uid://be8mu3jbbcefa" path="res://levels/level_2.tscn" id="2_5oqfd"]
+[ext_resource type="Resource" uid="uid://ctq0wrer25v52" path="res://resources/gridData.tres" id="3_8mt0c"]
+[ext_resource type="PackedScene" uid="uid://noojikuv2jev" path="res://scenes/keyCard.tscn" id="4_dp2yl"]
+[ext_resource type="PackedScene" uid="uid://bo5vgile4m7xq" path="res://scenes/battery.tscn" id="5_a7qdg"]
+[ext_resource type="PackedScene" uid="uid://b5haucqrquf7d" path="res://scenes/tile.tscn" id="6_g1ha7"]
+[ext_resource type="PackedScene" uid="uid://cjpb8my3hm0cg" path="res://scenes/wall.tscn" id="7_52a3b"]
+[ext_resource type="PackedScene" uid="uid://2co2p3jv3dak" path="res://scenes/horizontalGate.tscn" id="8_3ff1r"]
+[ext_resource type="PackedScene" uid="uid://cu60amqnka545" path="res://scenes/verticalGate.tscn" id="9_cmohj"]
+[ext_resource type="PackedScene" uid="uid://batteryslot01" path="res://scenes/batterySlot.tscn" id="10_bv8dl"]
+[ext_resource type="PackedScene" uid="uid://t0w3r001" path="res://scenes/tower.tscn" id="11_uhmd0"]
+[ext_resource type="Texture2D" uid="uid://di7i8ctstfek6" path="res://sprites/player.png" id="12_8c4vb"]
+[ext_resource type="Script" uid="uid://dyocwgdae17g3" path="res://scripts/player.gd" id="13_gu0mu"]
+[ext_resource type="PackedScene" uid="uid://uurjetqrhqdm" path="res://scenes/clockHUD.tscn" id="14_25iwj"]
+
+[node name="Node2D" type="Node2D" unique_id=622526204]
+y_sort_enabled = true
+script = ExtResource("1_vru0x")
+nextLevel = ExtResource("2_5oqfd")
+gridData = ExtResource("3_8mt0c")
+gridYOffset = 60
+gridHoles = Array[Vector2]([Vector2(1, 0), Vector2(2, 3), Vector2(3, 3), Vector2(4, 3)])
+goalCoord = Vector2(4, 4)
+pickableItems = Array[PackedScene]([ExtResource("4_dp2yl"), ExtResource("5_a7qdg")])
+pickableItemsCoords = Array[Vector2]([Vector2(0, 0), Vector2(1, 4)])
+gates = Array[int]([0, 1, 1])
+gatesOrientation = Array[int]([0, 0, 0])
+gatesCoords = Array[Vector2]([Vector2(3, 4), Vector2(0, 1), Vector2(2, 4)])
+playerSpawnCoord = Vector2(4, 1)
+playerInventoryPosition = Vector2(20, 20)
+playerInventoryFlow = 1
+playerInventorySpacing = 20.0
+tile = ExtResource("6_g1ha7")
+wall = ExtResource("7_52a3b")
+horizontalGate = ExtResource("8_3ff1r")
+verticalGate = ExtResource("9_cmohj")
+batterySlotScene = ExtResource("10_bv8dl")
+towerScene = ExtResource("11_uhmd0")
+batterySlotCoords = Array[Vector2]([Vector2(4, 2), Vector2(3, 0)])
+batterySlotGateIndex = Array[int]([1, 2])
+
+[node name="Walls Holder" type="Node2D" parent="." unique_id=394588921]
+
+[node name="Tiles Holder" type="Node2D" parent="." unique_id=1002118719]
+modulate = Color(0.6321235, 0.6321235, 0.6321234, 1)
+z_index = -1
+
+[node name="Items Holder" type="Node2D" parent="." unique_id=321358500]
+y_sort_enabled = true
+
+[node name="Gates Holder" type="Node2D" parent="." unique_id=179402994]
+y_sort_enabled = true
+
+[node name="Slots Holder" type="Node2D" parent="." unique_id=556677889]
+
+[node name="Towers Holder" type="Node2D" parent="." unique_id=999888777]
+
+[node name="Player" type="Sprite2D" parent="." unique_id=1445820767]
+y_sort_enabled = true
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("12_8c4vb")
+offset = Vector2(0, -16)
+hframes = 2
+vframes = 3
+script = ExtResource("13_gu0mu")
+gridData = ExtResource("3_8mt0c")
+moveTime = 0.2
+animTime = 0.5
+ySortOffset = Vector2(0, 24)
+
+[node name="Clock" parent="." unique_id=632676882 instance=ExtResource("14_25iwj")]
+position = Vector2(272.00003, 64.00001)
