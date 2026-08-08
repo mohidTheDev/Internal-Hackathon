@@ -49,10 +49,19 @@ func updateOpenStatus() -> void:
 			gateOpenTimeline.append(true)
 		else:
 			gateOpenTimeline.append(false)
+			
 	toggleGate()
 
 func toggleGate() -> void:
-	if gateOpen and gateOpenTimeline[-1] == false:
+	# Determine what state the gate SHOULD be in right now
+	var shouldBeOpen = gateOpenTimeline[-1]
+		
+	# Lock in the new state IMMEDIATELY so laser physics can read it without waiting
+	var wasOpen = gateOpen
+	gateOpen = shouldBeOpen
+		
+	# Play animations if the state needs to change
+	if wasOpen and shouldBeOpen == false:
 		# frame is 0
 		frame = 1
 		light.frame = 1
@@ -60,16 +69,13 @@ func toggleGate() -> void:
 		frame = 2
 		light.frame = 2
 		
-	elif !gateOpen and gateOpenTimeline[-1] == true:
+	elif !wasOpen and shouldBeOpen == true:
 		# frame is 2
 		frame = 1
 		light.frame = 1
 		await get_tree().create_timer(gateOpenTime).timeout
 		frame = 0
 		light.frame = 0
-	
-	# set the open status to the latest timeline state
-	gateOpen = gateOpenTimeline[-1]
 
 func rewind() -> void:
 	gateOpenTimeline.pop_back()

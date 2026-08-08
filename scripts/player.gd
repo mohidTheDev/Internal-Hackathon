@@ -62,6 +62,8 @@ func inputCheck() -> void:
 		move(Vector2(0, 1))	
 	elif Input.is_action_just_pressed("e"):
 		rewind()
+	elif Input.is_action_just_pressed("f"):
+		interact_with_slot()
 func _ready() -> void:
 	levelController = get_parent()
 	currentCoord = levelController.playerSpawnCoord
@@ -134,12 +136,18 @@ func move(direction: Vector2) -> void:
 	
 	levelController.updateHUD(currentMoves)
 	levelController.endTurn()
+	
+	# Death check: Did we step into a laser, or did a laser just turn on?
+	if gridData.activeLaserCells.has(currentCoord):
+		levelController.failLevel()
 
 func turnComplete() -> void:
 	levelController.endTurn()
 	return
 
 func rewind() -> void:
+	if !canAct:
+		return
 	# allow rewind only if player has moved atleast 5 steps
 	if len(coordTimeline) <= rewindDuration:
 		return
@@ -157,11 +165,76 @@ func rewind() -> void:
 		coordTimeline.pop_back()
 		lookTimeline.pop_back()
 		lookingLeft = lookTimeline[-1]
-		currentCoord = coordTimeline[-1]
-		currentMoves -= 1
+		
+		var previousCoord = coordTimeline[-1]
+		if currentCoord != previousCoord:
+			currentMoves -= 1
+			#gridData.globalTurnCount -= 1
+		
+		# Re-evaluate laser towers for the past state
+		gridData.activeLaserCells.clear()
+		for tower in gridData.towers.values():
+			tower.update_lasers( len(coordTimeline))
+			
+		currentCoord = previousCoord
 		await slide()
 		levelController.updateHUD(currentMoves)
 	
+	# SNAP TO REALITY
+	# After the replay is over, force the timeline's "present" state to match the 
+	# physical battery, so the gate doesn't get stuck in the past!
+	for gate in gridData.gates.values():
+		if gate.type == gate.gateType.battery:
+			gate.gateOpenTimeline[-1] = gate.hasBattery
+			gate.toggleGate()
+			
+	# Also update lasers one last time just in case a gate snapped open/closed
+	gridData.activeLaserCells.clear()
+	for tower in gridData.towers.values():
+		tower.update_lasers(len(coordTimeline))
+		
 	isRewinding = false
 	levelController.isPlayerTurn = true
 	canAct = true
+
+# Battery Slot — F key. Does NOT cost a move but still ends the turn
+# so gates update. Appends to timelines so rewind stays in sync.
+func interact_with_slot() -> void:
+	print("[Player] Pressed F! Current Coord: ", currentCoord)
+	print("[Player] Available Battery Slots: ", gridData.batterySlots.keys())
+	if !canAct:
+		print("[Player] cannot act")
+		return
+	if not gridData.batterySlots.has(currentCoord):
+		print("[Player] no slot at ", currentCoord)
+		return
+	
+	var slot = gridData.batterySlots[currentCoord]
+	canAct = false
+	
+	if slot.hasBattery:
+		# Remove battery — does not cost a move
+		var battery = slot.remove_battery()
+		gridData.inventory.append(battery)
+		levelController.organiseInventory()
+	else:
+		# Find battery in inventory
+		var batteryItem = null
+		for item in gridData.inventory:
+			if item.item == item.itemType.battery:
+				batteryItem = item
+				break
+		if batteryItem == null:
+			canAct = true
+			return
+		# Insert battery — does not cost a move
+		gridData.inventory.erase(batteryItem)
+		slot.insert_battery(batteryItem)
+		levelController.organiseInventory()
+	
+	# Append to timelines so rewind replays this action
+	# currentMoves and globalTurnCount are intentionally NOT incremented!
+	
+	canAct = true
+	# Trigger endTurn so gates record their state to the timeline array!
+	levelController.endTurn()
