@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cjpb8my3hm0cg" path="res://scenes/wall.tscn" id="6_t12nq"]
 [ext_resource type="PackedScene" uid="uid://cu60amqnka545" path="res://scenes/verticalGate.tscn" id="7_t12nq"]
 [ext_resource type="Texture2D" uid="uid://di7i8ctstfek6" path="res://sprites/player.png" id="10_7vqvu"]
+[ext_resource type="PackedScene" uid="uid://bf6gsyiijvwhm" path="res://scenes/hud.tscn" id="12_pi5at"]
 
 [node name="Node2D" type="Node2D" unique_id=622526204]
 y_sort_enabled = true
@@ -56,3 +57,5 @@ gridData = ExtResource("2_4pc36")
 moveTime = 0.2
 animTime = 0.5
 ySortOffset = Vector2(0, 24)
+
+[node name="HUD" parent="." unique_id=883147359 instance=ExtResource("12_pi5at")]
