@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bnvhn0pyc7d6i"]
+
+[ext_resource type="Texture2D" uid="uid://c5rmm08bhoct0" path="res://sprites/Goal Tile.png" id="1_lx6tm"]
+
+[node name="GoalTile" type="Sprite2D" unique_id=1687866244]
+texture = ExtResource("1_lx6tm")
+vframes = 2

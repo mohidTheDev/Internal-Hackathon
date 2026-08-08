@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b5haucqrquf7d" path="res://scenes/tile.tscn" id="6_k3t65"]
 [ext_resource type="PackedScene" uid="uid://cjpb8my3hm0cg" path="res://scenes/wall.tscn" id="7_bon8i"]
 [ext_resource type="PackedScene" uid="uid://2co2p3jv3dak" path="res://scenes/horizontalGate.tscn" id="8_av2kh"]
+[ext_resource type="PackedScene" uid="uid://bnvhn0pyc7d6i" path="res://scenes/goalTile.tscn" id="9_gder6"]
 [ext_resource type="PackedScene" uid="uid://cu60amqnka545" path="res://scenes/verticalGate.tscn" id="9_mmy2b"]
 [ext_resource type="PackedScene" uid="uid://batteryslot01" path="res://scenes/batterySlot.tscn" id="10_cekp2"]
 [ext_resource type="PackedScene" uid="uid://t0w3r001" path="res://scenes/tower.tscn" id="11_mlk23"]
@@ -33,6 +34,7 @@ tile = ExtResource("6_k3t65")
 wall = ExtResource("7_bon8i")
 horizontalGate = ExtResource("8_av2kh")
 verticalGate = ExtResource("9_mmy2b")
+goalTile = ExtResource("9_gder6")
 batterySlotScene = ExtResource("10_cekp2")
 towerScene = ExtResource("11_mlk23")
 batterySlotCoords = Array[Vector2]([Vector2(3, 1), Vector2(2, 4)])

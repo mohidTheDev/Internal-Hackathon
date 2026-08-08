@@ -2,7 +2,7 @@ extends Node2D
 
 @export_category("Level Management")
 @export var nextLevel: PackedScene
-
+@export var transitionDirection: Vector2 = Vector2(1, 0)
 # [row, column] to access a grid point
 @export_category("Grid Data")
 @export var gridData: GridData
@@ -39,6 +39,7 @@ enum inventoryFlow {Horizontal, Vertical}
 @export var wall: PackedScene
 @export var horizontalGate: PackedScene
 @export var verticalGate: PackedScene
+@export var goalTile: PackedScene
 
 @export_category("HUD")
 @export var watchAnimTime: float = 0.1
@@ -190,7 +191,18 @@ func gridSetup() -> void:
 			var tileInstance = tile.instantiate()
 			tileInstance.position = gridData.coordToPos(Vector2(row, column))
 			tilesHolder.add_child(tileInstance)
-
+	var goalTileInstance = goalTile.instantiate()
+	goalTileInstance.position = gridData.coordToPos(goalCoord) + Vector2(0, tileSize / 2)
+	tilesHolder.add_child(goalTileInstance)
+	if transitionDirection == Vector2(1, 0):
+		pass
+	elif transitionDirection == Vector2(0, 1):
+		goalTileInstance.rotation_degrees = -90
+	elif transitionDirection == Vector2(-1, 0):
+		goalTileInstance.frame = 1
+	else:
+		goalTileInstance.frame = 1
+		goalTileInstance.rotation_degrees = -90
 # Adds walls to the top tiles in each column
 func wallSetup():
 	wallsHolder = $"Walls Holder"
@@ -328,7 +340,7 @@ func completeLevel():
 	# (Player going down lift)
 	
 	# scene transition
-	Global.transitionToNextLevel(self, nextLevel)
+	Global.transitionToNextLevel(self, nextLevel, transitionDirection)
 
 func failLevel():
 	# play the eplosion animation
