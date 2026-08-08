@@ -41,7 +41,8 @@ func update_lasers(currentTurn: int) -> void:
 	var cycleLength = activeCycle + inactiveCycle
 	var isActive = false
 	if cycleLength > 0:
-		isActive = (currentTurn % cycleLength) < activeCycle
+		# Run the inactive cycle first, so it is always off on turn 0
+		isActive = (currentTurn % cycleLength) >= inactiveCycle
 	else:
 		isActive = true # Always on if cycle is 0
 		
