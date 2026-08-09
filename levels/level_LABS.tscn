@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://i4jf188o286y"]
+
+[ext_resource type="Script" uid="uid://yht268k4x1yl" path="res://scripts/main.gd" id="1_qabf8"]
+[ext_resource type="PackedScene" uid="uid://be8mu3jbbcefa" path="res://levels/level_2.tscn" id="2_ts0gq"]
+[ext_resource type="Resource" uid="uid://ctq0wrer25v52" path="res://resources/gridData.tres" id="3_0df04"]
+[ext_resource type="PackedScene" uid="uid://b5haucqrquf7d" path="res://scenes/tile.tscn" id="6_203mh"]
+[ext_resource type="PackedScene" uid="uid://cjpb8my3hm0cg" path="res://scenes/wall.tscn" id="7_c6jv4"]
+[ext_resource type="PackedScene" uid="uid://2co2p3jv3dak" path="res://scenes/horizontalGate.tscn" id="8_36jc6"]
+[ext_resource type="PackedScene" uid="uid://cu60amqnka545" path="res://scenes/verticalGate.tscn" id="9_iejyo"]
+[ext_resource type="PackedScene" uid="uid://bnvhn0pyc7d6i" path="res://scenes/goalTile.tscn" id="10_husp3"]
+[ext_resource type="PackedScene" uid="uid://batteryslot01" path="res://scenes/batterySlot.tscn" id="11_pwvwh"]
+[ext_resource type="PackedScene" uid="uid://t0w3r001" path="res://scenes/tower.tscn" id="12_3edqh"]
+[ext_resource type="Texture2D" uid="uid://di7i8ctstfek6" path="res://sprites/player.png" id="13_x0ebi"]
+[ext_resource type="Script" uid="uid://dyocwgdae17g3" path="res://scripts/player.gd" id="14_kr32k"]
+[ext_resource type="Texture2D" uid="uid://bax107dg2lx1p" path="res://sprites/Labs Furniture.png" id="14_oefbu"]
+[ext_resource type="PackedScene" uid="uid://uurjetqrhqdm" path="res://scenes/clockHUD.tscn" id="15_djav6"]
+
+[node name="Node2D2" type="Node2D" unique_id=622526204]
+y_sort_enabled = true
+script = ExtResource("1_qabf8")
+nextLevel = ExtResource("2_ts0gq")
+transitionDirection = Vector2(0, 1)
+gridData = ExtResource("3_0df04")
+rows = 6
+columns = 7
+gridYOffset = 40
+gridHoles = Array[Vector2]([Vector2(0, 0), Vector2(0, 1), Vector2(0, 2), Vector2(1, 0), Vector2(1, 1), Vector2(1, 2), Vector2(2, 0), Vector2(2, 1), Vector2(2, 2), Vector2(1, 3), Vector2(1, 6), Vector2(2, 6)])
+goalCoord = Vector2(0, 5)
+moveLimit = 1000
+rewindDuration = 3
+playerSpawnCoord = Vector2(3, 0)
+playerInventoryPosition = Vector2(20, 20)
+playerInventoryFlow = 1
+playerInventorySpacing = 20.0
+tile = ExtResource("6_203mh")
+wall = ExtResource("7_c6jv4")
+horizontalGate = ExtResource("8_36jc6")
+verticalGate = ExtResource("9_iejyo")
+goalTile = ExtResource("10_husp3")
+batterySlotScene = ExtResource("11_pwvwh")
+towerScene = ExtResource("12_3edqh")
+
+[node name="Walls Holder" type="Node2D" parent="." unique_id=394588921]
+
+[node name="Tiles Holder" type="Node2D" parent="." unique_id=1002118719]
+modulate = Color(0.6321235, 0.6321235, 0.6321234, 1)
+z_index = -1
+
+[node name="Items Holder" type="Node2D" parent="." unique_id=321358500]
+y_sort_enabled = true
+
+[node name="Gates Holder" type="Node2D" parent="." unique_id=179402994]
+y_sort_enabled = true
+
+[node name="Slots Holder" type="Node2D" parent="." unique_id=556677889]
+
+[node name="Towers Holder" type="Node2D" parent="." unique_id=999888777]
+
+[node name="Player" type="Sprite2D" parent="." unique_id=1445820767]
+y_sort_enabled = true
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("13_x0ebi")
+offset = Vector2(0, -16)
+hframes = 2
+vframes = 3
+script = ExtResource("14_kr32k")
+gridData = ExtResource("3_0df04")
+moveTime = 0.2
+animTime = 0.5
+
+[node name="Clock" parent="." unique_id=632676882 instance=ExtResource("15_djav6")]
+visible = false
+position = Vector2(272.00003, 64.00001)
+
+[node name="LabsFurniture" type="Sprite2D" parent="." unique_id=1816926108]
+position = Vector2(88, 182)
+scale = Vector2(2.9453123, 2.9453123)
+texture = ExtResource("14_oefbu")
+hframes = 2
+vframes = 2
+
+[node name="LabsFurniture2" type="Sprite2D" parent="." unique_id=1491575741]
+position = Vector2(201, 181)
+scale = Vector2(2.3164058, 2.3164058)
+texture = ExtResource("14_oefbu")
+hframes = 2
+vframes = 2
+frame = 1
+
+[node name="LabsFurniture3" type="Sprite2D" parent="." unique_id=1651320985]
+position = Vector2(236.73439, 97.2656)
+scale = Vector2(2.5166018, 2.5166018)
+texture = ExtResource("14_oefbu")
+hframes = 2
+vframes = 2
+frame = 2
+
+[node name="LabsFurniture4" type="Sprite2D" parent="." unique_id=271821260]
+position = Vector2(145.63281, 94.36719)
+scale = Vector2(2.6020508, 2.6020508)
+texture = ExtResource("14_oefbu")
+hframes = 2
+vframes = 2
+frame = 3

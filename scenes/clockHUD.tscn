@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cdwkkbkuh52xb" path="res://sprites/Keys.png" id="4_mmlsl"]
 
 [node name="Clock" type="Sprite2D" unique_id=632676882]
+z_index = 1
 rotation = 0.54803336
 scale = Vector2(1.758, 1.758)
 texture = ExtResource("1_kunol")
