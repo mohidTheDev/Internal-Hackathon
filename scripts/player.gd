@@ -104,6 +104,7 @@ func move(direction: Vector2) -> void:
 	if !gridData.canMoveTo(currentCoord + direction):
 		return
 	if currentMoves == totalMoves:
+		SoundManager.play_sfx("explosion")
 		levelController.failLevel()
 		return
 	canAct = false
