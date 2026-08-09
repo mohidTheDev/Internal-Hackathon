@@ -340,7 +340,7 @@ func completeLevel():
 	# hide player
 	# pause everything and play the level complete animation
 	# (Player going down lift)
-	
+	SoundManager.play_sfx("lvl_end", 0, 0, 0.5)
 	# scene transition
 	Global.transitionToNextLevel(self, nextLevel, transitionDirection)
 

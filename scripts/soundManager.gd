@@ -1,6 +1,6 @@
 extends Node
 
-const SFX_POOL_SIZE := 6
+const SFX_POOL_SIZE := 7
 var sfx_pool: Array[AudioStreamPlayer] = []
 var sfx_index := 0
 
@@ -11,6 +11,7 @@ var sfx_streams := {
 	"laser": preload("res://audio/sfx/laser.mp3"),
 	"die": preload("res://audio/sfx/die.mp3"),
 	"explosion": preload("res://audio/sfx/explosion.mp3"),
+	"lvl_end": preload("res://audio/sfx/lvl_end.mp3")
 }
 
 @onready var music_player: AudioStreamPlayer = AudioStreamPlayer.new()
@@ -26,7 +27,7 @@ func _ready() -> void:
 	add_child(music_player)
 
 
-func play_sfx(name: String, pitch_variation: float = 0.0, volume_db: float = 0.0) -> void:
+func play_sfx(name: String, pitch_variation: float = 0.0, volume_db: float = 0.0, delay: float =0.0) -> void:
 	if not sfx_streams.has(name):
 		push_warning("Unknown sfx: %s" % name)
 		return
@@ -35,6 +36,7 @@ func play_sfx(name: String, pitch_variation: float = 0.0, volume_db: float = 0.0
 	player.stream = sfx_streams[name]
 	player.pitch_scale = 1.0 + randf_range(-pitch_variation, pitch_variation)
 	player.volume_db = volume_db
+	await get_tree().create_timer(delay).timeout
 	player.play()
 	
 func play_music(stream: AudioStream, fade_in: float = 0.5) -> void:

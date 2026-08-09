@@ -54,7 +54,7 @@ func update_lasers(currentTurn: int) -> void:
 	# The physical center is the visual center
 	if isActive != _is_currently_active:
 		if isActive:
-			SoundManager.play_sfx("laser")
+			SoundManager.play_sfx("laser", 0, -22)
 			pass
 		else:
 			pass
