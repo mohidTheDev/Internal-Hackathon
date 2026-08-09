@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://ck80amw5iby2t"]
+
+[ext_resource type="Texture2D" uid="uid://dp0qmaoo2obpi" path="res://sprites/Player Silhouette.png" id="1_301iv"]
+
+[node name="PlayerSilhouette" type="Sprite2D" unique_id=609255874]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_301iv")
+offset = Vector2(0, -16)
+hframes = 2
+vframes = 3

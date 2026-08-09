@@ -2,14 +2,18 @@ extends Node
 
 # Scene references (Replace the strings with your actual file paths)
 var clockScene: PackedScene = preload("res://scenes/clockSilhouette.tscn")
+var playerSilhouetteScene: PackedScene = preload("res://scenes/playerSilhouette.tscn") # Add your path here
+
 var clockInstance: Node2D
 var needleInstance: Node2D
+var playerSilhouetteInstance: Node2D
 
 # Restart Animation Speeds & Settings
 var fadeDuration: float = 0.5          # How long the black screen/clock takes to fade in and out
 var needleRotateDuration: float = 1.5  # How long the needle takes to complete its spins
 var needleSpinCount: float = 3.0       # Number of full anti-clockwise rotations
 var fadeOutDelay: float = 0.8          # How long to wait before starting the fade-out
+var levelFailHoldDuration: float = 1.0 # How long the instant fail screen stays before restarting
 
 var whiteScreen: Sprite2D
 var blackScreen: Sprite2D
@@ -34,6 +38,15 @@ func _ready() -> void:
 	blackScreen.scale = viewport_size
 	blackScreen.z_index = 2
 	add_child(blackScreen)
+	
+	# Instantiate Player Silhouette
+	if playerSilhouetteScene:
+		playerSilhouetteInstance = playerSilhouetteScene.instantiate()
+		playerSilhouetteInstance.z_index = 3 # Set to 3 as requested
+		playerSilhouetteInstance.modulate.a = 0.0 # Make transparent for fading
+		playerSilhouetteInstance.visible = false # Hidden initially
+		add_child(playerSilhouetteInstance)
+	
 	# Instantiate Clock
 	if clockScene:
 		clockInstance = clockScene.instantiate()
@@ -88,7 +101,7 @@ func restartLevel(currentLevel: Node2D) -> void:
 	if !currentLevel:
 		return
 		
-	# 1. Fade the black screen and clock in
+	# 1. Fade the black screen and clock in (Silhouette is already visible from levelFail)
 	blackScreen.visible = true
 	if clockInstance: clockInstance.visible = true
 	
@@ -116,7 +129,7 @@ func restartLevel(currentLevel: Node2D) -> void:
 	# Wait using the variable
 	await get_tree().create_timer(fadeOutDelay).timeout
 	
-	# 4. As the needle is rotating, fade all three out to make the current level visible
+	# 4. As the needle is rotating, fade all out to make the current level visible
 	var fadeOutTween: Tween = create_tween()
 	fadeOutTween.set_parallel(true)
 	
@@ -125,10 +138,36 @@ func restartLevel(currentLevel: Node2D) -> void:
 	
 	await fadeOutTween.finished
 	
-	# Fully hide the UI overlays once transparent
+	# Fully hide the UI overlays once transparent (removed silhouette hide)
 	blackScreen.visible = false
 	if clockInstance: clockInstance.visible = false
 	
 	# 5. Reset the clock and needle so that the needle is returned to 0 rotation
 	if needleInstance:
 		needleInstance.rotation = 0.0
+
+func levelFail(currentLevel):
+	# Corrected path to grab the player from the current level safely
+	var playerNode = currentLevel.get_node("Player")
+	playerSilhouetteInstance.frame = playerNode.frame
+	# Instantly make the black screen visible
+	blackScreen.modulate.a = 1.0
+	blackScreen.visible = true
+	
+	# Instantly move silhouette to player position and make it visible
+	if playerSilhouetteInstance and playerNode:
+		playerSilhouetteInstance.global_position = playerNode.global_position
+		playerSilhouetteInstance.modulate.a = 1.0
+		playerSilhouetteInstance.visible = true
+	
+	# Stay there for a moment based on the variable
+	await get_tree().create_timer(levelFailHoldDuration).timeout
+	
+	# Fade out the silhouette BEFORE restarting
+	if playerSilhouetteInstance:
+		var silhouetteFadeTween = create_tween()
+		silhouetteFadeTween.tween_property(playerSilhouetteInstance, "modulate:a", 0.0, fadeDuration)
+		await silhouetteFadeTween.finished
+		playerSilhouetteInstance.visible = false
+	
+	restartLevel(currentLevel)

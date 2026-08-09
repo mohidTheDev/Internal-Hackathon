@@ -345,8 +345,5 @@ func completeLevel():
 	Global.transitionToNextLevel(self, nextLevel, transitionDirection)
 
 func failLevel():
-	# play the eplosion animation
-	Global.restartLevel(self)
-	# do the fade transition back to this scene resetted
-	print("Level Failed")
+	Global.levelFail(self)
 	
