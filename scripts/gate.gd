@@ -68,6 +68,7 @@ func toggleGate() -> void:
 		await get_tree().create_timer(gateOpenTime).timeout
 		frame = 2
 		light.frame = 2
+		SoundManager.play_sfx("gate_close")
 		
 	elif !wasOpen and shouldBeOpen == true:
 		# frame is 2
@@ -76,6 +77,7 @@ func toggleGate() -> void:
 		await get_tree().create_timer(gateOpenTime).timeout
 		frame = 0
 		light.frame = 0
+		SoundManager.play_sfx("gate_open")
 
 func rewind() -> void:
 	gateOpenTimeline.pop_back()

@@ -91,7 +91,7 @@ func slide() -> void:
 	moveTween.tween_property(self, "position", 
 	gridData.coordToPos(currentCoord) + ySortOffset, moveTime)
 	gridData.playerCoords = currentCoord
-	
+	SoundManager.play_sfx("move")
 	# wait for sliding to complete
 	await moveTween.finished
 	return
@@ -104,6 +104,7 @@ func move(direction: Vector2) -> void:
 	if !gridData.canMoveTo(currentCoord + direction):
 		return
 	if currentMoves == totalMoves:
+		SoundManager.play_sfx("explosion")
 		levelController.failLevel()
 		return
 	canAct = false
