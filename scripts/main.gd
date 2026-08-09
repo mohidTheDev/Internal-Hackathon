@@ -284,6 +284,7 @@ func _ready() -> void:
 	batterySlotSetup()
 	towerSetup()
 
+
 func updateHUD(currentMoves: int) -> void:
 	var remainingMoves: int = moveLimit - currentMoves
 	movesLabel.text = str(remainingMoves)
@@ -341,6 +342,8 @@ func completeLevel():
 	# pause everything and play the level complete animation
 	# (Player going down lift)
 	SoundManager.play_sfx("lvl_end", 0, 0, 0.5)
+	var a = randi_range(1,8)
+	SoundManager.play_custom_sfx(str(a))
 	# scene transition
 	Global.transitionToNextLevel(self, nextLevel, transitionDirection)
 

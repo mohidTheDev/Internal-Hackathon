@@ -100,7 +100,9 @@ func transitionToNextLevel(currentLevel: Node2D, nextLevelScene: PackedScene, tr
 func restartLevel(currentLevel: Node2D) -> void:
 	if !currentLevel:
 		return
-		
+	
+	SoundManager.play_custom_sfx("3")
+	
 	# 1. Fade the black screen and clock in (Silhouette is already visible from levelFail)
 	blackScreen.visible = true
 	if clockInstance: clockInstance.visible = true

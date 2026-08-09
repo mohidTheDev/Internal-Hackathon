@@ -155,6 +155,7 @@ func rewind() -> void:
 	
 	canAct = false
 	isRewinding = true
+	SoundManager.play_custom_sfx("tbg")
 	for i in range(rewindDuration):
 		# loop through all entities with a rewindable state
 		
