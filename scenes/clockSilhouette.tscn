@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://d06cej27siwob"]
+
+[ext_resource type="Texture2D" uid="uid://dgyv8qtdlxuck" path="res://sprites/Clock Silhouette.png" id="1_rtpvd"]
+
+[node name="ClockSilhouette" type="Sprite2D" unique_id=361677984]
+scale = Vector2(2, 2)
+texture = ExtResource("1_rtpvd")
+vframes = 2
+
+[node name="Needle" type="Sprite2D" parent="." unique_id=2107445126]
+texture = ExtResource("1_rtpvd")
+offset = Vector2(-0.5, 0)
+vframes = 2
+frame = 1

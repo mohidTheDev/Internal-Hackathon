@@ -296,6 +296,8 @@ func updateHUD(currentMoves: int) -> void:
 
 func _process(delta: float) -> void:
 	animateWatch(delta)
+	if (Input.is_action_just_pressed("r")):
+		Global.restartLevel(self)
 
 # arranges all items in the player's inventory (visually) to be equally spaced
 func organiseInventory() -> void:
@@ -344,7 +346,7 @@ func completeLevel():
 
 func failLevel():
 	# play the eplosion animation
-	# play the clock turning back time animation
+	Global.restartLevel(self)
 	# do the fade transition back to this scene resetted
 	print("Level Failed")
 	
