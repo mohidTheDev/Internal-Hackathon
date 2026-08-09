@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="internalHackathon"
-run/main_scene="uid://dwmknam5edgof"
+config/name="Loop Labs"
+run/main_scene="uid://66hvfuv1y1w6"
 config/features=PackedStringArray("4.7", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://dwog8chaa6qwb"
 
 [autoload]
 

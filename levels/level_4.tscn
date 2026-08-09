@@ -20,6 +20,7 @@
 y_sort_enabled = true
 script = ExtResource("1_vru0x")
 nextLevel = ExtResource("2_vru0x")
+transitionDirection = Vector2(0, -1)
 gridData = ExtResource("3_8mt0c")
 gridYOffset = 60
 gridHoles = Array[Vector2]([Vector2(1, 0), Vector2(2, 3), Vector2(3, 3), Vector2(4, 3)])
@@ -27,7 +28,7 @@ goalCoord = Vector2(4, 4)
 pickableItems = Array[PackedScene]([ExtResource("4_dp2yl"), ExtResource("5_a7qdg")])
 pickableItemsCoords = Array[Vector2]([Vector2(0, 0), Vector2(1, 4)])
 gates = Array[int]([0, 1, 1])
-gatesOrientation = Array[int]([0, 0, 0])
+gatesOrientation = Array[int]([1, 0, 1])
 gatesCoords = Array[Vector2]([Vector2(3, 4), Vector2(0, 1), Vector2(2, 4)])
 playerSpawnCoord = Vector2(4, 1)
 playerInventoryPosition = Vector2(20, 20)

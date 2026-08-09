@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://66hvfuv1y1w6"]
 
 [ext_resource type="Script" uid="uid://yht268k4x1yl" path="res://scripts/main.gd" id="1_ktoem"]
-[ext_resource type="PackedScene" uid="uid://cquhebco8kxiu" path="res://levels/level_1.tscn" id="2_hdedi"]
+[ext_resource type="PackedScene" uid="uid://dwmknam5edgof" path="res://levels/level_01.tscn" id="2_ktoem"]
 [ext_resource type="Resource" uid="uid://ctq0wrer25v52" path="res://resources/gridData.tres" id="3_tgkku"]
 [ext_resource type="PackedScene" uid="uid://b5haucqrquf7d" path="res://scenes/tile.tscn" id="4_bsewb"]
 [ext_resource type="PackedScene" uid="uid://cjpb8my3hm0cg" path="res://scenes/wall.tscn" id="5_fg80w"]
@@ -16,11 +16,12 @@
 [ext_resource type="FontFile" uid="uid://bx375iki8ljww" path="res://PixelifySans-VariableFont_wght.ttf" id="14_bfmws"]
 [ext_resource type="Texture2D" uid="uid://cf4n5ulpgo6n6" path="res://sprites/temp.png" id="15_46swt"]
 [ext_resource type="Texture2D" uid="uid://cdwkkbkuh52xb" path="res://sprites/Keys.png" id="16_5s01l"]
+[ext_resource type="Texture2D" uid="uid://dwog8chaa6qwb" path="res://sprites/Logo2.png" id="17_hdedi"]
 
 [node name="Node2D2" type="Node2D" unique_id=622526204]
 y_sort_enabled = true
 script = ExtResource("1_ktoem")
-nextLevel = ExtResource("2_hdedi")
+nextLevel = ExtResource("2_ktoem")
 gridData = ExtResource("3_tgkku")
 rows = 1
 gridYOffset = 180
@@ -174,3 +175,8 @@ texture = ExtResource("16_5s01l")
 hframes = 3
 vframes = 4
 frame = 7
+
+[node name="Logo2" type="Sprite2D" parent="." unique_id=1938311997]
+position = Vector2(149.00002, 72)
+scale = Vector2(1.3333334, 1.3333334)
+texture = ExtResource("17_hdedi")

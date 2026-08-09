@@ -19,7 +19,7 @@ var whiteScreen: Sprite2D
 var blackScreen: Sprite2D
 
 var totalRewinds: int = 0
-var levelOnePath: String = "res://levels/level_1.tscn"
+var levelOnePath: String = "res://levels/level_00.tscn"
 
 func _ready() -> void:
 	var viewport_size: Vector2 = get_viewport().get_visible_rect().size
