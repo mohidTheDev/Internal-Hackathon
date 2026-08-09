@@ -291,8 +291,10 @@ func updateHUD(currentMoves: int) -> void:
 	targetNeedleAngle = (get_node("Player").currentMoves * 45) % 360
 	if currentMoves >= rewindDuration:
 		rewindAvailable = true
+		clock.get_node("Keys").visible = true
 	else:
 		rewindAvailable = false
+		clock.get_node("Keys").visible = false
 
 func _process(delta: float) -> void:
 	animateWatch(delta)

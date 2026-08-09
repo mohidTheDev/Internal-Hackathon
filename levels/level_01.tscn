@@ -1,0 +1,121 @@
+[gd_scene format=3 uid="uid://dwmknam5edgof"]
+
+[ext_resource type="Script" uid="uid://yht268k4x1yl" path="res://scripts/main.gd" id="1_axdoh"]
+[ext_resource type="PackedScene" uid="uid://cquhebco8kxiu" path="res://levels/level_1.tscn" id="2_fj15s"]
+[ext_resource type="Resource" uid="uid://ctq0wrer25v52" path="res://resources/gridData.tres" id="3_qgvj7"]
+[ext_resource type="PackedScene" uid="uid://noojikuv2jev" path="res://scenes/keyCard.tscn" id="4_fv0x7"]
+[ext_resource type="PackedScene" uid="uid://b5haucqrquf7d" path="res://scenes/tile.tscn" id="6_uuq13"]
+[ext_resource type="PackedScene" uid="uid://cjpb8my3hm0cg" path="res://scenes/wall.tscn" id="7_58gyl"]
+[ext_resource type="PackedScene" uid="uid://2co2p3jv3dak" path="res://scenes/horizontalGate.tscn" id="8_ggct0"]
+[ext_resource type="PackedScene" uid="uid://cu60amqnka545" path="res://scenes/verticalGate.tscn" id="9_8mki0"]
+[ext_resource type="PackedScene" uid="uid://bnvhn0pyc7d6i" path="res://scenes/goalTile.tscn" id="10_gxks1"]
+[ext_resource type="PackedScene" uid="uid://batteryslot01" path="res://scenes/batterySlot.tscn" id="11_osodt"]
+[ext_resource type="PackedScene" uid="uid://t0w3r001" path="res://scenes/tower.tscn" id="12_vfwqd"]
+[ext_resource type="Texture2D" uid="uid://dg734f5tsrbrh" path="res://sprites/Clock.png" id="13_as6hq"]
+[ext_resource type="Texture2D" uid="uid://di7i8ctstfek6" path="res://sprites/player.png" id="13_juy1h"]
+[ext_resource type="Script" uid="uid://dyocwgdae17g3" path="res://scripts/player.gd" id="14_7di2q"]
+[ext_resource type="Texture2D" uid="uid://cdwkkbkuh52xb" path="res://sprites/Keys.png" id="14_p0s0h"]
+[ext_resource type="FontFile" uid="uid://bx375iki8ljww" path="res://PixelifySans-VariableFont_wght.ttf" id="14_qgvj7"]
+[ext_resource type="Texture2D" uid="uid://cf4n5ulpgo6n6" path="res://sprites/temp.png" id="15_fv0x7"]
+
+[node name="Node2D2" type="Node2D" unique_id=622526204]
+y_sort_enabled = true
+script = ExtResource("1_axdoh")
+nextLevel = ExtResource("2_fj15s")
+transitionDirection = Vector2(0, 1)
+gridData = ExtResource("3_qgvj7")
+rows = 3
+gridYOffset = 60
+gridHoles = Array[Vector2]([Vector2(0, 0), Vector2(0, 2), Vector2(0, 3), Vector2(0, 4), Vector2(1, 0), Vector2(1, 2), Vector2(1, 3), Vector2(1, 4)])
+goalCoord = Vector2(0, 1)
+pickableItems = Array[PackedScene]([ExtResource("4_fv0x7")])
+pickableItemsCoords = Array[Vector2]([Vector2(2, 4)])
+gates = Array[int]([0])
+gatesOrientation = Array[int]([1])
+gatesCoords = Array[Vector2]([Vector2(1, 1)])
+moveLimit = 5
+playerSpawnCoord = Vector2(2, 0)
+playerInventoryPosition = Vector2(20, 20)
+playerInventoryFlow = 1
+playerInventorySpacing = 20.0
+tile = ExtResource("6_uuq13")
+wall = ExtResource("7_58gyl")
+horizontalGate = ExtResource("8_ggct0")
+verticalGate = ExtResource("9_8mki0")
+goalTile = ExtResource("10_gxks1")
+batterySlotScene = ExtResource("11_osodt")
+towerScene = ExtResource("12_vfwqd")
+
+[node name="Walls Holder" type="Node2D" parent="." unique_id=394588921]
+
+[node name="Tiles Holder" type="Node2D" parent="." unique_id=1002118719]
+modulate = Color(0.6321235, 0.6321235, 0.6321234, 1)
+z_index = -1
+
+[node name="Items Holder" type="Node2D" parent="." unique_id=321358500]
+y_sort_enabled = true
+
+[node name="Gates Holder" type="Node2D" parent="." unique_id=179402994]
+y_sort_enabled = true
+
+[node name="Slots Holder" type="Node2D" parent="." unique_id=556677889]
+
+[node name="Towers Holder" type="Node2D" parent="." unique_id=999888777]
+
+[node name="Player" type="Sprite2D" parent="." unique_id=1445820767]
+y_sort_enabled = true
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("13_juy1h")
+offset = Vector2(0, -16)
+hframes = 2
+vframes = 3
+script = ExtResource("14_7di2q")
+gridData = ExtResource("3_qgvj7")
+moveTime = 0.2
+animTime = 0.5
+
+[node name="Clock" type="Sprite2D" parent="." unique_id=632676882]
+position = Vector2(272.00003, 64.00001)
+rotation = 0.54803336
+scale = Vector2(1.758, 1.758)
+texture = ExtResource("13_as6hq")
+hframes = 2
+vframes = 3
+
+[node name="MovesLabel" type="Label" parent="Clock" unique_id=1192891748]
+modulate = Color(0.2, 1, 0.6, 1)
+offset_left = 18.438433
+offset_top = 6.2749615
+offset_right = 28.733433
+offset_bottom = 13.274961
+rotation = -1.5707964
+theme_override_colors/font_color = Color(0.027013691, 0.11929835, 0.0368197, 1)
+theme_override_fonts/font = ExtResource("14_qgvj7")
+theme_override_font_sizes/font_size = 5
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Needle" type="Sprite2D" parent="Clock" unique_id=1133516556]
+texture = ExtResource("13_as6hq")
+offset = Vector2(-0.475, 0)
+hframes = 2
+vframes = 3
+frame = 1
+
+[node name="WhiteScreen" type="Sprite2D" parent="Clock" unique_id=1744956050]
+visible = false
+position = Vector2(-2577.6567, 1502.8154)
+scale = Vector2(267.97427, 328.17416)
+texture = ExtResource("15_fv0x7")
+
+[node name="Keys" type="Sprite2D" parent="Clock" unique_id=1971369957]
+visible = false
+position = Vector2(14.4146805, 22.523254)
+rotation = -0.54803336
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("14_p0s0h")
+hframes = 3
+vframes = 4
+frame = 8
