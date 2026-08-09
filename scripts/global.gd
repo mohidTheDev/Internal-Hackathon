@@ -1,9 +1,59 @@
 extends Node
 
+# Scene references (Replace the strings with your actual file paths)
+var clockScene: PackedScene = preload("res://scenes/clockSilhouette.tscn")
+var clockInstance: Node2D
+var needleInstance: Node2D
+
+# Restart Animation Speeds & Settings
+var fadeDuration: float = 0.5          # How long the black screen/clock takes to fade in and out
+var needleRotateDuration: float = 1.5  # How long the needle takes to complete its spins
+var needleSpinCount: float = 3.0       # Number of full anti-clockwise rotations
+var fadeOutDelay: float = 0.8          # How long to wait before starting the fade-out
+
+var whiteScreen: Sprite2D
+var blackScreen: Sprite2D
+
+func _ready() -> void:
+	var viewport_size: Vector2 = get_viewport().get_visible_rect().size
+	
+	# Create the white screen
+	whiteScreen = Sprite2D.new()
+	whiteScreen.texture = CanvasTexture.new() # Built-in 1x1 white texture
+	whiteScreen.modulate = Color.WHITE
+	whiteScreen.centered = false
+	whiteScreen.scale = viewport_size
+	whiteScreen.z_index = 2
+	add_child(whiteScreen)
+	
+	# Create the black screen
+	blackScreen = Sprite2D.new()
+	blackScreen.texture = CanvasTexture.new()
+	blackScreen.modulate = Color.BLACK
+	blackScreen.centered = false
+	blackScreen.scale = viewport_size
+	blackScreen.z_index = 2
+	add_child(blackScreen)
+	# Instantiate Clock
+	if clockScene:
+		clockInstance = clockScene.instantiate()
+		clockInstance.position = viewport_size / 2.0
+		clockInstance.z_index = 3 # Above the black screen
+		clockInstance.modulate.a = 0.0 # Make transparent for fading
+		clockInstance.visible = false
+		add_child(clockInstance)
+		
+		needleInstance = clockInstance.get_node("Needle")
+		
+	# Hide them initially so they don't block game on startup
+	whiteScreen.visible = false
+	blackScreen.visible = false
+	whiteScreen.modulate.a = 0.0
+	blackScreen.modulate.a = 0.0
+
 # spawn next level scene
 # pan to next level scene
 # unload this scene
-
 func transitionToNextLevel(currentLevel: Node2D, nextLevelScene: PackedScene, transitionDirection: Vector2 = Vector2(1, 0)) -> void:
 	if !nextLevelScene:
 		return
@@ -33,3 +83,52 @@ func transitionToNextLevel(currentLevel: Node2D, nextLevelScene: PackedScene, tr
 	
 	# Unload this scene
 	currentLevel.queue_free()
+
+func restartLevel(currentLevel: Node2D) -> void:
+	if !currentLevel:
+		return
+		
+	# 1. Fade the black screen and clock in
+	blackScreen.visible = true
+	if clockInstance: clockInstance.visible = true
+	
+	var fadeInTween: Tween = create_tween()
+	fadeInTween.set_parallel(true)
+	
+	# Fading the clock automatically fades its child needle!
+	fadeInTween.tween_property(blackScreen, "modulate:a", 1.0, fadeDuration)
+	if clockInstance: fadeInTween.tween_property(clockInstance, "modulate:a", 1.0, fadeDuration)
+	
+	await fadeInTween.finished
+	
+	# 2. Make the needle rotate in the anticlockwise direction fast
+	var rotateTween: Tween = create_tween()
+	if needleInstance:
+		rotateTween.tween_property(needleInstance, "rotation", -TAU * needleSpinCount, needleRotateDuration).as_relative().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+		
+	# 3. Unload and reload the current level
+	var currentPath = currentLevel.scene_file_path
+	var reloadedScene = load(currentPath) as PackedScene
+	var nextLevel = reloadedScene.instantiate()
+	currentLevel.get_parent().add_child(nextLevel)
+	currentLevel.queue_free()
+	
+	# Wait using the variable
+	await get_tree().create_timer(fadeOutDelay).timeout
+	
+	# 4. As the needle is rotating, fade all three out to make the current level visible
+	var fadeOutTween: Tween = create_tween()
+	fadeOutTween.set_parallel(true)
+	
+	fadeOutTween.tween_property(blackScreen, "modulate:a", 0.0, fadeDuration)
+	if clockInstance: fadeOutTween.tween_property(clockInstance, "modulate:a", 0.0, fadeDuration)
+	
+	await fadeOutTween.finished
+	
+	# Fully hide the UI overlays once transparent
+	blackScreen.visible = false
+	if clockInstance: clockInstance.visible = false
+	
+	# 5. Reset the clock and needle so that the needle is returned to 0 rotation
+	if needleInstance:
+		needleInstance.rotation = 0.0
