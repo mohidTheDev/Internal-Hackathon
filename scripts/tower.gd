@@ -19,6 +19,7 @@ var gridData: GridData
 
 # Line2D nodes for the lasers
 var lines: Dictionary = {}
+var _is_currently_active: bool = false
 
 func setup() -> void:
 	gridData.towers[coords] = self
@@ -51,6 +52,14 @@ func update_lasers(currentTurn: int) -> void:
 	else:
 		isActive = true # Always on if cycle is 0
 	# The physical center is the visual center
+	if isActive != _is_currently_active:
+		if isActive:
+			SoundManager.play_sfx("laser")
+			pass
+		else:
+			pass
+			
+		_is_currently_active = isActive # Update the tracker for next turn
 	var localVisualCenter: Vector2 = Vector2(0, 0)
 	
 	for dir in lines.keys():

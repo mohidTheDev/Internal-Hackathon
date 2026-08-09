@@ -346,5 +346,6 @@ func failLevel():
 	# play the eplosion animation
 	# play the clock turning back time animation
 	# do the fade transition back to this scene resetted
+	SoundManager.play_sfx("die")
 	print("Level Failed")
 	
