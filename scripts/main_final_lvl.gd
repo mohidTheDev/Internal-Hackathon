@@ -292,15 +292,16 @@ func updateHUD(currentMoves: int) -> void:
 	targetNeedleAngle = (get_node("Player").currentMoves * 45) % 360
 	if currentMoves >= rewindDuration:
 		rewindAvailable = true
-		clock.get_node("Keys").visible = true
 	else:
 		rewindAvailable = false
-		clock.get_node("Keys").visible = false
+
 
 func _process(delta: float) -> void:
 	animateWatch(delta)
-	if (Input.is_action_just_pressed("r")):
-		Global.restartLevel(self)
+	if (Input.is_action_just_pressed("e")):
+		Global.totalRewinds += 1
+		if Global.totalRewinds >= 10:
+			Global.returnToLevelOne(self)
 
 # arranges all items in the player's inventory (visually) to be equally spaced
 func organiseInventory() -> void:
@@ -351,5 +352,5 @@ func completeLevel():
 
 func failLevel():
 	SoundManager.play_sfx("die")
-	Global.levelFail(self)
+	#Global.levelFail(self)
 	

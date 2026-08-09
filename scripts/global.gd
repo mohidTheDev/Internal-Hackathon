@@ -18,6 +18,9 @@ var levelFailHoldDuration: float = 1.0 # How long the instant fail screen stays 
 var whiteScreen: Sprite2D
 var blackScreen: Sprite2D
 
+var totalRewinds: int = 0
+var levelOnePath: String = "res://levels/level_1.tscn"
+
 func _ready() -> void:
 	var viewport_size: Vector2 = get_viewport().get_visible_rect().size
 	
@@ -173,3 +176,49 @@ func levelFail(currentLevel):
 		playerSilhouetteInstance.visible = false
 	
 	restartLevel(currentLevel)
+	
+func returnToLevelOne(currentLevel: Node2D) -> void:
+	# Reset the counter since they are back at the beginning
+	fadeDuration= 0.5        # How long the black screen/clock takes to fade in and out
+	needleRotateDuration= 5  # How long the needle takes to complete its spins
+	needleSpinCount= 15.0      # Number of full anti-clockwise rotations
+	fadeOutDelay = 3         # How long to wait before starting the fade-out
+	levelFailHoldDuration= 1.0 
+	totalRewinds = 0
+	
+	blackScreen.visible = true
+	if clockInstance: clockInstance.visible = true
+	
+	var fadeInTween: Tween = create_tween()
+	fadeInTween.set_parallel(true)
+	
+	fadeInTween.tween_property(blackScreen, "modulate:a", 1.0, fadeDuration)
+	if clockInstance: fadeInTween.tween_property(clockInstance, "modulate:a", 1.0, fadeDuration)
+	
+	await fadeInTween.finished
+	
+	var rotateTween: Tween = create_tween()
+	if needleInstance:
+		rotateTween.tween_property(needleInstance, "rotation", -TAU * needleSpinCount, needleRotateDuration).as_relative().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+		
+	# Unload current level and load LEVEL ONE
+	var reloadedScene = load(levelOnePath) as PackedScene
+	var nextLevel = reloadedScene.instantiate()
+	currentLevel.get_parent().add_child(nextLevel)
+	currentLevel.queue_free()
+	
+	await get_tree().create_timer(fadeOutDelay).timeout
+	
+	var fadeOutTween: Tween = create_tween()
+	fadeOutTween.set_parallel(true)
+	
+	fadeOutTween.tween_property(blackScreen, "modulate:a", 0.0, fadeDuration)
+	if clockInstance: fadeOutTween.tween_property(clockInstance, "modulate:a", 0.0, fadeDuration)
+	
+	await fadeOutTween.finished
+	
+	blackScreen.visible = false
+	if clockInstance: clockInstance.visible = false
+	
+	if needleInstance:
+		needleInstance.rotation = 0.0

@@ -1,0 +1,176 @@
+[gd_scene format=3 uid="uid://66hvfuv1y1w6"]
+
+[ext_resource type="Script" uid="uid://yht268k4x1yl" path="res://scripts/main.gd" id="1_ktoem"]
+[ext_resource type="PackedScene" uid="uid://cquhebco8kxiu" path="res://levels/level_1.tscn" id="2_hdedi"]
+[ext_resource type="Resource" uid="uid://ctq0wrer25v52" path="res://resources/gridData.tres" id="3_tgkku"]
+[ext_resource type="PackedScene" uid="uid://b5haucqrquf7d" path="res://scenes/tile.tscn" id="4_bsewb"]
+[ext_resource type="PackedScene" uid="uid://cjpb8my3hm0cg" path="res://scenes/wall.tscn" id="5_fg80w"]
+[ext_resource type="PackedScene" uid="uid://2co2p3jv3dak" path="res://scenes/horizontalGate.tscn" id="6_yi81j"]
+[ext_resource type="PackedScene" uid="uid://cu60amqnka545" path="res://scenes/verticalGate.tscn" id="7_xtdsv"]
+[ext_resource type="PackedScene" uid="uid://bnvhn0pyc7d6i" path="res://scenes/goalTile.tscn" id="8_3qbue"]
+[ext_resource type="PackedScene" uid="uid://batteryslot01" path="res://scenes/batterySlot.tscn" id="9_lybht"]
+[ext_resource type="PackedScene" uid="uid://t0w3r001" path="res://scenes/tower.tscn" id="10_eo6r7"]
+[ext_resource type="Texture2D" uid="uid://di7i8ctstfek6" path="res://sprites/player.png" id="11_2xwfw"]
+[ext_resource type="Script" uid="uid://dyocwgdae17g3" path="res://scripts/player.gd" id="12_ae8hj"]
+[ext_resource type="Texture2D" uid="uid://dg734f5tsrbrh" path="res://sprites/Clock.png" id="13_cy64r"]
+[ext_resource type="FontFile" uid="uid://bx375iki8ljww" path="res://PixelifySans-VariableFont_wght.ttf" id="14_bfmws"]
+[ext_resource type="Texture2D" uid="uid://cf4n5ulpgo6n6" path="res://sprites/temp.png" id="15_46swt"]
+[ext_resource type="Texture2D" uid="uid://cdwkkbkuh52xb" path="res://sprites/Keys.png" id="16_5s01l"]
+
+[node name="Node2D2" type="Node2D" unique_id=622526204]
+y_sort_enabled = true
+script = ExtResource("1_ktoem")
+nextLevel = ExtResource("2_hdedi")
+gridData = ExtResource("3_tgkku")
+rows = 1
+gridYOffset = 180
+goalCoord = Vector2(0, 4)
+moveLimit = 5
+rewindDuration = 1000
+playerInventoryPosition = Vector2(20, 20)
+playerInventoryFlow = 1
+playerInventorySpacing = 20.0
+tile = ExtResource("4_bsewb")
+wall = ExtResource("5_fg80w")
+horizontalGate = ExtResource("6_yi81j")
+verticalGate = ExtResource("7_xtdsv")
+goalTile = ExtResource("8_3qbue")
+batterySlotScene = ExtResource("9_lybht")
+towerScene = ExtResource("10_eo6r7")
+
+[node name="Walls Holder" type="Node2D" parent="." unique_id=394588921]
+
+[node name="Tiles Holder" type="Node2D" parent="." unique_id=1002118719]
+modulate = Color(0.6321235, 0.6321235, 0.6321234, 1)
+z_index = -1
+
+[node name="Items Holder" type="Node2D" parent="." unique_id=321358500]
+y_sort_enabled = true
+
+[node name="Gates Holder" type="Node2D" parent="." unique_id=179402994]
+y_sort_enabled = true
+
+[node name="Slots Holder" type="Node2D" parent="." unique_id=556677889]
+
+[node name="Towers Holder" type="Node2D" parent="." unique_id=999888777]
+
+[node name="Player" type="Sprite2D" parent="." unique_id=1445820767]
+y_sort_enabled = true
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("11_2xwfw")
+offset = Vector2(0, -16)
+hframes = 2
+vframes = 3
+script = ExtResource("12_ae8hj")
+gridData = ExtResource("3_tgkku")
+moveTime = 0.2
+animTime = 0.5
+
+[node name="Clock" type="Sprite2D" parent="." unique_id=632676882]
+position = Vector2(272.00003, 64.00001)
+rotation = 0.54803336
+scale = Vector2(1.758, 1.758)
+texture = ExtResource("13_cy64r")
+hframes = 2
+vframes = 3
+
+[node name="MovesLabel" type="Label" parent="Clock" unique_id=1192891748]
+modulate = Color(0.2, 1, 0.6, 1)
+offset_left = 18.438433
+offset_top = 6.2749615
+offset_right = 28.733433
+offset_bottom = 13.274961
+rotation = -1.5707964
+theme_override_colors/font_color = Color(0.027013691, 0.11929835, 0.0368197, 1)
+theme_override_fonts/font = ExtResource("14_bfmws")
+theme_override_font_sizes/font_size = 5
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Needle" type="Sprite2D" parent="Clock" unique_id=1133516556]
+texture = ExtResource("13_cy64r")
+offset = Vector2(-0.475, 0)
+hframes = 2
+vframes = 3
+frame = 1
+
+[node name="WhiteScreen" type="Sprite2D" parent="Clock" unique_id=1744956050]
+visible = false
+position = Vector2(-2577.6567, 1502.8154)
+scale = Vector2(267.97427, 328.17416)
+texture = ExtResource("15_46swt")
+
+[node name="Keys" type="Sprite2D" parent="Clock" unique_id=1971369957]
+visible = false
+position = Vector2(14.4146805, 22.523254)
+rotation = -0.54803336
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("16_5s01l")
+hframes = 3
+vframes = 4
+frame = 8
+
+[node name="Keys" type="Sprite2D" parent="." unique_id=838466667]
+position = Vector2(271.995, 151.685)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("16_5s01l")
+hframes = 3
+vframes = 4
+
+[node name="Keys2" type="Sprite2D" parent="." unique_id=101488792]
+position = Vector2(254, 172)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("16_5s01l")
+hframes = 3
+vframes = 4
+frame = 1
+
+[node name="Keys3" type="Sprite2D" parent="." unique_id=615581954]
+position = Vector2(278.91, 172)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("16_5s01l")
+hframes = 3
+vframes = 4
+frame = 2
+
+[node name="Keys4" type="Sprite2D" parent="." unique_id=1423351607]
+position = Vector2(304.015, 172)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("16_5s01l")
+hframes = 3
+vframes = 4
+frame = 3
+
+[node name="Keys5" type="Sprite2D" parent="." unique_id=1229847935]
+position = Vector2(270.995, 201)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("16_5s01l")
+hframes = 3
+vframes = 4
+frame = 4
+
+[node name="Keys6" type="Sprite2D" parent="." unique_id=762249647]
+position = Vector2(253, 221.315)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("16_5s01l")
+hframes = 3
+vframes = 4
+frame = 5
+
+[node name="Keys7" type="Sprite2D" parent="." unique_id=880069782]
+position = Vector2(277.91, 221.315)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("16_5s01l")
+hframes = 3
+vframes = 4
+frame = 6
+
+[node name="Keys8" type="Sprite2D" parent="." unique_id=1040114830]
+position = Vector2(303.015, 221.315)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("16_5s01l")
+hframes = 3
+vframes = 4
+frame = 7

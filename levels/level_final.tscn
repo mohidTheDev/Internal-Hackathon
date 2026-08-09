@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://1n3mnp0uel3e"]
+
+[ext_resource type="Script" uid="uid://dvblhfl2pi70a" path="res://scripts/main_final_lvl.gd" id="1_c4hw6"]
+[ext_resource type="PackedScene" uid="uid://be8mu3jbbcefa" path="res://levels/level_2.tscn" id="2_qwy68"]
+[ext_resource type="Resource" uid="uid://ctq0wrer25v52" path="res://resources/gridData.tres" id="3_ljjhq"]
+[ext_resource type="PackedScene" uid="uid://b5haucqrquf7d" path="res://scenes/tile.tscn" id="6_reiua"]
+[ext_resource type="PackedScene" uid="uid://cjpb8my3hm0cg" path="res://scenes/wall.tscn" id="7_pq61j"]
+[ext_resource type="PackedScene" uid="uid://2co2p3jv3dak" path="res://scenes/horizontalGate.tscn" id="8_21boc"]
+[ext_resource type="PackedScene" uid="uid://cu60amqnka545" path="res://scenes/verticalGate.tscn" id="9_4wfec"]
+[ext_resource type="PackedScene" uid="uid://bnvhn0pyc7d6i" path="res://scenes/goalTile.tscn" id="10_mipnw"]
+[ext_resource type="PackedScene" uid="uid://batteryslot01" path="res://scenes/batterySlot.tscn" id="11_7vjfn"]
+[ext_resource type="PackedScene" uid="uid://t0w3r001" path="res://scenes/tower.tscn" id="12_nxrwl"]
+[ext_resource type="Texture2D" uid="uid://di7i8ctstfek6" path="res://sprites/player.png" id="13_ncaex"]
+[ext_resource type="Script" uid="uid://dyocwgdae17g3" path="res://scripts/player.gd" id="14_7770k"]
+[ext_resource type="PackedScene" uid="uid://uurjetqrhqdm" path="res://scenes/clockHUD.tscn" id="15_k3kn6"]
+
+[node name="Node2D2" type="Node2D" unique_id=622526204]
+y_sort_enabled = true
+script = ExtResource("1_c4hw6")
+nextLevel = ExtResource("2_qwy68")
+transitionDirection = Vector2(-1, 0)
+gridData = ExtResource("3_ljjhq")
+gridYOffset = 60
+gridHoles = Array[Vector2]([Vector2(0, 0), Vector2(1, 0), Vector2(3, 0), Vector2(4, 0), Vector2(0, 1), Vector2(1, 1), Vector2(3, 1), Vector2(4, 1), Vector2(0, 2), Vector2(1, 2), Vector2(3, 2), Vector2(4, 2), Vector2(0, 3), Vector2(1, 3), Vector2(3, 3), Vector2(4, 3), Vector2(0, 4), Vector2(1, 4), Vector2(3, 4), Vector2(4, 4)])
+goalCoord = Vector2(2, 4)
+moveLimit = 3
+rewindDuration = 1
+playerSpawnCoord = Vector2(2, 0)
+playerInventoryPosition = Vector2(20, 20)
+playerInventoryFlow = 1
+playerInventorySpacing = 20.0
+tile = ExtResource("6_reiua")
+wall = ExtResource("7_pq61j")
+horizontalGate = ExtResource("8_21boc")
+verticalGate = ExtResource("9_4wfec")
+goalTile = ExtResource("10_mipnw")
+batterySlotScene = ExtResource("11_7vjfn")
+towerScene = ExtResource("12_nxrwl")
+
+[node name="Walls Holder" type="Node2D" parent="." unique_id=394588921]
+
+[node name="Tiles Holder" type="Node2D" parent="." unique_id=1002118719]
+modulate = Color(0.6321235, 0.6321235, 0.6321234, 1)
+z_index = -1
+
+[node name="Items Holder" type="Node2D" parent="." unique_id=321358500]
+y_sort_enabled = true
+
+[node name="Gates Holder" type="Node2D" parent="." unique_id=179402994]
+y_sort_enabled = true
+
+[node name="Slots Holder" type="Node2D" parent="." unique_id=556677889]
+
+[node name="Towers Holder" type="Node2D" parent="." unique_id=999888777]
+
+[node name="Player" type="Sprite2D" parent="." unique_id=1445820767]
+y_sort_enabled = true
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("13_ncaex")
+offset = Vector2(0, -16)
+hframes = 2
+vframes = 3
+script = ExtResource("14_7770k")
+gridData = ExtResource("3_ljjhq")
+moveTime = 0.2
+animTime = 0.5
+
+[node name="Clock" parent="." unique_id=632676882 instance=ExtResource("15_k3kn6")]
+position = Vector2(272.00003, 64.00001)
