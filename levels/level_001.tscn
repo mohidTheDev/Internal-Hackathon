@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://crd4xnjym63ro"]
+
+[ext_resource type="Script" uid="uid://yht268k4x1yl" path="res://scripts/main.gd" id="1_ywvwd"]
+[ext_resource type="PackedScene" uid="uid://be8mu3jbbcefa" path="res://levels/level_2.tscn" id="2_5d8v6"]
+[ext_resource type="Resource" uid="uid://ctq0wrer25v52" path="res://resources/gridData.tres" id="3_ye0g1"]
+[ext_resource type="PackedScene" uid="uid://noojikuv2jev" path="res://scenes/keyCard.tscn" id="4_fmm86"]
+[ext_resource type="PackedScene" uid="uid://bo5vgile4m7xq" path="res://scenes/battery.tscn" id="5_m86b5"]
+[ext_resource type="PackedScene" uid="uid://b5haucqrquf7d" path="res://scenes/tile.tscn" id="6_jixnm"]
+[ext_resource type="PackedScene" uid="uid://cjpb8my3hm0cg" path="res://scenes/wall.tscn" id="7_lqhs4"]
+[ext_resource type="PackedScene" uid="uid://2co2p3jv3dak" path="res://scenes/horizontalGate.tscn" id="8_j8lij"]
+[ext_resource type="PackedScene" uid="uid://cu60amqnka545" path="res://scenes/verticalGate.tscn" id="9_muos6"]
+[ext_resource type="PackedScene" uid="uid://bnvhn0pyc7d6i" path="res://scenes/goalTile.tscn" id="10_6gw0i"]
+[ext_resource type="PackedScene" uid="uid://batteryslot01" path="res://scenes/batterySlot.tscn" id="11_1wc0o"]
+[ext_resource type="PackedScene" uid="uid://t0w3r001" path="res://scenes/tower.tscn" id="12_8dakf"]
+[ext_resource type="Texture2D" uid="uid://di7i8ctstfek6" path="res://sprites/player.png" id="13_qhkng"]
+[ext_resource type="Script" uid="uid://dyocwgdae17g3" path="res://scripts/player.gd" id="14_u5dcv"]
+[ext_resource type="PackedScene" uid="uid://uurjetqrhqdm" path="res://scenes/clockHUD.tscn" id="15_0rmec"]
+
+[node name="Node2D2" type="Node2D" unique_id=622526204]
+y_sort_enabled = true
+script = ExtResource("1_ywvwd")
+nextLevel = ExtResource("2_5d8v6")
+gridData = ExtResource("3_ye0g1")
+gridYOffset = 60
+gridHoles = Array[Vector2]([Vector2(2, 2), Vector2(3, 2), Vector2(3, 3)])
+goalCoord = Vector2(0, 4)
+pickableItems = Array[PackedScene]([ExtResource("4_fmm86"), ExtResource("5_m86b5")])
+pickableItemsCoords = Array[Vector2]([Vector2(3, 0), Vector2(0, 2)])
+gates = Array[int]([0, 0, 1])
+gatesOrientation = Array[int]([0, 0, 0])
+gatesCoords = Array[Vector2]([Vector2(1, 3), Vector2(1, 4), Vector2(0, 3)])
+playerSpawnCoord = Vector2(4, 4)
+playerInventoryPosition = Vector2(20, 20)
+playerInventoryFlow = 1
+playerInventorySpacing = 20.0
+tile = ExtResource("6_jixnm")
+wall = ExtResource("7_lqhs4")
+horizontalGate = ExtResource("8_j8lij")
+verticalGate = ExtResource("9_muos6")
+goalTile = ExtResource("10_6gw0i")
+batterySlotScene = ExtResource("11_1wc0o")
+towerScene = ExtResource("12_8dakf")
+towerCoords = Array[Vector2]([Vector2(1, 2), Vector2(2, 3)])
+towerFireUp = Array[bool]([false, true])
+towerFireDown = Array[bool]([false, false])
+towerFireLeft = Array[bool]([false, false])
+towerFireRight = Array[bool]([true, false])
+towerActiveCycle = Array[int]([1, 1])
+towerInactiveCycle = Array[int]([0, 0])
+batterySlotCoords = Array[Vector2]([Vector2(0, 0)])
+batterySlotGateIndex = Array[int]([2])
+batteryItemScene = ExtResource("5_m86b5")
+
+[node name="Walls Holder" type="Node2D" parent="." unique_id=394588921]
+
+[node name="Tiles Holder" type="Node2D" parent="." unique_id=1002118719]
+modulate = Color(0.6321235, 0.6321235, 0.6321234, 1)
+z_index = -1
+
+[node name="Items Holder" type="Node2D" parent="." unique_id=321358500]
+y_sort_enabled = true
+
+[node name="Gates Holder" type="Node2D" parent="." unique_id=179402994]
+y_sort_enabled = true
+
+[node name="Slots Holder" type="Node2D" parent="." unique_id=556677889]
+
+[node name="Towers Holder" type="Node2D" parent="." unique_id=999888777]
+
+[node name="Player" type="Sprite2D" parent="." unique_id=1445820767]
+y_sort_enabled = true
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("13_qhkng")
+offset = Vector2(0, -16)
+hframes = 2
+vframes = 3
+script = ExtResource("14_u5dcv")
+gridData = ExtResource("3_ye0g1")
+moveTime = 0.2
+animTime = 0.5
+
+[node name="Clock" parent="." unique_id=632676882 instance=ExtResource("15_0rmec")]
+position = Vector2(272.00003, 64.00001)
