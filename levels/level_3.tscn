@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://cyntg0r3vjsof"]
 
 [ext_resource type="Script" uid="uid://yht268k4x1yl" path="res://scripts/main.gd" id="1_wi0qq"]
-[ext_resource type="PackedScene" uid="uid://c2pvuo216gtah" path="res://levels/level_4.tscn" id="2_wi0qq"]
 [ext_resource type="Resource" uid="uid://ctq0wrer25v52" path="res://resources/gridData.tres" id="3_u4kh1"]
 [ext_resource type="PackedScene" uid="uid://noojikuv2jev" path="res://scenes/keyCard.tscn" id="4_svivd"]
 [ext_resource type="PackedScene" uid="uid://b5haucqrquf7d" path="res://scenes/tile.tscn" id="5_yafm2"]
@@ -20,7 +19,7 @@
 y_sort_enabled = true
 position = Vector2(0, -1)
 script = ExtResource("1_wi0qq")
-nextLevel = ExtResource("2_wi0qq")
+nextLevel = "uid://c2pvuo216gtah"
 transitionDirection = Vector2(-1, 0)
 gridData = ExtResource("3_u4kh1")
 gridYOffset = 60

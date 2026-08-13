@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://dwmknam5edgof"]
 
 [ext_resource type="Script" uid="uid://yht268k4x1yl" path="res://scripts/main.gd" id="1_axdoh"]
-[ext_resource type="PackedScene" uid="uid://cquhebco8kxiu" path="res://levels/level_1.tscn" id="2_fj15s"]
 [ext_resource type="Resource" uid="uid://ctq0wrer25v52" path="res://resources/gridData.tres" id="3_qgvj7"]
 [ext_resource type="PackedScene" uid="uid://noojikuv2jev" path="res://scenes/keyCard.tscn" id="4_fv0x7"]
 [ext_resource type="PackedScene" uid="uid://b5haucqrquf7d" path="res://scenes/tile.tscn" id="6_uuq13"]
@@ -21,7 +20,7 @@
 [node name="Node2D2" type="Node2D" unique_id=622526204]
 y_sort_enabled = true
 script = ExtResource("1_axdoh")
-nextLevel = ExtResource("2_fj15s")
+nextLevel = "uid://cquhebco8kxiu"
 transitionDirection = Vector2(0, 1)
 gridData = ExtResource("3_qgvj7")
 rows = 3

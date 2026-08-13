@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://cquhebco8kxiu"]
 
 [ext_resource type="Script" uid="uid://yht268k4x1yl" path="res://scripts/main.gd" id="1_2aecg"]
-[ext_resource type="PackedScene" uid="uid://be8mu3jbbcefa" path="res://levels/level_2.tscn" id="2_betor"]
 [ext_resource type="Resource" uid="uid://ctq0wrer25v52" path="res://resources/gridData.tres" id="3_7nomh"]
 [ext_resource type="PackedScene" uid="uid://noojikuv2jev" path="res://scenes/keyCard.tscn" id="4_1s4pk"]
 [ext_resource type="PackedScene" uid="uid://bo5vgile4m7xq" path="res://scenes/battery.tscn" id="5_x2xxo"]
@@ -19,7 +18,7 @@
 [node name="Node2D2" type="Node2D" unique_id=622526204]
 y_sort_enabled = true
 script = ExtResource("1_2aecg")
-nextLevel = ExtResource("2_betor")
+nextLevel = "uid://be8mu3jbbcefa"
 gridData = ExtResource("3_7nomh")
 gridYOffset = 60
 gridHoles = Array[Vector2]([Vector2(2, 4), Vector2(2, 3), Vector2(4, 4)])

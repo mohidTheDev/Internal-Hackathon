@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://cccjafwa7a7o3"]
 
 [ext_resource type="Script" uid="uid://yht268k4x1yl" path="res://scripts/main.gd" id="1_gder6"]
-[ext_resource type="PackedScene" uid="uid://1n3mnp0uel3e" path="res://levels/level_final.tscn" id="2_hv08k"]
 [ext_resource type="Resource" uid="uid://ctq0wrer25v52" path="res://resources/gridData.tres" id="3_p0827"]
 [ext_resource type="PackedScene" uid="uid://noojikuv2jev" path="res://scenes/keyCard.tscn" id="4_brp6y"]
 [ext_resource type="PackedScene" uid="uid://bo5vgile4m7xq" path="res://scenes/battery.tscn" id="5_mgx0j"]
@@ -19,7 +18,7 @@
 [node name="Node2D" type="Node2D" unique_id=622526204]
 y_sort_enabled = true
 script = ExtResource("1_gder6")
-nextLevel = ExtResource("2_hv08k")
+nextLevel = "uid://1n3mnp0uel3e"
 transitionDirection = Vector2(0, 1)
 gridData = ExtResource("3_p0827")
 gridYOffset = 60

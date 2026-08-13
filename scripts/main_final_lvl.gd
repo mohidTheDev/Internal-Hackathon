@@ -1,7 +1,8 @@
 extends Node2D
 
 @export_category("Level Management")
-@export var nextLevel: PackedScene
+#@export var nextLevel: PackedScene
+@export_custom(PROPERTY_HINT_FILE, "*.tscn") var nextLevel: String
 @export var transitionDirection: Vector2 = Vector2(1, 0)
 # [row, column] to access a grid point
 @export_category("Grid Data")

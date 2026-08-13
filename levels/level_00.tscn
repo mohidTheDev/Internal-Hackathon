@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://66hvfuv1y1w6"]
 
 [ext_resource type="Script" uid="uid://yht268k4x1yl" path="res://scripts/main.gd" id="1_ktoem"]
-[ext_resource type="PackedScene" uid="uid://dwmknam5edgof" path="res://levels/level_01.tscn" id="2_ktoem"]
 [ext_resource type="Resource" uid="uid://ctq0wrer25v52" path="res://resources/gridData.tres" id="3_tgkku"]
 [ext_resource type="PackedScene" uid="uid://b5haucqrquf7d" path="res://scenes/tile.tscn" id="4_bsewb"]
 [ext_resource type="PackedScene" uid="uid://cjpb8my3hm0cg" path="res://scenes/wall.tscn" id="5_fg80w"]
@@ -21,7 +20,7 @@
 [node name="Node2D2" type="Node2D" unique_id=622526204]
 y_sort_enabled = true
 script = ExtResource("1_ktoem")
-nextLevel = ExtResource("2_ktoem")
+nextLevel = "uid://dwmknam5edgof"
 gridData = ExtResource("3_tgkku")
 rows = 1
 gridYOffset = 180

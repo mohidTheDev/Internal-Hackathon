@@ -70,12 +70,12 @@ func _ready() -> void:
 # spawn next level scene
 # pan to next level scene
 # unload this scene
-func transitionToNextLevel(currentLevel: Node2D, nextLevelScene: PackedScene, transitionDirection: Vector2 = Vector2(1, 0)) -> void:
+func transitionToNextLevel(currentLevel: Node2D, nextLevelScene: String, transitionDirection: Vector2 = Vector2(1, 0)) -> void:
 	if !nextLevelScene:
 		return
 
 	# Spawn the next level scene
-	var nextLevel: Node2D = nextLevelScene.instantiate()
+	var nextLevel: Node2D = load(nextLevelScene).instantiate()
 	currentLevel.get_parent().add_child(nextLevel)
 	
 	# Position the next level off-screen
