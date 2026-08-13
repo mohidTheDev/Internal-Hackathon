@@ -181,13 +181,17 @@ func rewind() -> void:
 		await slide()
 		levelController.updateHUD(currentMoves)
 	
-	# SNAP TO REALITY
+	# SNAP TO REALITY (gates)
+	
 	# After the replay is over, force the timeline's "present" state to match the 
 	# physical battery, so the gate doesn't get stuck in the past!
 	for gate in gridData.gates.values():
 		if gate.type == gate.gateType.battery:
 			gate.gateOpenTimeline[-1] = gate.hasBattery
 			gate.toggleGate()
+		elif gate.type == gate.gateType.keyCard:
+			gate.gateOpenTimeline.pop_back()
+			gate.updateOpenStatus()
 			
 	# Also update lasers one last time just in case a gate snapped open/closed
 	gridData.activeLaserCells.clear()
