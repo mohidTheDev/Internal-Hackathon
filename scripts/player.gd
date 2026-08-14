@@ -18,6 +18,7 @@ var lookingLeft: bool = false
 var lookTimeline: Array[bool]
 
 var rewindEffectColorRectMaterial: ShaderMaterial
+var invertMaterial: ShaderMaterial
 
 var animTimer: float = 0
 var isRewinding: bool = false
@@ -69,6 +70,11 @@ func _ready() -> void:
 	var rewindEffectColorRect = get_parent().get_node("rewindEffect").get_child(0)
 	rewindEffectColorRectMaterial = rewindEffectColorRect.material as ShaderMaterial	
 	
+	invertMaterial = ShaderMaterial.new()
+	invertMaterial.shader = rewindEffectColorRectMaterial.shader
+	invertMaterial.set_shader_parameter("use_own_texture", true)
+	material = invertMaterial
+	
 	# y sort pivot
 	position = gridData.coordToPos(currentCoord) + ySortOffset
 	#offset = -ySortOffset
@@ -110,6 +116,8 @@ func move(direction: Vector2) -> void:
 		return
 	canAct = false
 	
+	set_inverted(false)
+	
 	if direction == Vector2(0, -1):
 		lookingLeft = true
 	elif direction == Vector2(0, 1): # Only update if explicitly moving right
@@ -146,6 +154,10 @@ func move(direction: Vector2) -> void:
 func turnComplete() -> void:
 	levelController.endTurn()
 	return
+
+func set_inverted(value: bool) -> void:
+	if invertMaterial:
+		invertMaterial.set_shader_parameter("invert_colors", value)
 
 func rewind() -> void:
 	if !canAct:
@@ -220,8 +232,19 @@ func rewind() -> void:
 		0.0, # End value
 		rewindEffectTransitionDuration
 	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	# so you gotta check if you are on TOP of a door lil bro. so do that and if yes change shit
+	var onOpenBatteryDoor := false
+	for gate in gridData.gates.values():
+		if gate.type == gate.gateType.battery and gate.coords == coordTimeline[-1]:
+			if !gate.hasBattery:
+				onOpenBatteryDoor = true
+			break
+	set_inverted(onOpenBatteryDoor)
+			
 	levelController.isPlayerTurn = true
 	canAct = true
+	
+	
 
 # Battery Slot — F key. Does NOT cost a move but still ends the turn
 # so gates update. Appends to timelines so rewind stays in sync.
