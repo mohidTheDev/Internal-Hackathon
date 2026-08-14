@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cueyw1urcfbkl"]
+
+[ext_resource type="Shader" uid="uid://doewmfw5wltft" path="res://shaderMaterial/rewindShader.gdshader" id="1_h6qxq"]
+
+[resource]
+shader = ExtResource("1_h6qxq")

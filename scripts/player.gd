@@ -5,6 +5,7 @@ extends Sprite2D
 @export var moveTime: float = 0.1
 @export var animTime: float = 0.1
 @export var ySortOffset: Vector2 = Vector2(0, 16)
+@export var rewindEffectTransitionDuration: float = 0.5
 
 var levelController: Node2D
 
@@ -15,6 +16,8 @@ var currentCoord: Vector2
 var coordTimeline: Array[Vector2]
 var lookingLeft: bool = false
 var lookTimeline: Array[bool]
+
+var rewindEffectColorRectMaterial: ShaderMaterial
 
 var animTimer: float = 0
 var isRewinding: bool = false
@@ -45,11 +48,7 @@ func animate(delta) -> void:
 	else:
 		# --- MOVING STATE ---
 		animTimer = 0.0 # Reset timer for the next time we enter idle
-		
-		if isRewinding:
-			frame = 4 if lookingLeft else 5
-		else:
-			frame = 5 if lookingLeft else 4
+		frame = 5 if lookingLeft else 4
 
 func inputCheck() -> void:
 	if Input.is_action_just_pressed("up"):
@@ -67,6 +66,8 @@ func inputCheck() -> void:
 func _ready() -> void:
 	levelController = get_parent()
 	currentCoord = levelController.playerSpawnCoord
+	var rewindEffectColorRect = get_parent().get_node("rewindEffect").get_child(0)
+	rewindEffectColorRectMaterial = rewindEffectColorRect.material as ShaderMaterial	
 	
 	# y sort pivot
 	position = gridData.coordToPos(currentCoord) + ySortOffset
@@ -111,7 +112,7 @@ func move(direction: Vector2) -> void:
 	
 	if direction == Vector2(0, -1):
 		lookingLeft = true
-	else:
+	elif direction == Vector2(0, 1): # Only update if explicitly moving right
 		lookingLeft = false
 	
 	# movement logic
@@ -155,6 +156,16 @@ func rewind() -> void:
 	
 	canAct = false
 	isRewinding = true
+	#rewindEffectColorRectMaterial.set_shader_parameter("shift_strength", 1.0)
+	
+	# Fading in the visual effect
+	var tween = create_tween()
+	tween.tween_method(
+		func(value: float): rewindEffectColorRectMaterial.set_shader_parameter("shift_strength", value), 
+		0.0, # Start value
+		1.0, # End value
+		rewindEffectTransitionDuration
+	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	for i in range(rewindDuration):
 		# loop through all entities with a rewindable state
 		
@@ -199,6 +210,16 @@ func rewind() -> void:
 		tower.update_lasers(len(coordTimeline))
 		
 	isRewinding = false
+	#rewindEffectColorRectMaterial.set_shader_parameter("shift_strength", 0)
+	
+	# fade out the visual effect
+	var tween_out = create_tween()
+	tween_out.tween_method(
+		func(value: float): rewindEffectColorRectMaterial.set_shader_parameter("shift_strength", value), 
+		1.0, # Start value
+		0.0, # End value
+		rewindEffectTransitionDuration
+	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	levelController.isPlayerTurn = true
 	canAct = true
 
