@@ -290,12 +290,45 @@ func updateHUD(currentMoves: int) -> void:
 	movesLabel.text = str(remainingMoves)
 	# Store the base angle instead of applying it immediately
 	targetNeedleAngle = (get_node("Player").currentMoves * 45) % 360
+	
 	if currentMoves >= rewindDuration:
 		rewindAvailable = true
-		clock.get_node("Keys").visible = true
+		if clock.has_node("Keys"): clock.get_node("Keys").visible = true
 	else:
 		rewindAvailable = false
-		clock.get_node("Keys").visible = false
+		if clock.has_node("Keys"): clock.get_node("Keys").visible = false
+		
+	# visual indication for movement
+	
+	# 1. Visual Escalation (Heartbeat Scale)
+	var isCritical = remainingMoves <= 3
+	var isWarning = remainingMoves <= float(moveLimit) / 2.0
+	
+	# Heartbeat Scale bump
+	var bumpScale = Vector2(2, 2) if isCritical else Vector2(1.85, 1.85)
+	var bumpDuration = 0.3 if isCritical else 0.15
+	
+	var scaleTween = create_tween()
+	scaleTween.tween_property(clock, "scale", bumpScale, 0.05)
+	scaleTween.tween_property(clock, "scale", Vector2(1.75, 1.75), bumpDuration).set_ease(Tween.EASE_OUT)
+	
+	# 2. Environmental Stress (Screen Shake & Flash)
+	# Only trigger stress effects if the player actually just moved (not rewinding or starting)
+	var playerNode = get_node("Player")
+	if currentMoves > 0 and not playerNode.isRewinding:
+		var shakeIntensity = 0.0
+		if isCritical:
+			shakeIntensity = 12.0
+		elif isWarning:
+			shakeIntensity = 4.0
+			
+		# Apply the Screen Shake by rapidly shifting the main level node
+		if shakeIntensity > 0.0:
+			var shakeTween = create_tween()
+			for i in range(5):
+				var randomOffset = Vector2(randf_range(-shakeIntensity, shakeIntensity), randf_range(-shakeIntensity, shakeIntensity))
+				shakeTween.tween_property(self, "position", randomOffset, 0.04)
+			shakeTween.tween_property(self, "position", Vector2.ZERO, 0.04) # Snap back to center
 
 func _process(delta: float) -> void:
 	animateWatch(delta)

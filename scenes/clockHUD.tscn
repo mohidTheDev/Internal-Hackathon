@@ -8,18 +8,19 @@
 [node name="Clock" type="Sprite2D" unique_id=632676882]
 z_index = 1
 rotation = 0.54803336
-scale = Vector2(1.758, 1.758)
+scale = Vector2(1.75, 1.75)
 texture = ExtResource("1_kunol")
 hframes = 2
 vframes = 3
 
 [node name="MovesLabel" type="Label" parent="." unique_id=1192891748]
 modulate = Color(0.2, 1, 0.6, 1)
-offset_left = 18.438433
-offset_top = 6.2749615
-offset_right = 28.733433
-offset_bottom = 13.274961
+offset_left = 16.369156
+offset_top = -2.6610918
+offset_right = 26.369156
+offset_bottom = 4.338908
 rotation = -1.5707964
+pivot_offset = Vector2(5, 3.5)
 theme_override_colors/font_color = Color(0.027013691, 0.11929835, 0.0368197, 1)
 theme_override_fonts/font = ExtResource("2_75agg")
 theme_override_font_sizes/font_size = 5
