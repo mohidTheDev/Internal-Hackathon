@@ -143,6 +143,11 @@ func batterySlotSetup() -> void:
 				battery.gridData = gridData
 				battery.coords = batterySlotCoords[i]
 				itemsHolder.add_child(battery)
+				
+				# dont want the battery to be on
+				# the floor AND the slot
+				gridData.items.erase(battery.coords)
+				
 				slot.insert_battery(battery)
 				slot.parentGate.updateOpenStatus()
 				

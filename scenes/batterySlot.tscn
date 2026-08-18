@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://csrwausv7d5qa" path="res://scripts/batterySlot.gd" id="1_bslot"]
 [ext_resource type="Texture2D" uid="uid://w3af2xemud7q" path="res://sprites/Battery Slot.png" id="1_eys8x"]
+[ext_resource type="Texture2D" uid="uid://cdwkkbkuh52xb" path="res://sprites/Keys.png" id="3_tmtss"]
 
 [node name="BatterySlot" type="Sprite2D" unique_id=112233445]
 y_sort_enabled = true
@@ -10,3 +11,11 @@ texture = ExtResource("1_eys8x")
 offset = Vector2(0, -24)
 hframes = 2
 script = ExtResource("1_bslot")
+
+[node name="Keys" type="Sprite2D" parent="." unique_id=1341380512]
+z_index = 1
+position = Vector2(0, 34)
+texture = ExtResource("3_tmtss")
+hframes = 3
+vframes = 4
+frame = 9

@@ -8,8 +8,12 @@ var parentGate: Node2D # The specific gate this slot controls
 
 var hasBattery: bool = false
 var insertedBatteryItem: Node2D = null # Keep track of the actual battery item
+var keyIndicator: Sprite2D
+
 
 func _ready() -> void:
+	keyIndicator = $Keys
+	keyIndicator.visible = false
 	# 1. Register ourselves in the global grid data so the player can find it
 	gridData.batterySlots[coords] = self
 	position = gridData.coordToPos(coords) + ySortOffset
@@ -41,6 +45,17 @@ func remove_battery() -> Node2D:
 	update_visuals()
 	return returned_battery # Give the battery back to the player
 
+func _process(_delta: float) -> void:
+	keyIndicator.visible = false
+	if gridData.playerCoords != coords:
+		return
+	var playerHasBattery = null
+	for item in gridData.inventory:
+		if item.item == item.itemType.battery:
+			playerHasBattery = item
+			break
+	if (hasBattery and !playerHasBattery) or (!hasBattery and playerHasBattery):
+		keyIndicator.visible = true
 func update_visuals() -> void:
 	if texture == null:
 		return # No sprite sheet assigned yet — skip silently

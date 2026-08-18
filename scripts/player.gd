@@ -277,7 +277,11 @@ func interact_with_slot() -> void:
 			canAct = true
 			return
 		# Insert battery — does not cost a move
-		gridData.inventory.erase(batteryItem)
+		
+		var itemIndex = gridData.inventory.find(batteryItem)
+		if itemIndex != -1:
+			gridData.inventory.remove_at(itemIndex)
+			
 		slot.insert_battery(batteryItem)
 		levelController.organiseInventory()
 	
