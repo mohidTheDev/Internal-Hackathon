@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://nb6vgopegt3k"]
+
+[ext_resource type="Script" uid="uid://bqjfstm42cpa4" path="res://scripts/cutsceneScript.gd" id="1_17fbq"]
+[ext_resource type="Texture2D" uid="uid://bwpfjlkgu2jei" path="res://images/cutscene0.png" id="1_xod84"]
+[ext_resource type="Texture2D" uid="uid://cdwkkbkuh52xb" path="res://sprites/Keys.png" id="2_u760g"]
+[ext_resource type="FontFile" uid="uid://bx375iki8ljww" path="res://PixelifySans-VariableFont_wght.ttf" id="4_1qt8r"]
+
+[node name="OpeningCutscene" type="Node2D" unique_id=1420137266]
+script = ExtResource("1_17fbq")
+nextScenePath = "uid://66hvfuv1y1w6"
+frameCaptions = Array[String](["", "THERE IS NOT MUCH TIME LEFT", "I MUST ESCAPE", "BUT ALL I HAVE IS THIS PROTOTYPE"])
+
+[node name="Cutscene Image" type="Sprite2D" parent="." unique_id=1608639627]
+position = Vector2(160.08, 119.04)
+scale = Vector2(0.07808594, 0.07808594)
+texture = ExtResource("1_xod84")
+
+[node name="Keys" type="Sprite2D" parent="." unique_id=394779412]
+position = Vector2(297, 20)
+texture = ExtResource("2_u760g")
+hframes = 3
+vframes = 4
+frame = 8
+
+[node name="Caption Label" type="Label" parent="." unique_id=1218333503]
+custom_maximum_size = Vector2(313.99, -1)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 202.0
+offset_right = 316.0
+offset_bottom = 238.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("4_1qt8r")
+theme_override_font_sizes/font_size = 14
+text = "test blablabal jwajkfbajkwfb"
+autowrap_mode = 2
