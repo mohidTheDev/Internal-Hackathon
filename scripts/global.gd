@@ -19,7 +19,12 @@ var whiteScreen: Sprite2D
 var blackScreen: Sprite2D
 
 var totalRewinds: int = 0
-var levelOnePath: String = "res://levels/level_00.tscn"
+var levelOnePath: String = "res://scenes/mainMenu.tscn"
+
+var current_transition_id: int = 0
+var active_fade_tween: Tween
+
+var is_restarting: bool = false
 
 func _ready() -> void:
 	var viewport_size: Vector2 = get_viewport().get_visible_rect().size
@@ -101,8 +106,12 @@ func transitionToNextLevel(currentLevel: Node2D, nextLevelScene: String, transit
 	currentLevel.queue_free()
 
 func restartLevel(currentLevel: Node2D) -> void:
-	if !currentLevel:
+	# Block execution if a restart is already in progress
+	if !currentLevel or is_restarting:
 		return
+		
+	# Lock the restart system
+	is_restarting = true
 		
 	# 1. Fade the black screen and clock in (Silhouette is already visible from levelFail)
 	blackScreen.visible = true
@@ -127,6 +136,10 @@ func restartLevel(currentLevel: Node2D) -> void:
 	var reloadedScene = load(currentPath) as PackedScene
 	var nextLevel = reloadedScene.instantiate()
 	currentLevel.get_parent().add_child(nextLevel)
+	
+	# Update Godot's current scene pointer so UI buttons don't break after a restart
+	get_tree().current_scene = nextLevel
+	
 	currentLevel.queue_free()
 	
 	# Wait using the variable
@@ -148,6 +161,9 @@ func restartLevel(currentLevel: Node2D) -> void:
 	# 5. Reset the clock and needle so that the needle is returned to 0 rotation
 	if needleInstance:
 		needleInstance.rotation = 0.0
+		
+	# Unlock the restart system to allow future restarts
+	is_restarting = false
 
 func levelFail(currentLevel):
 	# Corrected path to grab the player from the current level safely
@@ -225,31 +241,45 @@ func fadeToNextLevel(currentLevel: Node2D, nextLevelScene: String) -> void:
 	if !nextLevelScene:
 		return
 
-	# 1. Make the black screen visible and fade to solid black
+	# 1. Register this specific button press as the newest, authoritative transition
+	current_transition_id += 1
+	var my_id: int = current_transition_id
+	
+	# 2. Stop any previous fade animation dead in its tracks
+	if active_fade_tween and active_fade_tween.is_valid():
+		active_fade_tween.kill()
+		
+	# 3. Start fading to black from whatever transparency the screen is currently at
 	blackScreen.visible = true
-	var fadeOutTween: Tween = create_tween()
-	fadeOutTween.tween_property(blackScreen, "modulate:a", 1.0, fadeDuration)
+	active_fade_tween = create_tween()
+	active_fade_tween.tween_property(blackScreen, "modulate:a", 1.0, fadeDuration)
 	
-	# Wait for the screen to go completely black
-	await fadeOutTween.finished
+	await active_fade_tween.finished
 	
-	# 2. Unload the current scene and spawn the new one
+	# 4. CRITICAL: If the player clicked another button while we were waiting, abort this old function!
+	if my_id != current_transition_id:
+		return
+		
+	# 5. Unload the current scene and spawn the new one
 	var loadedScene = load(nextLevelScene) as PackedScene
 	var nextLevel = loadedScene.instantiate()
 	currentLevel.get_parent().add_child(nextLevel)
 	
 	get_tree().current_scene = nextLevel
-	
 	currentLevel.queue_free()
 	
-	# Optional: Give the engine a tiny moment to process the new scene
 	await get_tree().create_timer(0.1).timeout
 	
-	# 3. Fade the black screen back out to reveal the new level
-	var fadeInTween: Tween = create_tween()
-	fadeInTween.tween_property(blackScreen, "modulate:a", 0.0, fadeDuration)
+	# Catch edge cases where a click happened exactly during the 0.1s timer
+	if my_id != current_transition_id:
+		return
+		
+	# 6. Fade the black screen back out to reveal the new level
+	active_fade_tween = create_tween()
+	active_fade_tween.tween_property(blackScreen, "modulate:a", 0.0, fadeDuration)
 	
-	await fadeInTween.finished
+	await active_fade_tween.finished
 	
-	# Fully hide the black screen so it doesn't block clicks
-	blackScreen.visible = false
+	# 7. Only hide the screen if a new transition hasn't started fading it back in
+	if my_id == current_transition_id:
+		blackScreen.visible = false

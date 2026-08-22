@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://cdwkkbkuh52xb" path="res://sprites/Keys.png" id="16_5s01l"]
 [ext_resource type="Texture2D" uid="uid://cco2s506u1htu" path="res://sprites/Home Button.png" id="17_hdedi"]
 [ext_resource type="PackedScene" uid="uid://7fw8ceyfww7i" path="res://levels/rewindEffect.tscn" id="17_tgkku"]
+[ext_resource type="Texture2D" uid="uid://nbuwvjx2xoy" path="res://sprites/Restart Button.png" id="18_tgkku"]
 
 [node name="Node2D2" type="Node2D" unique_id=622526204]
 y_sort_enabled = true
@@ -185,4 +186,13 @@ offset_right = 321.0
 offset_bottom = 240.0
 scale = Vector2(0.79999983, 0.79999983)
 icon = ExtResource("17_hdedi")
+icon_alignment = 1
+
+[node name="Restart" type="Button" parent="." unique_id=124977687]
+offset_left = 281.0
+offset_top = 166.0
+offset_right = 321.0
+offset_bottom = 206.0
+scale = Vector2(0.79999983, 0.79999983)
+icon = ExtResource("18_tgkku")
 icon_alignment = 1

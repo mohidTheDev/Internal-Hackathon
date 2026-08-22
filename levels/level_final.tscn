@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://di7i8ctstfek6" path="res://sprites/player.png" id="13_ncaex"]
 [ext_resource type="Texture2D" uid="uid://cco2s506u1htu" path="res://sprites/Home Button.png" id="14_1w4la"]
 [ext_resource type="Script" uid="uid://dyocwgdae17g3" path="res://scripts/player.gd" id="14_7770k"]
+[ext_resource type="Texture2D" uid="uid://nbuwvjx2xoy" path="res://sprites/Restart Button.png" id="15_hslst"]
 [ext_resource type="PackedScene" uid="uid://uurjetqrhqdm" path="res://scenes/clockHUD.tscn" id="15_k3kn6"]
 
 [node name="Node2D2" type="Node2D" unique_id=622526204]
@@ -77,4 +78,13 @@ offset_right = 321.0
 offset_bottom = 240.0
 scale = Vector2(0.79999983, 0.79999983)
 icon = ExtResource("14_1w4la")
+icon_alignment = 1
+
+[node name="Restart" type="Button" parent="." unique_id=1002587838]
+offset_left = 281.0
+offset_top = 166.0
+offset_right = 321.0
+offset_bottom = 206.0
+scale = Vector2(0.79999983, 0.79999983)
+icon = ExtResource("15_hslst")
 icon_alignment = 1

@@ -14,10 +14,9 @@ var captionLabel: Label
 var currentImageTime: float = 0
 
 var keyAppeared: bool = false
+var is_transitioning: bool = false
 
 func _ready() -> void:
-	# REMOVED: Conflicting Global.blackScreen tweens
-	
 	cutsceneImage = $"Cutscene Image"
 	key = $Keys
 	captionLabel = $"Caption Label"
@@ -25,10 +24,10 @@ func _ready() -> void:
 	key.modulate.a = 0
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("e"):
+	if Input.is_action_just_pressed("e") and not is_transitioning:
+		is_transitioning = true
 		cutsceneFrame += 1
 		if cutsceneFrame > 3:
-			# FIX: Use the global transition system to safely unload this scene
 			Global.fadeToNextLevel(self, nextScenePath)
 			
 			# Prevent multiple triggers while the screen is fading
@@ -66,6 +65,9 @@ func _process(delta: float) -> void:
 		
 		currentImageTime = 0
 		keyAppeared = false
+		
+		await fadeOutTween.finished
+		is_transitioning = false
 
 	if keyAppeared:
 		return

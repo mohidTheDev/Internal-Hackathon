@@ -269,6 +269,7 @@ func wallSetup():
 # here, it ensures the grid is setup before anything else happens
 func _enter_tree() -> void:
 	get_node("Home").button_down.connect(goMainMenu)
+	get_node("Restart").button_down.connect(restartButtonPressed)
 	gridData.levelController = self
 	# Clear shared Resource dicts — GridData is a .tres singleton
 	# so these persist across runs if not explicitly cleared.
@@ -393,3 +394,6 @@ func failLevel():
 	
 func goMainMenu():
 	Global.fadeToNextLevel(self, mainMenu)
+	
+func restartButtonPressed():
+	Global.restartLevel(self)
