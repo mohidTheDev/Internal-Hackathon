@@ -13,7 +13,10 @@ config_version=5
 config/name="Loop Labs"
 run/main_scene="uid://brnqf5pgwnxj"
 config/features=PackedStringArray("4.7", "Forward Plus")
-config/icon="uid://dwog8chaa6qwb"
+boot_splash/bg_color=Color(0.1254902, 0.10980392, 0.14117648, 1)
+boot_splash/image="uid://buqgpd1oh6tp3"
+config/icon="uid://hyq10vd0c5w2"
+boot_splash/minimum_display_time=2000
 
 [autoload]
 
