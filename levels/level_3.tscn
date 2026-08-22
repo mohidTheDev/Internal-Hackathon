@@ -21,7 +21,7 @@
 [node name="Node2D2" type="Node2D" unique_id=622526204]
 y_sort_enabled = true
 script = ExtResource("1_wi0qq")
-nextLevel = "uid://c2pvuo216gtah"
+nextLevel = "uid://nmidw0r2h7yj"
 transitionDirection = Vector2(-1, 0)
 gridData = ExtResource("3_u4kh1")
 gridYOffset = 60
@@ -43,6 +43,7 @@ verticalGate = ExtResource("8_eg35p")
 goalTile = ExtResource("10_s3q8p")
 batterySlotScene = ExtResource("9_67vg4")
 towerScene = ExtResource("10_mqvtj")
+batteryItemScene = ExtResource("11_8swdu")
 towerCoords = Array[Vector2]([Vector2(1, 1)])
 towerFireUp = Array[bool]([false])
 towerFireDown = Array[bool]([true])
@@ -52,7 +53,6 @@ towerActiveCycle = Array[int]([1])
 towerInactiveCycle = Array[int]([1])
 batterySlotCoords = Array[Vector2]([Vector2(3, 0)])
 batterySlotGateIndex = Array[int]([1])
-batteryItemScene = ExtResource("11_8swdu")
 
 [node name="Walls Holder" type="Node2D" parent="." unique_id=394588921]
 

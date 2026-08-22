@@ -73,12 +73,27 @@ alignment = 1
 
 [node name="Level Button" parent="row2" unique_id=1045140844 instance=ExtResource("2_pao5y")]
 layout_mode = 2
-levelScene = "uid://c2pvuo216gtah"
+levelScene = "uid://nmidw0r2h7yj"
 levelIndex = "05"
+
+[node name="Level Button4" parent="row2" unique_id=1997483862 instance=ExtResource("2_pao5y")]
+layout_mode = 2
+levelScene = "uid://diusl7mpyaxyk"
+levelIndex = "06"
+
+[node name="Level Button5" parent="row2" unique_id=82461483 instance=ExtResource("2_pao5y")]
+layout_mode = 2
+levelScene = "uid://c2pvuo216gtah"
+levelIndex = "07"
+
+[node name="Level Button3" parent="row2" unique_id=1015425247 instance=ExtResource("2_pao5y")]
+layout_mode = 2
+levelScene = "uid://dhgys8c0gsefb"
+levelIndex = "08"
 
 [node name="Level Button2" parent="row2" unique_id=446823204 instance=ExtResource("2_pao5y")]
 layout_mode = 2
 levelScene = "uid://cccjafwa7a7o3"
-levelIndex = "06"
+levelIndex = "09"
 
 [connection signal="button_down" from="Level Button" to="Level Button" method="buttonDown"]

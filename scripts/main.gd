@@ -42,14 +42,15 @@ enum inventoryFlow {Horizontal, Vertical}
 @export var horizontalGate: PackedScene
 @export var verticalGate: PackedScene
 @export var goalTile: PackedScene
+@export var batterySlotScene: PackedScene
+@export var towerScene: PackedScene
+@export var batteryItemScene: PackedScene
 
 @export_category("HUD")
 @export var watchAnimTime: float = 0.1
 @export var needleJitterStrength: float = 8.0 # The maximum degrees the needle will shake
 var watchAnimTimer: float = 0
 var targetNeedleAngle: float = 0
-@export var batterySlotScene: PackedScene
-@export var towerScene: PackedScene
 
 @export_category("Towers")
 @export var towerCoords: Array[Vector2]
@@ -65,7 +66,6 @@ var targetNeedleAngle: float = 0
 @export var batterySlotCoords: Array[Vector2]
 @export var batterySlotGateIndex: Array[int]
 @export var batterySlotHasBatteryByDefault: Array[bool]
-@export var batteryItemScene: PackedScene
 var gridX: float
 var gridY: float
 

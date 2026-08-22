@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://dgyv8qtdlxuck" path="res://sprites/Clock Silhouette.png" id="2_3d1i7"]
 [ext_resource type="Script" uid="uid://bay24pnkj42ad" path="res://scripts/mainMenuClock.gd" id="3_48ign"]
 [ext_resource type="AudioStream" uid="uid://c8tk6bryavaq2" path="res://audio/sfx/clockTick.mp3" id="4_l7wge"]
-[ext_resource type="Texture2D" uid="uid://dwog8chaa6qwb" path="res://sprites/Logo2.png" id="5_7nrmo"]
 [ext_resource type="AudioStream" uid="uid://kyb6wej102vd" path="res://audio/mainMenuAmbience.mp3" id="5_dj72i"]
 [ext_resource type="Texture2D" uid="uid://duqveucdm2wpk" path="res://sprites/Play Button.png" id="6_clbkb"]
+[ext_resource type="Texture2D" uid="uid://bwnstw7mt2b0p" path="res://sprites/LoopLabsLogo.png" id="6_dj72i"]
 [ext_resource type="Texture2D" uid="uid://cko528tccvg62" path="res://sprites/Level Select Button.png" id="7_y35fp"]
 [ext_resource type="Texture2D" uid="uid://d1j5p2kp0navo" path="res://sprites/Info Button.png" id="8_dj72i"]
 
@@ -37,10 +37,10 @@ volume_db = -7.042
 [node name="MusicPlayer" type="AudioStreamPlayer2D" parent="MainMenuClock" unique_id=475420387]
 stream = ExtResource("5_dj72i")
 
-[node name="Logo2" type="Sprite2D" parent="." unique_id=1338223004]
-position = Vector2(94, 92.00001)
-scale = Vector2(1.535, 1.535)
-texture = ExtResource("5_7nrmo")
+[node name="LoopLabsLogo" type="Sprite2D" parent="." unique_id=1190538060]
+position = Vector2(99.000015, 91)
+scale = Vector2(1.8085423, 1.8085423)
+texture = ExtResource("6_dj72i")
 
 [node name="Play" type="Button" parent="." unique_id=1258398835]
 offset_left = 226.0

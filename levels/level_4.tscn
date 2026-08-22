@@ -21,7 +21,7 @@
 [node name="Node2D" type="Node2D" unique_id=622526204]
 y_sort_enabled = true
 script = ExtResource("1_vru0x")
-nextLevel = "uid://cccjafwa7a7o3"
+nextLevel = "uid://dhgys8c0gsefb"
 transitionDirection = Vector2(0, -1)
 gridData = ExtResource("3_8mt0c")
 gridYOffset = 60
