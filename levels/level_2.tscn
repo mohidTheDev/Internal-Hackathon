@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://uurjetqrhqdm" path="res://scenes/clockHUD.tscn" id="14_mmfjm"]
 [ext_resource type="PackedScene" uid="uid://bnvhn0pyc7d6i" path="res://scenes/goalTile.tscn" id="15_0ourt"]
 [ext_resource type="PackedScene" uid="uid://7fw8ceyfww7i" path="res://levels/rewindEffect.tscn" id="15_w200a"]
+[ext_resource type="Texture2D" uid="uid://cco2s506u1htu" path="res://sprites/Home Button.png" id="16_w200a"]
 
 [node name="Node2D" type="Node2D" unique_id=622526204]
 y_sort_enabled = true
@@ -84,3 +85,12 @@ ySortOffset = Vector2(0, 24)
 position = Vector2(272.00003, 64.00001)
 
 [node name="rewindEffect" parent="." unique_id=2052592906 instance=ExtResource("15_w200a")]
+
+[node name="Home" type="Button" parent="." unique_id=2004905732]
+offset_left = 281.0
+offset_top = 200.0
+offset_right = 321.0
+offset_bottom = 240.0
+scale = Vector2(0.79999983, 0.79999983)
+icon = ExtResource("16_w200a")
+icon_alignment = 1

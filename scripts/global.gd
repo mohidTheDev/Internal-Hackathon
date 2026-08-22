@@ -220,3 +220,36 @@ func returnToLevelOne(currentLevel: Node2D) -> void:
 	
 	if needleInstance:
 		needleInstance.rotation = 0.0
+
+func fadeToNextLevel(currentLevel: Node2D, nextLevelScene: String) -> void:
+	if !nextLevelScene:
+		return
+
+	# 1. Make the black screen visible and fade to solid black
+	blackScreen.visible = true
+	var fadeOutTween: Tween = create_tween()
+	fadeOutTween.tween_property(blackScreen, "modulate:a", 1.0, fadeDuration)
+	
+	# Wait for the screen to go completely black
+	await fadeOutTween.finished
+	
+	# 2. Unload the current scene and spawn the new one
+	var loadedScene = load(nextLevelScene) as PackedScene
+	var nextLevel = loadedScene.instantiate()
+	currentLevel.get_parent().add_child(nextLevel)
+	
+	get_tree().current_scene = nextLevel
+	
+	currentLevel.queue_free()
+	
+	# Optional: Give the engine a tiny moment to process the new scene
+	await get_tree().create_timer(0.1).timeout
+	
+	# 3. Fade the black screen back out to reveal the new level
+	var fadeInTween: Tween = create_tween()
+	fadeInTween.tween_property(blackScreen, "modulate:a", 0.0, fadeDuration)
+	
+	await fadeInTween.finished
+	
+	# Fully hide the black screen so it doesn't block clicks
+	blackScreen.visible = false

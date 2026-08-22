@@ -2,6 +2,7 @@ extends Node2D
 
 @export_category("Level Management")
 @export_custom(PROPERTY_HINT_FILE, "*.tscn") var nextLevel: String
+@export_custom(PROPERTY_HINT_FILE, "*.tscn") var mainMenu: String = "res://scenes/mainMenu.tscn"
 # @export var nextLevel: PackedScene
 @export var transitionDirection: Vector2 = Vector2(1, 0)
 # [row, column] to access a grid point
@@ -267,6 +268,7 @@ func wallSetup():
 # _enter_tree is called in top to bottom way (and before any _ready)
 # here, it ensures the grid is setup before anything else happens
 func _enter_tree() -> void:
+	get_node("Home").button_down.connect(goMainMenu)
 	gridData.levelController = self
 	# Clear shared Resource dicts — GridData is a .tres singleton
 	# so these persist across runs if not explicitly cleared.
@@ -389,3 +391,5 @@ func failLevel():
 	SoundManager.play_sfx("die")
 	Global.levelFail(self)
 	
+func goMainMenu():
+	Global.fadeToNextLevel(self, mainMenu)

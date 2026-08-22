@@ -1,0 +1,370 @@
+[gd_scene format=3 uid="uid://bl5vcph0iynte"]
+
+[ext_resource type="Script" uid="uid://mnp47jr43nrx" path="res://scripts/infoScene.gd" id="1_t16kf"]
+[ext_resource type="Texture2D" uid="uid://uyf181uqv5n3" path="res://sprites/Tile.png" id="1_x5qvq"]
+[ext_resource type="Texture2D" uid="uid://b0nvloequeav3" path="res://sprites/Wall.png" id="2_swdg3"]
+[ext_resource type="Texture2D" uid="uid://cbbbew3r82rvn" path="res://images/sdslabs logo.png" id="3_78jp3"]
+[ext_resource type="FontFile" uid="uid://bx375iki8ljww" path="res://PixelifySans-VariableFont_wght.ttf" id="4_0yr61"]
+[ext_resource type="Texture2D" uid="uid://cco2s506u1htu" path="res://sprites/Home Button.png" id="5_0yr61"]
+
+[node name="InfoScene" type="Node2D" unique_id=1371510725]
+script = ExtResource("1_t16kf")
+mainMenuScene = "uid://brnqf5pgwnxj"
+
+[node name="Tiles" type="Node2D" parent="." unique_id=2132115521]
+
+[node name="rows6" type="Node2D" parent="Tiles" unique_id=1461971270]
+position = Vector2(0, -160)
+
+[node name="Tile" type="Sprite2D" parent="Tiles/rows6" unique_id=821212573]
+position = Vector2(16, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile2" type="Sprite2D" parent="Tiles/rows6" unique_id=1559957205]
+position = Vector2(48, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile3" type="Sprite2D" parent="Tiles/rows6" unique_id=39873537]
+position = Vector2(80, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile4" type="Sprite2D" parent="Tiles/rows6" unique_id=1491132738]
+position = Vector2(112, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile5" type="Sprite2D" parent="Tiles/rows6" unique_id=514520933]
+position = Vector2(144, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile6" type="Sprite2D" parent="Tiles/rows6" unique_id=430087097]
+position = Vector2(176, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile7" type="Sprite2D" parent="Tiles/rows6" unique_id=1197944525]
+position = Vector2(208, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile8" type="Sprite2D" parent="Tiles/rows6" unique_id=1717303778]
+position = Vector2(240, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile9" type="Sprite2D" parent="Tiles/rows6" unique_id=1854667075]
+position = Vector2(272, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile10" type="Sprite2D" parent="Tiles/rows6" unique_id=328020200]
+position = Vector2(304, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="rows5" type="Node2D" parent="Tiles" unique_id=763687854]
+position = Vector2(0, -128)
+
+[node name="Tile" type="Sprite2D" parent="Tiles/rows5" unique_id=63491572]
+position = Vector2(16, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile2" type="Sprite2D" parent="Tiles/rows5" unique_id=1802857606]
+position = Vector2(48, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile3" type="Sprite2D" parent="Tiles/rows5" unique_id=47172342]
+position = Vector2(80, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile4" type="Sprite2D" parent="Tiles/rows5" unique_id=93137198]
+position = Vector2(112, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile5" type="Sprite2D" parent="Tiles/rows5" unique_id=102648231]
+position = Vector2(144, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile6" type="Sprite2D" parent="Tiles/rows5" unique_id=1683705674]
+position = Vector2(176, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile7" type="Sprite2D" parent="Tiles/rows5" unique_id=221442320]
+position = Vector2(208, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile8" type="Sprite2D" parent="Tiles/rows5" unique_id=1414927686]
+position = Vector2(240, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile9" type="Sprite2D" parent="Tiles/rows5" unique_id=1526694520]
+position = Vector2(272, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile10" type="Sprite2D" parent="Tiles/rows5" unique_id=403612987]
+position = Vector2(304, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="rows4" type="Node2D" parent="Tiles" unique_id=745861050]
+position = Vector2(0, -96)
+
+[node name="Tile" type="Sprite2D" parent="Tiles/rows4" unique_id=336054210]
+position = Vector2(16, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile2" type="Sprite2D" parent="Tiles/rows4" unique_id=1576689733]
+position = Vector2(48, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile3" type="Sprite2D" parent="Tiles/rows4" unique_id=1407550145]
+position = Vector2(80, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile4" type="Sprite2D" parent="Tiles/rows4" unique_id=1315910198]
+position = Vector2(112, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile5" type="Sprite2D" parent="Tiles/rows4" unique_id=555241486]
+position = Vector2(144, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile6" type="Sprite2D" parent="Tiles/rows4" unique_id=699535137]
+position = Vector2(176, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile7" type="Sprite2D" parent="Tiles/rows4" unique_id=1273630748]
+position = Vector2(208, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile8" type="Sprite2D" parent="Tiles/rows4" unique_id=1296472550]
+position = Vector2(240, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile9" type="Sprite2D" parent="Tiles/rows4" unique_id=1260702930]
+position = Vector2(272, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile10" type="Sprite2D" parent="Tiles/rows4" unique_id=1946063373]
+position = Vector2(304, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="rows3" type="Node2D" parent="Tiles" unique_id=661412558]
+position = Vector2(0, -64)
+
+[node name="Tile" type="Sprite2D" parent="Tiles/rows3" unique_id=384541984]
+position = Vector2(16, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile2" type="Sprite2D" parent="Tiles/rows3" unique_id=642089695]
+position = Vector2(48, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile3" type="Sprite2D" parent="Tiles/rows3" unique_id=134193449]
+position = Vector2(80, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile4" type="Sprite2D" parent="Tiles/rows3" unique_id=1160045624]
+position = Vector2(112, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile5" type="Sprite2D" parent="Tiles/rows3" unique_id=1105678579]
+position = Vector2(144, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile6" type="Sprite2D" parent="Tiles/rows3" unique_id=639153682]
+position = Vector2(176, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile7" type="Sprite2D" parent="Tiles/rows3" unique_id=1389452248]
+position = Vector2(208, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile8" type="Sprite2D" parent="Tiles/rows3" unique_id=1103571507]
+position = Vector2(240, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile9" type="Sprite2D" parent="Tiles/rows3" unique_id=2073755785]
+position = Vector2(272, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile10" type="Sprite2D" parent="Tiles/rows3" unique_id=1031996317]
+position = Vector2(304, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="rows2" type="Node2D" parent="Tiles" unique_id=1520333099]
+position = Vector2(0, -32)
+
+[node name="Tile" type="Sprite2D" parent="Tiles/rows2" unique_id=1612125652]
+position = Vector2(16, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile2" type="Sprite2D" parent="Tiles/rows2" unique_id=89327247]
+position = Vector2(48, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile3" type="Sprite2D" parent="Tiles/rows2" unique_id=209681448]
+position = Vector2(80, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile4" type="Sprite2D" parent="Tiles/rows2" unique_id=292072094]
+position = Vector2(112, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile5" type="Sprite2D" parent="Tiles/rows2" unique_id=1027339732]
+position = Vector2(144, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile6" type="Sprite2D" parent="Tiles/rows2" unique_id=596875749]
+position = Vector2(176, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile7" type="Sprite2D" parent="Tiles/rows2" unique_id=1429829504]
+position = Vector2(208, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile8" type="Sprite2D" parent="Tiles/rows2" unique_id=226376515]
+position = Vector2(240, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile9" type="Sprite2D" parent="Tiles/rows2" unique_id=2085260452]
+position = Vector2(272, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile10" type="Sprite2D" parent="Tiles/rows2" unique_id=639997813]
+position = Vector2(304, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="rows" type="Node2D" parent="Tiles" unique_id=2131437924]
+
+[node name="Tile" type="Sprite2D" parent="Tiles/rows" unique_id=71772726]
+position = Vector2(16, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile2" type="Sprite2D" parent="Tiles/rows" unique_id=1433425183]
+position = Vector2(48, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile3" type="Sprite2D" parent="Tiles/rows" unique_id=197832434]
+position = Vector2(80, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile4" type="Sprite2D" parent="Tiles/rows" unique_id=2077645182]
+position = Vector2(112, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile5" type="Sprite2D" parent="Tiles/rows" unique_id=576399874]
+position = Vector2(144, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile6" type="Sprite2D" parent="Tiles/rows" unique_id=1417554908]
+position = Vector2(176, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile7" type="Sprite2D" parent="Tiles/rows" unique_id=501730776]
+position = Vector2(208, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile8" type="Sprite2D" parent="Tiles/rows" unique_id=1060326512]
+position = Vector2(240, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile9" type="Sprite2D" parent="Tiles/rows" unique_id=406551581]
+position = Vector2(272, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Tile10" type="Sprite2D" parent="Tiles/rows" unique_id=1735279948]
+position = Vector2(304, 232)
+texture = ExtResource("1_x5qvq")
+
+[node name="Wall" type="Sprite2D" parent="Tiles" unique_id=1675965529]
+position = Vector2(16, 8)
+texture = ExtResource("2_swdg3")
+hframes = 3
+vframes = 2
+frame = 1
+
+[node name="Wall2" type="Sprite2D" parent="Tiles" unique_id=625195538]
+position = Vector2(48, 8)
+texture = ExtResource("2_swdg3")
+hframes = 3
+vframes = 2
+
+[node name="Wall3" type="Sprite2D" parent="Tiles" unique_id=1030556003]
+position = Vector2(80, 8)
+texture = ExtResource("2_swdg3")
+hframes = 3
+vframes = 2
+
+[node name="Wall4" type="Sprite2D" parent="Tiles" unique_id=422875408]
+position = Vector2(112, 8)
+texture = ExtResource("2_swdg3")
+hframes = 3
+vframes = 2
+
+[node name="Wall5" type="Sprite2D" parent="Tiles" unique_id=1373296938]
+position = Vector2(144, 8)
+texture = ExtResource("2_swdg3")
+hframes = 3
+vframes = 2
+
+[node name="Wall6" type="Sprite2D" parent="Tiles" unique_id=1133005298]
+position = Vector2(176, 8)
+texture = ExtResource("2_swdg3")
+hframes = 3
+vframes = 2
+
+[node name="Wall7" type="Sprite2D" parent="Tiles" unique_id=1496567882]
+position = Vector2(208, 8)
+texture = ExtResource("2_swdg3")
+hframes = 3
+vframes = 2
+
+[node name="Wall8" type="Sprite2D" parent="Tiles" unique_id=964113918]
+position = Vector2(240, 8)
+texture = ExtResource("2_swdg3")
+hframes = 3
+vframes = 2
+
+[node name="Wall9" type="Sprite2D" parent="Tiles" unique_id=1789116715]
+position = Vector2(272, 8)
+texture = ExtResource("2_swdg3")
+hframes = 3
+vframes = 2
+
+[node name="Wall10" type="Sprite2D" parent="Tiles" unique_id=147188134]
+position = Vector2(304, 8)
+texture = ExtResource("2_swdg3")
+hframes = 3
+vframes = 2
+frame = 2
+
+[node name="SdslabsLogo" type="Sprite2D" parent="." unique_id=1635267678]
+position = Vector2(168, 133)
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("3_78jp3")
+
+[node name="Label" type="Label" parent="." unique_id=1148646716]
+offset_left = 38.0
+offset_top = 66.0
+offset_right = 276.49
+offset_bottom = 115.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_0yr61")
+theme_override_font_sizes/font_size = 18
+text = "MADE FOR AN INTERNAL HACKATHON AT"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label2" type="Label" parent="." unique_id=1798133341]
+offset_left = 37.0
+offset_top = 161.0
+offset_right = 356.0
+offset_bottom = 184.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_0yr61")
+theme_override_font_sizes/font_size = 18
+text = "BY MO, JULES, FERAL AND KAI"
+
+[node name="Home" type="Button" parent="." unique_id=643594781]
+offset_left = 8.0
+offset_top = 17.0
+offset_right = 48.0
+offset_bottom = 57.0
+icon = ExtResource("5_0yr61")
+icon_alignment = 1
+
+[connection signal="button_down" from="Home" to="." method="homeButtonPressed"]

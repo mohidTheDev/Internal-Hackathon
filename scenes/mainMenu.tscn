@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://brnqf5pgwnxj"]
+
+[ext_resource type="Script" uid="uid://b7ubwv2a3bmya" path="res://scripts/mainMenu.gd" id="1_3d1i7"]
+[ext_resource type="Texture2D" uid="uid://dgyv8qtdlxuck" path="res://sprites/Clock Silhouette.png" id="2_3d1i7"]
+[ext_resource type="Script" uid="uid://bay24pnkj42ad" path="res://scripts/mainMenuClock.gd" id="3_48ign"]
+[ext_resource type="AudioStream" uid="uid://c8tk6bryavaq2" path="res://audio/sfx/clockTick.mp3" id="4_l7wge"]
+[ext_resource type="Texture2D" uid="uid://dwog8chaa6qwb" path="res://sprites/Logo2.png" id="5_7nrmo"]
+[ext_resource type="AudioStream" uid="uid://kyb6wej102vd" path="res://audio/mainMenuAmbience.mp3" id="5_dj72i"]
+[ext_resource type="Texture2D" uid="uid://duqveucdm2wpk" path="res://sprites/Play Button.png" id="6_clbkb"]
+[ext_resource type="Texture2D" uid="uid://cko528tccvg62" path="res://sprites/Level Select Button.png" id="7_y35fp"]
+[ext_resource type="Texture2D" uid="uid://d1j5p2kp0navo" path="res://sprites/Info Button.png" id="8_dj72i"]
+
+[node name="MainMenu" type="Node2D" unique_id=277731195]
+script = ExtResource("1_3d1i7")
+startLevel = "uid://nb6vgopegt3k"
+levelSelectScreen = "uid://b70kiutm7x74t"
+infoScene = "uid://bl5vcph0iynte"
+
+[node name="MainMenuClock" type="Sprite2D" parent="." unique_id=1926519090]
+position = Vector2(246, 179)
+scale = Vector2(1.9, 1.9)
+texture = ExtResource("2_3d1i7")
+vframes = 2
+script = ExtResource("3_48ign")
+minimum_alpha = 0.3
+
+[node name="Needle" type="Sprite2D" parent="MainMenuClock" unique_id=2066879715]
+texture = ExtResource("2_3d1i7")
+offset = Vector2(-0.5, 0)
+vframes = 2
+frame = 1
+
+[node name="TickSound" type="AudioStreamPlayer2D" parent="MainMenuClock" unique_id=1218762705]
+stream = ExtResource("4_l7wge")
+volume_db = -7.042
+
+[node name="MusicPlayer" type="AudioStreamPlayer2D" parent="MainMenuClock" unique_id=475420387]
+stream = ExtResource("5_dj72i")
+
+[node name="Logo2" type="Sprite2D" parent="." unique_id=1338223004]
+position = Vector2(94, 92.00001)
+scale = Vector2(1.535, 1.535)
+texture = ExtResource("5_7nrmo")
+
+[node name="Play" type="Button" parent="." unique_id=1258398835]
+offset_left = 226.0
+offset_top = 54.0
+offset_right = 266.0
+offset_bottom = 94.0
+icon = ExtResource("6_clbkb")
+icon_alignment = 1
+
+[node name="Level Select" type="Button" parent="." unique_id=1585052809]
+offset_left = 40.0
+offset_top = 167.0
+offset_right = 80.0
+offset_bottom = 207.0
+icon = ExtResource("7_y35fp")
+icon_alignment = 1
+
+[node name="Info" type="Button" parent="." unique_id=1674237126]
+offset_left = 104.0
+offset_top = 167.0
+offset_right = 144.0
+offset_bottom = 207.0
+icon = ExtResource("8_dj72i")
+icon_alignment = 1
+
+[connection signal="button_down" from="Play" to="." method="playButtonDown"]
+[connection signal="button_down" from="Level Select" to="." method="levelSelectButtonDown"]
+[connection signal="button_down" from="Info" to="." method="infoButtonDown"]

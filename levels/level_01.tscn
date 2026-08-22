@@ -17,6 +17,7 @@
 [ext_resource type="FontFile" uid="uid://bx375iki8ljww" path="res://PixelifySans-VariableFont_wght.ttf" id="14_qgvj7"]
 [ext_resource type="Texture2D" uid="uid://cf4n5ulpgo6n6" path="res://sprites/temp.png" id="15_fv0x7"]
 [ext_resource type="PackedScene" uid="uid://7fw8ceyfww7i" path="res://levels/rewindEffect.tscn" id="17_pdl2l"]
+[ext_resource type="Texture2D" uid="uid://cco2s506u1htu" path="res://sprites/Home Button.png" id="18_2t17w"]
 
 [node name="Node2D2" type="Node2D" unique_id=622526204]
 y_sort_enabled = true
@@ -121,3 +122,12 @@ vframes = 4
 frame = 8
 
 [node name="rewindEffect" parent="." unique_id=2052592906 instance=ExtResource("17_pdl2l")]
+
+[node name="Home" type="Button" parent="." unique_id=1901161564]
+offset_left = 281.0
+offset_top = 200.0
+offset_right = 321.0
+offset_bottom = 240.0
+scale = Vector2(0.79999983, 0.79999983)
+icon = ExtResource("18_2t17w")
+icon_alignment = 1

@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 @export_custom(PROPERTY_HINT_FILE, "*.tscn") var nextScenePath: String
 @export var imageFadeTime: float = 0.5
@@ -16,13 +16,7 @@ var currentImageTime: float = 0
 var keyAppeared: bool = false
 
 func _ready() -> void:
-	Global.blackScreen.visible = true
-	Global.blackScreen.modulate.a = 1
-	
-	var fadeOutTween = create_tween()
-	fadeOutTween.tween_property(Global.blackScreen,
-	"modulate", Color(0.0, 0.0, 0.0, 0.0),
-	2 * imageFadeTime)
+	# REMOVED: Conflicting Global.blackScreen tweens
 	
 	cutsceneImage = $"Cutscene Image"
 	key = $Keys
@@ -34,32 +28,24 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("e"):
 		cutsceneFrame += 1
 		if cutsceneFrame > 3:
-			# Fade black screen in
-			var fadeInTween = Global.create_tween()
-			fadeInTween.tween_property(Global.blackScreen,
-			"modulate", Color(0.0, 0.0, 0.0, 1.0),
-			imageFadeTime)
-			await fadeInTween.finished
+			# FIX: Use the global transition system to safely unload this scene
+			Global.fadeToNextLevel(self, nextScenePath)
 			
-			# start fading black screen out
-			var fadeOutTween = Global.create_tween()
-			fadeOutTween.tween_property(Global.blackScreen,
-			"modulate", Color(0.0, 0.0, 0.0, 0.0),
-			imageFadeTime)
-			
-			# transition scene
-			get_tree().change_scene_to_file(nextScenePath)
+			# Prevent multiple triggers while the screen is fading
+			set_process(false) 
 			return
 			
-		# fade in black screen
+		# fade in black screen (for image transitions)
 		var fadeInTween = create_tween()
 		fadeInTween.tween_property(Global.blackScreen,
 		"modulate", Color(0.0, 0.0, 0.0, 1.0),
 		imageFadeTime)
+		
+		# Make sure blackScreen is visible during middle transitions
+		Global.blackScreen.visible = true 
 		await fadeInTween.finished
 		
-		# Change image path of cutsceneImage depending on
-		# current value of cutsceneFrame
+		# Change image path of cutsceneImage depending on current value of cutsceneFrame
 		cutsceneImage.texture = load("res://images/cutscene" 
 		+ str(cutsceneFrame)+ ".png")
 		
@@ -75,14 +61,16 @@ func _process(delta: float) -> void:
 		"modulate", Color(0.0, 0.0, 0.0, 0.0),
 		imageFadeTime)
 		
+		# Hide the black screen after the tween so it doesn't block clicks
+		fadeOutTween.tween_callback(func(): Global.blackScreen.visible = false)
+		
 		currentImageTime = 0
 		keyAppeared = false
 
 	if keyAppeared:
 		return
 
-	# keep track of how long it has been and start fading
-	# in the key sprite accordingly
+	# keep track of how long it has been and start fading in the key sprite accordingly
 	currentImageTime += delta
 	if currentImageTime >= keyAppearDelay:
 		var keyFadeTween = create_tween()

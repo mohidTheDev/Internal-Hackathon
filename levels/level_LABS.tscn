@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://i4jf188o286y"]
 
 [ext_resource type="Script" uid="uid://yht268k4x1yl" path="res://scripts/main.gd" id="1_qabf8"]
-[ext_resource type="PackedScene" uid="uid://cyntg0r3vjsof" path="res://levels/level_3.tscn" id="2_oefbu"]
 [ext_resource type="Resource" uid="uid://ctq0wrer25v52" path="res://resources/gridData.tres" id="3_0df04"]
 [ext_resource type="PackedScene" uid="uid://b5haucqrquf7d" path="res://scenes/tile.tscn" id="6_203mh"]
 [ext_resource type="PackedScene" uid="uid://cjpb8my3hm0cg" path="res://scenes/wall.tscn" id="7_c6jv4"]
@@ -13,12 +12,12 @@
 [ext_resource type="Texture2D" uid="uid://di7i8ctstfek6" path="res://sprites/player.png" id="13_x0ebi"]
 [ext_resource type="Script" uid="uid://dyocwgdae17g3" path="res://scripts/player.gd" id="14_kr32k"]
 [ext_resource type="Texture2D" uid="uid://bax107dg2lx1p" path="res://sprites/Labs Furniture.png" id="14_oefbu"]
+[ext_resource type="Texture2D" uid="uid://cco2s506u1htu" path="res://sprites/Home Button.png" id="14_qabf8"]
 [ext_resource type="PackedScene" uid="uid://uurjetqrhqdm" path="res://scenes/clockHUD.tscn" id="15_djav6"]
 
 [node name="Node2D2" type="Node2D" unique_id=622526204]
 y_sort_enabled = true
 script = ExtResource("1_qabf8")
-nextLevel = ExtResource("2_oefbu")
 transitionDirection = Vector2(0, 1)
 gridData = ExtResource("3_0df04")
 rows = 6
@@ -102,3 +101,12 @@ texture = ExtResource("14_oefbu")
 hframes = 2
 vframes = 2
 frame = 3
+
+[node name="Home" type="Button" parent="." unique_id=682135696]
+offset_left = 281.0
+offset_top = 200.0
+offset_right = 321.0
+offset_bottom = 240.0
+scale = Vector2(0.79999983, 0.79999983)
+icon = ExtResource("14_qabf8")
+icon_alignment = 1

@@ -15,7 +15,7 @@
 [ext_resource type="FontFile" uid="uid://bx375iki8ljww" path="res://PixelifySans-VariableFont_wght.ttf" id="14_bfmws"]
 [ext_resource type="Texture2D" uid="uid://cf4n5ulpgo6n6" path="res://sprites/temp.png" id="15_46swt"]
 [ext_resource type="Texture2D" uid="uid://cdwkkbkuh52xb" path="res://sprites/Keys.png" id="16_5s01l"]
-[ext_resource type="Texture2D" uid="uid://dwog8chaa6qwb" path="res://sprites/Logo2.png" id="17_hdedi"]
+[ext_resource type="Texture2D" uid="uid://cco2s506u1htu" path="res://sprites/Home Button.png" id="17_hdedi"]
 [ext_resource type="PackedScene" uid="uid://7fw8ceyfww7i" path="res://levels/rewindEffect.tscn" id="17_tgkku"]
 
 [node name="Node2D2" type="Node2D" unique_id=622526204]
@@ -24,7 +24,7 @@ script = ExtResource("1_ktoem")
 nextLevel = "uid://dwmknam5edgof"
 gridData = ExtResource("3_tgkku")
 rows = 1
-gridYOffset = 180
+gridYOffset = 100
 goalCoord = Vector2(0, 4)
 moveLimit = 5
 rewindDuration = 1000
@@ -114,14 +114,14 @@ vframes = 4
 frame = 8
 
 [node name="Keys" type="Sprite2D" parent="." unique_id=838466667]
-position = Vector2(271.995, 151.685)
+position = Vector2(104.994995, 181)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("16_5s01l")
 hframes = 3
 vframes = 4
 
 [node name="Keys2" type="Sprite2D" parent="." unique_id=101488792]
-position = Vector2(254, 172)
+position = Vector2(87, 201.315)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("16_5s01l")
 hframes = 3
@@ -129,7 +129,7 @@ vframes = 4
 frame = 1
 
 [node name="Keys3" type="Sprite2D" parent="." unique_id=615581954]
-position = Vector2(278.91, 172)
+position = Vector2(111.91, 201.315)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("16_5s01l")
 hframes = 3
@@ -137,7 +137,7 @@ vframes = 4
 frame = 2
 
 [node name="Keys4" type="Sprite2D" parent="." unique_id=1423351607]
-position = Vector2(304.015, 172)
+position = Vector2(137.01501, 201.315)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("16_5s01l")
 hframes = 3
@@ -145,7 +145,7 @@ vframes = 4
 frame = 3
 
 [node name="Keys5" type="Sprite2D" parent="." unique_id=1229847935]
-position = Vector2(270.995, 201)
+position = Vector2(232.00002, 181)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("16_5s01l")
 hframes = 3
@@ -153,7 +153,7 @@ vframes = 4
 frame = 4
 
 [node name="Keys6" type="Sprite2D" parent="." unique_id=762249647]
-position = Vector2(253, 221.315)
+position = Vector2(207, 201.315)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("16_5s01l")
 hframes = 3
@@ -161,7 +161,7 @@ vframes = 4
 frame = 5
 
 [node name="Keys7" type="Sprite2D" parent="." unique_id=880069782]
-position = Vector2(277.91, 221.315)
+position = Vector2(231.91, 201.315)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("16_5s01l")
 hframes = 3
@@ -169,16 +169,20 @@ vframes = 4
 frame = 6
 
 [node name="Keys8" type="Sprite2D" parent="." unique_id=1040114830]
-position = Vector2(303.015, 221.315)
+position = Vector2(257.015, 201.315)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("16_5s01l")
 hframes = 3
 vframes = 4
 frame = 7
 
-[node name="Logo2" type="Sprite2D" parent="." unique_id=1938311997]
-position = Vector2(149.00002, 72)
-scale = Vector2(1.3333334, 1.3333334)
-texture = ExtResource("17_hdedi")
-
 [node name="rewindEffect" parent="." unique_id=2052592906 instance=ExtResource("17_tgkku")]
+
+[node name="Home" type="Button" parent="." unique_id=1385918784]
+offset_left = 281.0
+offset_top = 200.0
+offset_right = 321.0
+offset_bottom = 240.0
+scale = Vector2(0.79999983, 0.79999983)
+icon = ExtResource("17_hdedi")
+icon_alignment = 1

@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://ym1fvcsv4hxj"]
+
+[ext_resource type="Texture2D" uid="uid://4mbd2noe6ftl" path="res://sprites/Blank Button.png" id="1_vrswo"]
+[ext_resource type="Script" uid="uid://dec87282vwrpn" path="res://scripts/levelButton.gd" id="2_va6i8"]
+[ext_resource type="FontFile" uid="uid://bx375iki8ljww" path="res://PixelifySans-VariableFont_wght.ttf" id="3_iwy4c"]
+
+[node name="Level Button" type="Button" unique_id=594539865]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource("1_vrswo")
+icon_alignment = 1
+script = ExtResource("2_va6i8")
+levelScene = "uid://66hvfuv1y1w6"
+levelIndex = "00"
+
+[node name="Label" type="Label" parent="." unique_id=112563257]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.1254902, 0.1254902, 0.1254902, 1)
+theme_override_fonts/font = ExtResource("3_iwy4c")
+theme_override_font_sizes/font_size = 20
+text = "01"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="button_down" from="." to="." method="buttonDown"]

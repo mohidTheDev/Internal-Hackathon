@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://b70kiutm7x74t"]
+
+[ext_resource type="Texture2D" uid="uid://cco2s506u1htu" path="res://sprites/Home Button.png" id="1_2ou7e"]
+[ext_resource type="PackedScene" uid="uid://ym1fvcsv4hxj" path="res://scenes/levelButton.tscn" id="2_pao5y"]
+[ext_resource type="Script" uid="uid://dec87282vwrpn" path="res://scripts/levelButton.gd" id="3_awrm6"]
+[ext_resource type="FontFile" uid="uid://bx375iki8ljww" path="res://PixelifySans-VariableFont_wght.ttf" id="4_fpqc8"]
+
+[node name="LevelSelector" type="Node2D" unique_id=218552152]
+
+[node name="Level Button" type="Button" parent="." unique_id=594539865]
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 46.0
+offset_bottom = 44.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource("1_2ou7e")
+icon_alignment = 1
+script = ExtResource("3_awrm6")
+levelScene = "uid://brnqf5pgwnxj"
+
+[node name="Label" type="Label" parent="Level Button" unique_id=112563257]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.1254902, 0.1254902, 0.1254902, 1)
+theme_override_fonts/font = ExtResource("4_fpqc8")
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="row" type="HBoxContainer" parent="." unique_id=314485304]
+custom_maximum_size = Vector2(900, -1)
+offset_left = 1.0
+offset_top = 70.0
+offset_right = 321.0
+offset_bottom = 110.0
+alignment = 1
+
+[node name="Level Button" parent="row" unique_id=1352126560 instance=ExtResource("2_pao5y")]
+layout_mode = 2
+
+[node name="Level Button2" parent="row" unique_id=664570101 instance=ExtResource("2_pao5y")]
+layout_mode = 2
+levelScene = "uid://dwmknam5edgof"
+levelIndex = "01"
+
+[node name="Level Button3" parent="row" unique_id=1735732460 instance=ExtResource("2_pao5y")]
+layout_mode = 2
+levelScene = "uid://cquhebco8kxiu"
+levelIndex = "02"
+
+[node name="Level Button4" parent="row" unique_id=838945459 instance=ExtResource("2_pao5y")]
+layout_mode = 2
+levelScene = "uid://be8mu3jbbcefa"
+levelIndex = "03"
+
+[node name="Level Button5" parent="row" unique_id=534546614 instance=ExtResource("2_pao5y")]
+layout_mode = 2
+levelScene = "uid://cyntg0r3vjsof"
+levelIndex = "04"
+
+[node name="row2" type="HBoxContainer" parent="." unique_id=1020981293]
+custom_maximum_size = Vector2(900, -1)
+offset_left = 1.0
+offset_top = 122.0
+offset_right = 321.0
+offset_bottom = 162.0
+alignment = 1
+
+[node name="Level Button" parent="row2" unique_id=1045140844 instance=ExtResource("2_pao5y")]
+layout_mode = 2
+levelScene = "uid://c2pvuo216gtah"
+levelIndex = "05"
+
+[node name="Level Button2" parent="row2" unique_id=446823204 instance=ExtResource("2_pao5y")]
+layout_mode = 2
+levelScene = "uid://cccjafwa7a7o3"
+levelIndex = "06"
+
+[connection signal="button_down" from="Level Button" to="Level Button" method="buttonDown"]

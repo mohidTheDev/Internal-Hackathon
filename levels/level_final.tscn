@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://t0w3r001" path="res://scenes/tower.tscn" id="12_nxrwl"]
 [ext_resource type="PackedScene" uid="uid://7fw8ceyfww7i" path="res://levels/rewindEffect.tscn" id="13_c4hw6"]
 [ext_resource type="Texture2D" uid="uid://di7i8ctstfek6" path="res://sprites/player.png" id="13_ncaex"]
+[ext_resource type="Texture2D" uid="uid://cco2s506u1htu" path="res://sprites/Home Button.png" id="14_1w4la"]
 [ext_resource type="Script" uid="uid://dyocwgdae17g3" path="res://scripts/player.gd" id="14_7770k"]
 [ext_resource type="PackedScene" uid="uid://uurjetqrhqdm" path="res://scenes/clockHUD.tscn" id="15_k3kn6"]
 
@@ -68,3 +69,12 @@ animTime = 0.5
 position = Vector2(272.00003, 64.00001)
 
 [node name="rewindEffect" parent="." unique_id=2052592906 instance=ExtResource("13_c4hw6")]
+
+[node name="Home" type="Button" parent="." unique_id=1546890977]
+offset_left = 281.0
+offset_top = 200.0
+offset_right = 321.0
+offset_bottom = 240.0
+scale = Vector2(0.79999983, 0.79999983)
+icon = ExtResource("14_1w4la")
+icon_alignment = 1
